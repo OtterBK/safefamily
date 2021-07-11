@@ -1,10 +1,12 @@
 package hanium.oldercare.oldercareservice;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView lbl_today;
     private static final String TYPEFACE_NAME = "NanumPen.otf";
     private Typeface typeface = null;
+    private Button btn_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         loadTypeface();
         setContentView(R.layout.activity_login);
 
-        lbl_today = (TextView) findViewById(R.id.lbl_today); //오늘 날짜 설정
+        lbl_today = (TextView) findViewById(R.id.login_lbl_today); //오늘 날짜 설정
 
         String dayString = "";
 
@@ -60,6 +63,19 @@ public class LoginActivity extends AppCompatActivity {
         dayString += "("+dayName+")";
 
         lbl_today.setText(dayString);
+
+        btn_login = (Button) findViewById(R.id.login_btn_login);
+
+        //버튼별 화면 이동 기능
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                finish();
+            }
+        });
     }
 
     private void loadTypeface(){

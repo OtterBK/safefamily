@@ -8,7 +8,7 @@
     tools:context=".map_display">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/loading_logo"
         android:layout_width="182dp"
         android:layout_height="104dp"
         android:layout_marginStart="57dp"
