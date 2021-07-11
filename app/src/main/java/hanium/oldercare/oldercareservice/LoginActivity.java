@@ -19,6 +19,9 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TYPEFACE_NAME = "NanumPen.otf";
     private Typeface typeface = null;
     private Button btn_login;
+    private TextView btn_find_id;
+    private TextView btn_find_pw;
+    private TextView btn_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +67,39 @@ public class LoginActivity extends AppCompatActivity {
 
         lbl_today.setText(dayString);
 
-        btn_login = (Button) findViewById(R.id.login_btn_login);
+        btn_login = (Button) findViewById(R.id.find_id_btn_find);
 
         //버튼별 화면 이동 기능
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                finish();
+            }
+        });
+
+        btn_find_id = (TextView) findViewById(R.id.login_lbl_find_id);
+
+        //버튼별 화면 이동 기능
+        btn_find_id.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FindIDActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                finish();
+            }
+        });
+
+        btn_find_pw = (TextView) findViewById(R.id.login_lbl_find_pw);
+
+        //버튼별 화면 이동 기능
+        btn_find_pw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FindPWActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 finish();

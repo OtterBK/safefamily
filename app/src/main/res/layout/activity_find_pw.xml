@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/bmdohyeon"
-                android:text="아이디 찾기"
+                android:text="비밀번호 찾기"
                 android:textColor="@color/fr_black"
                 android:textSize="28sp"
                 android:typeface="sans"
@@ -53,13 +53,42 @@
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="56dp"
                 android:fontFamily="@font/bmdohyeon"
-                android:text="이메일"
+                android:text="아이디"
                 android:textColor="@color/fr_black"
                 app:layout_constraintStart_toStartOf="@+id/find_pw_input_id"
                 app:layout_constraintTop_toBottomOf="@+id/find_pw_lbl1" />
 
+            <TextView
+                android:id="@+id/find_pw_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/bmdohyeon"
+                android:text="이메일"
+                android:textColor="@color/fr_black"
+                app:layout_constraintStart_toStartOf="@+id/find_pw_lbl2"
+                app:layout_constraintTop_toBottomOf="@+id/find_pw_input_id" />
+
             <EditText
                 android:id="@+id/find_pw_input_id"
+                android:layout_width="260dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/my_text_field"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="아이디 입력"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:textColor="@color/fr_black"
+                android:textColorHint="@color/bg_softgray"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/find_pw_lbl2" />
+
+            <EditText
+                android:id="@+id/find_pw_input_email"
                 android:layout_width="260dp"
                 android:layout_height="44dp"
                 android:layout_marginTop="10dp"
@@ -73,8 +102,9 @@
                 android:textColorHint="@color/bg_softgray"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.485"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/find_pw_lbl2" />
+                app:layout_constraintTop_toBottomOf="@+id/find_pw_lbl" />
 
             <Button
                 android:id="@+id/find_id_btn_find"
@@ -83,7 +113,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/ripple_custom"
                 android:fontFamily="@font/elice"
-                android:text="아이디 찾기"
+                android:text="비밀번호 찾기"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -92,14 +122,15 @@
                 android:id="@+id/find_pw_lbl3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:fontFamily="@font/elice"
-                android:text="* 가입 시 사용한 이메일 주소를\n입력하여 아이디를 찾으실 수 있습니다."
+                android:text="* 이메일로 임시\n비밀번호를 보내드립니다."
                 android:textColor="@color/skyblue"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/find_pw_input_id"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/find_pw_input_id"
-                app:layout_constraintTop_toBottomOf="@+id/find_pw_input_id" />
+                app:layout_constraintTop_toBottomOf="@+id/find_pw_input_email" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
