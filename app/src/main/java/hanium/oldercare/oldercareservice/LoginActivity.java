@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
 
         lbl_today.setText(dayString);
 
-        btn_login = (Button) findViewById(R.id.find_id_btn_find);
+        btn_login = (Button) findViewById(R.id.login_btn_login);
 
         //버튼별 화면 이동 기능
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +100,19 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), FindPWActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                finish();
+            }
+        });
+
+        btn_register = (TextView) findViewById(R.id.login_lbl_register);
+
+        //버튼별 화면 이동 기능
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 finish();

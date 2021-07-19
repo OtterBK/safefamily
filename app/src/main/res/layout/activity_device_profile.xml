@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/email_verify_base"
+    android:id="@+id/device_profile_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white"
@@ -33,12 +33,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/find_pw_lbl1"
+                android:id="@+id/device_profile_lbl1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/bmdohyeon"
-                android:text="비밀번호 찾기"
+                android:text="디바이스 정보"
                 android:textColor="@color/fr_black"
                 android:textSize="28sp"
                 android:typeface="sans"
@@ -47,37 +47,59 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/find_pw_lbl2"
+                android:id="@+id/device_profile_lbl2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="56dp"
                 android:fontFamily="@font/bmdohyeon"
-                android:text="아이디"
-                android:textColor="@color/fr_black"
-                app:layout_constraintStart_toStartOf="@+id/find_pw_input_id"
-                app:layout_constraintTop_toBottomOf="@+id/find_pw_lbl1" />
+                android:text="대상자 성명"
+                android:textColor="@color/skyblue"
+                app:layout_constraintStart_toStartOf="@+id/device_add_input_id"
+                app:layout_constraintTop_toBottomOf="@+id/device_profile_lbl1" />
 
             <TextView
-                android:id="@+id/find_pw_lbl4"
+                android:id="@+id/device_profile_lbl3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="25dp"
                 android:fontFamily="@font/bmdohyeon"
-                android:text="이메일"
+                android:text="대상자 연령"
+                android:textColor="@color/skyblue"
+                app:layout_constraintStart_toStartOf="@+id/device_profile_lbl2"
+                app:layout_constraintTop_toBottomOf="@+id/device_add_input_id" />
+
+            <TextView
+                android:id="@+id/device_profile_lbl4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/bmdohyeon"
+                android:text="설치 주소"
+                android:textColor="@color/skyblue"
+                app:layout_constraintStart_toStartOf="@+id/device_profile_lbl3"
+                app:layout_constraintTop_toBottomOf="@+id/device_add_input_id2" />
+
+            <TextView
+                android:id="@+id/device_add_lbl6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/bmdohyeon"
+                android:text="추가 설명"
                 android:textColor="@color/fr_black"
-                app:layout_constraintStart_toStartOf="@+id/find_pw_lbl2"
-                app:layout_constraintTop_toBottomOf="@+id/find_pw_input_id" />
+                app:layout_constraintStart_toStartOf="@+id/device_profile_lbl4"
+                app:layout_constraintTop_toBottomOf="@+id/device_add_input_id3" />
 
             <EditText
-                android:id="@+id/find_pw_input_id"
+                android:id="@+id/device_add_input_id"
                 android:layout_width="260dp"
                 android:layout_height="44dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/my_text_field"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="아이디 입력"
+                android:hint="성명"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"
                 android:textColor="@color/fr_black"
@@ -85,17 +107,35 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/find_pw_lbl2" />
+                app:layout_constraintTop_toBottomOf="@+id/device_profile_lbl2" />
 
             <EditText
-                android:id="@+id/find_pw_input_email"
+                android:id="@+id/device_add_input_id2"
                 android:layout_width="260dp"
                 android:layout_height="44dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/my_text_field"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="이메일 입력"
+                android:hint="연령"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:textColor="@color/fr_black"
+                android:textColorHint="@color/bg_softgray"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/device_profile_lbl3" />
+
+            <EditText
+                android:id="@+id/device_add_input_id3"
+                android:layout_width="260dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/my_text_field"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="주소"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"
                 android:textColor="@color/fr_black"
@@ -104,33 +144,44 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.485"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/find_pw_lbl4" />
+                app:layout_constraintTop_toBottomOf="@+id/device_profile_lbl4" />
+
+            <EditText
+                android:id="@+id/device_add_input_id4"
+                android:layout_width="260dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/my_text_field"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:maxWidth="5.0dip"
+                android:minWidth="10.0dip"
+                android:paddingLeft="10dp"
+                android:scrollHorizontally="false"
+                android:textColor="@color/fr_black"
+
+                android:textColorHint="@color/bg_softgray"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.542"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/device_add_lbl6" />
 
             <Button
-                android:id="@+id/find_pw_base"
+                android:id="@+id/device_add_btn_next"
                 android:layout_width="258dp"
                 android:layout_height="52dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/ripple_custom"
                 android:fontFamily="@font/elice"
-                android:text="비밀번호 찾기"
+                android:text="정보 입력 완료"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/find_pw_lbl3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:fontFamily="@font/elice"
-                android:text="* 이메일로 임시\n비밀번호를 보내드립니다."
-                android:textColor="@color/skyblue"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/find_pw_input_id"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/find_pw_input_id"
-                app:layout_constraintTop_toBottomOf="@+id/find_pw_input_email" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
