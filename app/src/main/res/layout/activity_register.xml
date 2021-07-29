@@ -6,26 +6,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white"
+    android:scrollbarSize="12dp"
     tools:context=".HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="380dp"
-        android:layout_height="650dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="370dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/bg_gray_with_bubble"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197">
+        app:layout_constraintVertical_bias="0.493">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="330dp"
-            android:layout_height="600dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/bubbleborder"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,12 +54,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="60dp"
                 android:fontFamily="@font/bmdohyeon"
                 android:text="아이디"
                 android:textColor="@color/fr_black"
                 app:layout_constraintStart_toStartOf="@+id/register_input_id"
                 app:layout_constraintTop_toBottomOf="@+id/device_add_lbl1" />
+
+            <TextView
+                android:id="@+id/register_id_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/elice"
+                android:textColor="@color/fr_red"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/register_input_id"
+                app:layout_constraintTop_toBottomOf="@+id/register_input_id" />
+
+            <TextView
+                android:id="@+id/register_pw_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/elice"
+                android:textColor="@color/fr_red"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/register_input_pwcheck"
+                app:layout_constraintTop_toBottomOf="@+id/register_input_pwcheck" />
 
             <TextView
                 android:id="@+id/register_lbl3"
@@ -92,6 +117,7 @@
                 android:ems="10"
                 android:hint="아이디 입력"
                 android:inputType="textPersonName"
+                android:maxLength="16"
                 android:paddingLeft="10dp"
                 android:textColor="@color/fr_black"
                 android:textColorHint="@color/bg_softgray"
@@ -109,7 +135,8 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="비밀번호"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
+                android:maxLength="16"
                 android:paddingLeft="10dp"
                 android:textColor="@color/fr_black"
                 android:textColorHint="@color/bg_softgray"
@@ -128,7 +155,8 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="비밀번호 확인"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
+                android:maxLength="16"
                 android:paddingLeft="10dp"
                 android:textColor="@color/fr_black"
                 android:textColorHint="@color/bg_softgray"
@@ -142,7 +170,7 @@
                 android:id="@+id/register_btn_next"
                 android:layout_width="258dp"
                 android:layout_height="52dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/ripple_custom"
                 android:fontFamily="@font/elice"
                 android:text="다음 단계"

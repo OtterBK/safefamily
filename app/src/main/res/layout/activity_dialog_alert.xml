@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/dialog_alert_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/skyblue"
+        android:fontFamily="@font/bmdohyeon"
+        android:gravity="center"
+        android:text="제목"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/dialog_alert_desc"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/fr_drakGray"
+        android:drawablePadding="20dp"
+        android:fontFamily="@font/bmdohyeon"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="내용"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+
+</LinearLayout>

@@ -10,17 +10,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="380dp"
-        android:layout_height="650dp"
+        android:layout_width="370dp"
+        android:layout_height="680dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/bg_gray_with_bubble"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197">
+        app:layout_constraintVertical_bias="0.493">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
@@ -31,6 +33,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/email_verify_sendCode_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/elice"
+                android:textColor="@color/fr_darkBlue"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/email_verify_btn_sendCode"
+                app:layout_constraintTop_toBottomOf="@+id/email_verify_btn_sendCode" />
+
+            <TextView
+                android:id="@+id/email_verify_codeCheck_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/elice"
+                android:textColor="@color/fr_darkBlue"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/email_verify_input_code"
+                app:layout_constraintTop_toBottomOf="@+id/email_verify_input_code" />
 
             <TextView
                 android:id="@+id/email_verify_lbl1"
@@ -68,7 +92,7 @@
                 android:text="인증코드"
                 android:textColor="@color/fr_black"
                 app:layout_constraintStart_toStartOf="@+id/email_verify_input_email"
-                app:layout_constraintTop_toBottomOf="@+id/email_verify_input_email" />
+                app:layout_constraintTop_toBottomOf="@+id/email_verify_btn_sendCode" />
 
             <EditText
                 android:id="@+id/email_verify_input_email"
