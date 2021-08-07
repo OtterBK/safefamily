@@ -148,7 +148,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // 입력난에 변화가 있을 시 조치
+                // 입력란에 변화가 있을 시 조치
                 if(TextUtils.isEmpty(input_pw.getText()) || input_pw.getText().length() < 8) {
                     lbl_warn_pw.setTextColor(Color.RED);
                     lbl_warn_pw.setText("비밀번호는 8자 이상이여야합니다.");
@@ -161,6 +161,9 @@ public class RegisterActivity extends AppCompatActivity {
                         lbl_warn_pw.setText("비밀번호가 일치합니다.");
                         pw_final = input_pw.getText().toString();
                     }
+                } else {
+                    lbl_warn_pw.setTextColor(Color.BLUE);
+                    lbl_warn_pw.setText("");
                 }
             }
 

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.info.RegisterInfo;
 import hanium.oldercare.oldercareservice.inputfilter.EmailFilter;
@@ -69,6 +70,15 @@ public class EmailVerifyActivity extends AppCompatActivity {
                 Toast.makeText(EmailVerifyActivity.this, "회원가입에 실패했습니다.", Toast.LENGTH_LONG).show();
             } else if(msg.what == RegisterMessage.REGISTER_DONE.ordinal()) {
                 Toast.makeText(EmailVerifyActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
+            } else if(msg.what == RegisterMessage.SENDING_PROGRESS.ordinal()) {
+                btn_email_verify.setEnabled(false);
+            } else if(msg.what == RegisterMessage.SENDING_DONE.ordinal()) {
+                CustomDialogAlert alert = new CustomDialogAlert(EmailVerifyActivity.this);
+                alert.callFunction("전송 완료", "인증코드를 전송하였습니다.");
+                btn_email_verify.setEnabled(true);
+            } else if(msg.what == NetworkMessage.NETWORK_FAIL.ordinal()) {
+                CustomDialogAlert alert = new CustomDialogAlert(EmailVerifyActivity.this);
+                alert.callFunction("연결 실패", "요청에 실패하였습니다.\n네트워크를 확인하거나\n잠시 후 다시 시도해주세요.");
             }
         }
     };
@@ -113,10 +123,11 @@ public class EmailVerifyActivity extends AppCompatActivity {
 
                 String email = input_email.getText().toString();
 
-                btn_email_verify.setEnabled(false);
-
                 new Thread(new Runnable() {
                     public void run() {
+
+                        Message blockMsg = handler.obtainMessage(RegisterMessage.SENDING_PROGRESS.ordinal());
+                        handler.sendMessage(blockMsg);
 
                         Message message = null;
                         try {
@@ -133,10 +144,13 @@ public class EmailVerifyActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         handler.sendMessage(message);
+
+                        Message enableMsg = handler.obtainMessage(RegisterMessage.SENDING_DONE.ordinal());
+                        handler.sendMessage(enableMsg);
                     }
                 }).start();
 
-                btn_email_verify.setEnabled(true);
+
             }
         });
         input_email.addTextChangedListener(new TextWatcher(){
@@ -196,7 +210,7 @@ public class EmailVerifyActivity extends AppCompatActivity {
                                 message = handler.obtainMessage(RegisterMessage.CODE_INCONSISTENT.ordinal());
                             }
                         } catch (Exception e) {
-                            message = handler.obtainMessage(RegisterMessage.CODE_INCONSISTENT.ordinal());
+                            message = handler.obtainMessage(NetworkMessage.NETWORK_FAIL.ordinal());
                             e.printStackTrace();
                         }
                         handler.sendMessage(message);

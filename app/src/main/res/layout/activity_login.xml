@@ -121,9 +121,10 @@
                 android:inputType="textPersonName"
                 android:maxLength="16"
                 android:paddingLeft="10dp"
-                android:textColor="@color/fr_black"
+                android:textColor="@color/skyblue"
                 android:textColorHint="@color/bg_softgray"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_lbl3" />
@@ -200,9 +201,10 @@
                 android:inputType="textPassword"
                 android:maxLength="16"
                 android:paddingLeft="10dp"
-                android:textColor="@color/fr_black"
+                android:textColor="@color/skyblue"
                 android:textColorHint="@color/bg_softgray"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_lbl4" />
