@@ -7,10 +7,15 @@
     <TextView
         android:id="@+id/dialog_alert_title"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="@color/skyblue"
+        android:drawablePadding="20dp"
         android:fontFamily="@font/bmdohyeon"
         android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp"
         android:text="제목"
         android:textColor="#ffffff"
         android:textSize="16dp" />
@@ -18,13 +23,15 @@
     <TextView
         android:id="@+id/dialog_alert_desc"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="@color/fr_drakGray"
         android:drawablePadding="20dp"
         android:fontFamily="@font/bmdohyeon"
         android:gravity="center"
         android:paddingLeft="20dp"
+        android:paddingTop="20dp"
         android:paddingRight="20dp"
+        android:paddingBottom="20dp"
         android:text="내용"
         android:textColor="#ffffff"
         android:textSize="16dp" />

@@ -24,6 +24,19 @@ import hanium.oldercare.oldercareservice.inputfilter.PWFilter;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private Button btn_next;
+    private TextView input_id;
+    private TextView input_pw;
+    private TextView input_pwCheck;
+    private TextView lbl_warn_id;
+    private TextView lbl_warn_pw;
+
+    private String id_final = ""; //허용된 아이디
+    private String pw_final = ""; //허용된 비번
+
+
+
+    //백그라운드 작업 응답 처리에 사용할 메시지 핸들러
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if(msg == null) return;
@@ -48,21 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     };
 
-    private Button btn_next;
-    private TextView input_id;
-    private TextView input_pw;
-    private TextView input_pwCheck;
-    private TextView lbl_warn_id;
-    private TextView lbl_warn_pw;
-
-    private String id_final = ""; //허용된 아이디
-    private String pw_final = ""; //허용된 비번
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-
+    private void loadComponents(){
         btn_next = (Button) findViewById(R.id.register_btn_next);
 
         input_id = (TextView) findViewById(R.id.register_input_id);
@@ -70,17 +69,9 @@ public class RegisterActivity extends AppCompatActivity {
         input_pwCheck = (TextView) findViewById(R.id.register_input_pwcheck);
         lbl_warn_id = (TextView) findViewById(R.id.register_id_warn);
         lbl_warn_pw = (TextView) findViewById(R.id.register_pw_warn);
+    }
 
-        InputFilter id_lengthFilter = new InputFilter.LengthFilter(15);
-        InputFilter[] idFilters = new InputFilter[] { new IDFilter(), id_lengthFilter}; //입력 제한 필터
-        input_id.setFilters(idFilters);
-
-
-        InputFilter pw_lengthFilter = new InputFilter.LengthFilter(15);
-        InputFilter[] pwFilters = new InputFilter[] { new PWFilter(), pw_lengthFilter}; //입력 제한 필터
-        input_pw.setFilters(pwFilters);
-        input_pwCheck.setFilters(pwFilters);
-
+    private void setComponentsEvent(){
         //버튼별 화면 이동 기능
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +201,30 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void setFilters(){
+        InputFilter id_lengthFilter = new InputFilter.LengthFilter(15);
+        InputFilter[] idFilters = new InputFilter[] { new IDFilter(), id_lengthFilter}; //입력 제한 필터
+        input_id.setFilters(idFilters);
+
+
+        InputFilter pw_lengthFilter = new InputFilter.LengthFilter(15);
+        InputFilter[] pwFilters = new InputFilter[] { new PWFilter(), pw_lengthFilter}; //입력 제한 필터
+        input_pw.setFilters(pwFilters);
+        input_pwCheck.setFilters(pwFilters);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+
+
+        loadComponents();
+        setFilters();
+        setComponentsEvent();
+
     }
 
 

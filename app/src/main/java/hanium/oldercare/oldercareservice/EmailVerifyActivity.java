@@ -28,6 +28,7 @@ import hanium.oldercare.oldercareservice.inputfilter.NumberFilter;
 
 public class EmailVerifyActivity extends AppCompatActivity {
 
+    //백그라운드 작업 응답 처리에 사용할 메시지 핸들러
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if(msg == null) return;
@@ -83,6 +84,10 @@ public class EmailVerifyActivity extends AppCompatActivity {
         }
     };
 
+
+
+
+
     private Button btn_done;
     private Button btn_email_verify;
     private Button btn_code_check;
@@ -95,11 +100,9 @@ public class EmailVerifyActivity extends AppCompatActivity {
     private String finalEmail = "";
     private boolean isCodeChecked = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_verify);
 
+
+    private void loadComponents(){
         btn_done = (Button) findViewById(R.id.email_verify_btn_done);
         btn_email_verify = (Button) findViewById(R.id.email_verify_btn_sendCode);
         btn_code_check = (Button) findViewById(R.id.email_verify_btn_codeCheck);
@@ -107,13 +110,18 @@ public class EmailVerifyActivity extends AppCompatActivity {
         lbl_warn_code_check = (TextView) findViewById(R.id.email_verify_codeCheck_warn);
         input_email = (TextView) findViewById(R.id.email_verify_input_email);
         input_code = (TextView) findViewById(R.id.email_verify_input_code);
+    }
 
+
+    private void setFilters(){
         InputFilter[] emailFilters = new InputFilter[] { new EmailFilter()}; //입력 제한 필터
         input_email.setFilters(emailFilters);
 
         InputFilter[] codeFilters = new InputFilter[] { new NumberFilter()}; //입력 제한 필터
         input_code.setFilters(codeFilters);
+    }
 
+    private void setComponentsEvent(){
         //인증 코드 이메일 전송
         btn_email_verify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,7 +240,7 @@ public class EmailVerifyActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     finish();
 
-                    
+
                     new Thread(new Runnable() {
                         public void run() {
                             Message message = null;
@@ -253,6 +261,20 @@ public class EmailVerifyActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_email_verify);
+
+
+        loadComponents();
+        setFilters();
+        setComponentsEvent();
+
+
+
     }
 
 
