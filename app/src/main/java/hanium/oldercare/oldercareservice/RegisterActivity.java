@@ -1,10 +1,12 @@
 package hanium.oldercare.oldercareservice;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -21,6 +23,7 @@ import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.info.RegisterInfo;
 import hanium.oldercare.oldercareservice.inputfilter.IDFilter;
 import hanium.oldercare.oldercareservice.inputfilter.PWFilter;
+import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -34,12 +37,16 @@ public class RegisterActivity extends AppCompatActivity {
     private String id_final = ""; //허용된 아이디
     private String pw_final = ""; //허용된 비번
 
+    private Vibrator vibrator;
+
 
 
     //백그라운드 작업 응답 처리에 사용할 메시지 핸들러
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if(msg == null) return;
+
+            boolean isVibrate = false;
 
             if(msg.what == RegisterMessage.CAN_USE_ID.ordinal()){
                 lbl_warn_id.setTextColor(Color.BLUE);
@@ -58,6 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
                 lbl_warn_id.setTextColor(Color.RED);
                 lbl_warn_id.setText("");
             }
+
+            if(isVibrate) VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
         }
     };
 
@@ -71,6 +80,11 @@ public class RegisterActivity extends AppCompatActivity {
         lbl_warn_pw = (TextView) findViewById(R.id.register_pw_warn);
     }
 
+    private void setEffectObject(){
+        vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+
+    }
+
     private void setComponentsEvent(){
         //버튼별 화면 이동 기능
         btn_next.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +94,11 @@ public class RegisterActivity extends AppCompatActivity {
                 if(id_final.equals("")){
                     CustomDialogAlert alert = new CustomDialogAlert(RegisterActivity.this);
                     alert.callFunction("경고", "아이디를 확인해주세요.");
+                    VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
                 } else if(pw_final.equals("")){
                     CustomDialogAlert alert = new CustomDialogAlert(RegisterActivity.this);
                     alert.callFunction("경고", "비밀번호를 확인해주세요.");
+                    VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
                 }else { //비번이랑 비번체크 일치 시 다음 단계로
                     RegisterInfo.tmpId = id_final;
                     RegisterInfo.tmpPw = pw_final;
@@ -224,6 +240,7 @@ public class RegisterActivity extends AppCompatActivity {
         loadComponents();
         setFilters();
         setComponentsEvent();
+        setEffectObject();
 
     }
 

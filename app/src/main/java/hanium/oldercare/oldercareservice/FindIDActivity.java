@@ -1,28 +1,26 @@
 package hanium.oldercare.oldercareservice;
 
-import android.content.Intent;
-import android.graphics.Typeface;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Calendar;
-
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
-import hanium.oldercare.oldercareservice.handlermessage.LoginMessage;
 import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.inputfilter.EmailFilter;
+import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class FindIDActivity extends AppCompatActivity {
 
@@ -31,11 +29,14 @@ public class FindIDActivity extends AppCompatActivity {
 
     private String responseID;
 
+    private Vibrator vibrator;
 
     //백그라운드 작업 응답 처리에 사용할 메시지 핸들러
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if(msg == null) return;
+
+            boolean isVibrate = false;
 
             if(msg.what == RegisterMessage.FIND_ID_SUCCEED.ordinal()){
                 CustomDialogAlert alert = new CustomDialogAlert(FindIDActivity.this);
@@ -43,10 +44,14 @@ public class FindIDActivity extends AppCompatActivity {
             } else if(msg.what == RegisterMessage.FIND_ID_FAIL.ordinal()){
                 CustomDialogAlert alert = new CustomDialogAlert(FindIDActivity.this);
                 alert.callFunction("아이디 찾기", "일치하는 가입 정보가\n존재하지 않습니다.");
+                isVibrate = true;
             } else if(msg.what == NetworkMessage.NETWORK_FAIL.ordinal()) {
                 CustomDialogAlert alert = new CustomDialogAlert(FindIDActivity.this);
                 alert.callFunction("연결 실패", "요청에 실패하였습니다.\n네트워크를 확인하거나\n잠시 후 다시 시도해주세요.");
+                isVibrate = true;
             }
+
+            if(isVibrate) VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
         }
     };
 
@@ -69,6 +74,7 @@ public class FindIDActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(input_email.getText())){
                     CustomDialogAlert alert = new CustomDialogAlert(FindIDActivity.this);
                     alert.callFunction("경고", "이메일을 입력해주세요.");
+                    VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
                 } else {
 
                     String email = input_email.getText().toString();
@@ -99,6 +105,31 @@ public class FindIDActivity extends AppCompatActivity {
         });
     }
 
+    private void setEffectObject(){
+        vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+
+        TextWatcher inputEffectWatcher = new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 입력란에 변화가 있을 시 조치
+                VibrateUtility.errorVibrate(vibrator);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+
+
+        input_email.addTextChangedListener(inputEffectWatcher);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +144,7 @@ public class FindIDActivity extends AppCompatActivity {
 
         setComponentsEvent();
 
-
+        setEffectObject();
 
     }
 

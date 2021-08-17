@@ -1,13 +1,14 @@
 package hanium.oldercare.oldercareservice;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -23,8 +24,8 @@ import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.info.RegisterInfo;
 import hanium.oldercare.oldercareservice.inputfilter.EmailFilter;
-import hanium.oldercare.oldercareservice.inputfilter.IDFilter;
 import hanium.oldercare.oldercareservice.inputfilter.NumberFilter;
+import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class EmailVerifyActivity extends AppCompatActivity {
 
@@ -32,6 +33,8 @@ public class EmailVerifyActivity extends AppCompatActivity {
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if(msg == null) return;
+
+            boolean isVibrate = false;
 
             if(msg.what == RegisterMessage.ALREADY_USE_EMAIL.ordinal()){
                 canSendEmail = false;
@@ -80,7 +83,10 @@ public class EmailVerifyActivity extends AppCompatActivity {
             } else if(msg.what == NetworkMessage.NETWORK_FAIL.ordinal()) {
                 CustomDialogAlert alert = new CustomDialogAlert(EmailVerifyActivity.this);
                 alert.callFunction("연결 실패", "요청에 실패하였습니다.\n네트워크를 확인하거나\n잠시 후 다시 시도해주세요.");
+                isVibrate = true;
             }
+
+            if(isVibrate) VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
         }
     };
 
@@ -100,6 +106,8 @@ public class EmailVerifyActivity extends AppCompatActivity {
     private String finalEmail = "";
     private boolean isCodeChecked = false;
 
+    private Vibrator vibrator;
+
 
 
     private void loadComponents(){
@@ -111,7 +119,6 @@ public class EmailVerifyActivity extends AppCompatActivity {
         input_email = (TextView) findViewById(R.id.email_verify_input_email);
         input_code = (TextView) findViewById(R.id.email_verify_input_code);
     }
-
 
     private void setFilters(){
         InputFilter[] emailFilters = new InputFilter[] { new EmailFilter()}; //입력 제한 필터
@@ -258,9 +265,36 @@ public class EmailVerifyActivity extends AppCompatActivity {
                 } else {
                     CustomDialogAlert alert = new CustomDialogAlert(EmailVerifyActivity.this);
                     alert.callFunction("경고", "이메일 인증을 완료해주세요.");
+                    VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
                 }
             }
         });
+    }
+
+    private void setEffectObject(){
+        vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+
+        TextWatcher inputEffectWatcher = new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 입력란에 변화가 있을 시 조치
+                VibrateUtility.errorVibrate(vibrator);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+
+        input_code.addTextChangedListener(inputEffectWatcher);
+        input_email.addTextChangedListener(inputEffectWatcher);
     }
 
     @Override
@@ -273,7 +307,7 @@ public class EmailVerifyActivity extends AppCompatActivity {
         setFilters();
         setComponentsEvent();
 
-
+        setEffectObject();
 
     }
 
