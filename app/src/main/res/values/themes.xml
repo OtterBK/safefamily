@@ -17,8 +17,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/fr_blue</item>
-        <item name="colorPrimaryDark">@color/fr_darkBlue</item>
+        <item name="colorPrimaryDark">@color/bg_white</item>
         <item name="colorAccent">@color/bg_white</item>
+        <item name="android:windowLightStatusBar">true</item>"
+<!--        <item name="android:statusBarColor">@color/fr_drakGray</item>-->
     </style>
 
     <style name="AppTheme.MainTheme">
