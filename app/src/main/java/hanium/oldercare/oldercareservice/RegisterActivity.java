@@ -12,6 +12,7 @@ import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.info.RegisterInfo;
 import hanium.oldercare.oldercareservice.inputfilter.IDFilter;
 import hanium.oldercare.oldercareservice.inputfilter.PWFilter;
+import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -79,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         lbl_warn_id = (TextView) findViewById(R.id.register_id_warn);
         lbl_warn_pw = (TextView) findViewById(R.id.register_pw_warn);
     }
+
 
     private void setEffectObject(){
         vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
@@ -236,6 +239,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        ScreenManager.transparentStatusBar(this);
 
         loadComponents();
         setFilters();

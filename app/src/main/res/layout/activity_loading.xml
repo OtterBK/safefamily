@@ -8,16 +8,47 @@
     tools:context=".map_display">
 
     <ImageView
-        android:id="@+id/loading_logo"
-        android:layout_width="182dp"
-        android:layout_height="104dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginEnd="57dp"
-        android:background="@drawable/logo_white"
+        android:id="@+id/loading_background"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/loading_shadow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#50000000"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/loading_title"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="200dp"
+        android:alpha="1"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo_white_only_text"
+        app:layout_constraintBottom_toBottomOf="@+id/loading_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/loading_icon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/new_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

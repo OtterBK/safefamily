@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -77,6 +78,13 @@ public class LoginActivity extends AppCompatActivity {
         btn_register = (TextView) findViewById(R.id.login_lbl_register);
         input_id = (TextView) findViewById(R.id.login_input_id);
         input_pw = (TextView) findViewById(R.id.login_input_pw);
+    }
+
+    private void transparentStatusBar(){ //상태바 투명
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        );
     }
 
     private void setInputFilters(){

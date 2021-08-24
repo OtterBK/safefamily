@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white"
+    tools:context=".map_display" >
+
+    <ImageView
+        android:id="@+id/select_login_top_image"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/hands"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/select_login_lbl1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="60dp"
+        android:alpha="0.8"
+        android:drawablePadding="5dp"
+        android:fontFamily="@font/maruburi"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
+        android:text="환영합니다."
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_login_top_image" />
+
+    <ImageView
+        android:id="@+id/select_login_shadow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#80000000"
+        app:layout_constraintBottom_toBottomOf="@+id/select_login_top_image"
+        app:layout_constraintEnd_toEndOf="@+id/select_login_top_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/select_login_top_image" />
+
+    <TextView
+        android:id="@+id/select_login_lbl2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:drawablePadding="5dp"
+        android:fontFamily="@font/maruburi"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
+        android:text="당신과 함께하는\n든든한 가족 돌봄 서비스"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/select_login_lbl1"
+        app:layout_constraintTop_toBottomOf="@+id/select_login_lbl1" />
+
+    <TextView
+        android:id="@+id/select_login_lbl3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:alpha="0.8"
+        android:drawablePadding="5dp"
+        android:fontFamily="@font/maruburi"
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
+        android:text="그 첫걸음을 시작해보세요."
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/select_login_lbl2"
+        app:layout_constraintTop_toBottomOf="@+id/select_login_lbl2" />
+
+    <Button
+        android:id="@+id/select_login_btn_register"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        android:alpha="0.7"
+        android:background="@drawable/bg_blue_with_bubbleborder"
+        android:fontFamily="@font/lotte_dream"
+        android:text="회원가입"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/select_login_btn_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/select_login_btn_login"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        android:alpha="1"
+        android:background="@drawable/bg_white_with_bubbleborder_gray"
+        android:fontFamily="@font/lotte_dream"
+        android:text="기존 계정으로 로그인"
+        android:textColor="@color/fr_lightblack"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

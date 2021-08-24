@@ -9,163 +9,170 @@
     tools:context=".HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="370dp"
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_gray_with_bubble"
+        android:background="@drawable/bubbleborder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.493">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="330dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:background="@drawable/bubbleborder"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <TextView
+            android:id="@+id/email_verify_sendCode_warn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/elice"
+            android:textColor="@color/fr_darkBlue"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/email_verify_btn_sendCode"
+            app:layout_constraintTop_toBottomOf="@+id/email_verify_btn_sendCode" />
+
+        <TextView
+            android:id="@+id/email_verify_codeCheck_warn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/elice"
+            android:textColor="@color/fr_darkBlue"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/email_verify_input_code"
+            app:layout_constraintTop_toBottomOf="@+id/email_verify_input_code" />
+
+        <TextView
+            android:id="@+id/email_verify_lbl1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/lotte_happy"
+            android:text="이메일 인증"
+            android:textColor="@color/fr_black"
+            android:textSize="28sp"
+            android:typeface="sans"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/email_verify_lbl2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:fontFamily="@font/lotte_happy"
+            android:text="이메일 주소"
+            android:textColor="@color/skyblue"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/email_verify_input_email"
+            app:layout_constraintTop_toBottomOf="@+id/email_verify_lbl1" />
+
+        <TextView
+            android:id="@+id/email_verify_lbl3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/lotte_happy"
+            android:text="인증코드"
+            android:textColor="@color/skyblue"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/email_verify_input_email"
+            app:layout_constraintTop_toBottomOf="@+id/email_verify_btn_sendCode" />
+
+        <EditText
+            android:id="@+id/email_verify_input_email"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/my_text_field"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lotte_dream"
+            android:hint="Email"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:textColor="@color/fr_black"
+            android:textColorHint="@color/bg_softgray"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/email_verify_lbl2" />
 
-            <TextView
-                android:id="@+id/email_verify_sendCode_warn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/elice"
-                android:textColor="@color/fr_darkBlue"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/email_verify_btn_sendCode"
-                app:layout_constraintTop_toBottomOf="@+id/email_verify_btn_sendCode" />
+        <EditText
+            android:id="@+id/email_verify_input_code"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/my_text_field"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lotte_dream"
+            android:hint="인증코드"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:textColor="@color/fr_black"
+            android:textColorHint="@color/bg_softgray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/email_verify_btn_codeCheck"
+            app:layout_constraintStart_toStartOf="@+id/email_verify_lbl3"
+            app:layout_constraintTop_toBottomOf="@+id/email_verify_lbl3" />
 
-            <TextView
-                android:id="@+id/email_verify_codeCheck_warn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/elice"
-                android:textColor="@color/fr_darkBlue"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="@+id/email_verify_input_code"
-                app:layout_constraintTop_toBottomOf="@+id/email_verify_input_code" />
+        <Button
+            android:id="@+id/email_verify_btn_done"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ripple_button_skyblue"
+            android:fontFamily="@font/elice"
+            android:text="회원가입 완료"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/email_verify_lbl1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/bmdohyeon"
-                android:text="이메일 인증"
-                android:textColor="@color/fr_black"
-                android:textSize="28sp"
-                android:typeface="sans"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/email_verify_btn_codeCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:alpha="1"
+            android:background="@drawable/bg_white_with_bubbleborder_gray"
+            android:fontFamily="@font/elice"
+            android:text="인증 확인"
+            android:textColor="@color/fr_drakGray"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/email_verify_input_code"
+            app:layout_constraintEnd_toEndOf="@+id/email_verify_input_email"
+            app:layout_constraintTop_toTopOf="@+id/email_verify_input_code" />
 
-            <TextView
-                android:id="@+id/email_verify_lbl2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="56dp"
-                android:fontFamily="@font/bmdohyeon"
-                android:text="이메일 주소"
-                android:textColor="@color/fr_black"
-                app:layout_constraintStart_toStartOf="@+id/email_verify_input_email"
-                app:layout_constraintTop_toBottomOf="@+id/email_verify_lbl1" />
+        <Button
+            android:id="@+id/email_verify_btn_sendCode"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:alpha="1"
+            android:background="@drawable/bg_white_with_bubbleborder_gray"
+            android:fontFamily="@font/elice"
+            android:text="인증코드 전송"
+            android:textColor="@color/fr_drakGray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/email_verify_input_email"
+            app:layout_constraintStart_toStartOf="@+id/email_verify_input_email"
+            app:layout_constraintTop_toBottomOf="@+id/email_verify_input_email" />
 
-            <TextView
-                android:id="@+id/email_verify_lbl3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="100dp"
-                android:fontFamily="@font/bmdohyeon"
-                android:text="인증코드"
-                android:textColor="@color/fr_black"
-                app:layout_constraintStart_toStartOf="@+id/email_verify_input_email"
-                app:layout_constraintTop_toBottomOf="@+id/email_verify_btn_sendCode" />
-
-            <EditText
-                android:id="@+id/email_verify_input_email"
-                android:layout_width="260dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/my_text_field"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textPersonName"
-                android:paddingLeft="10dp"
-                android:textColor="@color/fr_black"
-                android:textColorHint="@color/bg_softgray"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email_verify_lbl2" />
-
-            <EditText
-                android:id="@+id/email_verify_input_code"
-                android:layout_width="180dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/my_text_field"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="인증코드"
-                android:inputType="textPersonName"
-                android:paddingLeft="10dp"
-                android:textColor="@color/fr_black"
-                android:textColorHint="@color/bg_softgray"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/email_verify_lbl3"
-                app:layout_constraintTop_toBottomOf="@+id/email_verify_lbl3" />
-
-            <Button
-                android:id="@+id/email_verify_btn_done"
-                android:layout_width="258dp"
-                android:layout_height="52dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/ripple_custom"
-                android:fontFamily="@font/elice"
-                android:text="회원가입 완료"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <Button
-                android:id="@+id/email_verify_btn_codeCheck"
-                android:layout_width="70dp"
-                android:layout_height="44dp"
-                android:background="@drawable/ripple_custom_blue"
-                android:fontFamily="@font/elice"
-                android:text="인증"
-                app:layout_constraintBottom_toBottomOf="@+id/email_verify_input_code"
-                app:layout_constraintEnd_toEndOf="@+id/email_verify_input_email"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/email_verify_input_code" />
-
-            <Button
-                android:id="@+id/email_verify_btn_sendCode"
-                android:layout_width="0dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/ripple_custom_blue"
-                android:fontFamily="@font/elice"
-                android:text="인증코드 전송"
-                app:layout_constraintEnd_toEndOf="@+id/email_verify_input_email"
-                app:layout_constraintStart_toStartOf="@+id/email_verify_input_email"
-                app:layout_constraintTop_toBottomOf="@+id/email_verify_input_email" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/email_lbl4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/bmdohyeon"
+            android:text="이메일 인증을 진행해주세요."
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/email_verify_lbl1"
+            app:layout_constraintTop_toBottomOf="@+id/email_verify_lbl1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

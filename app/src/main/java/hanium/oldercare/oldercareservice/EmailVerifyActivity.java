@@ -279,7 +279,6 @@ public class EmailVerifyActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // 입력란에 변화가 있을 시 조치
-                VibrateUtility.errorVibrate(vibrator);
             }
 
             @Override
