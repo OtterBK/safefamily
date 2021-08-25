@@ -1,5 +1,6 @@
 package hanium.oldercare.oldercareservice;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,11 +21,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
+import hanium.oldercare.oldercareservice.handlermessage.LoginMessage;
 import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
+import hanium.oldercare.oldercareservice.info.LoginInfo;
 import hanium.oldercare.oldercareservice.info.RegisterInfo;
 import hanium.oldercare.oldercareservice.inputfilter.EmailFilter;
 import hanium.oldercare.oldercareservice.inputfilter.NumberFilter;
+import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class EmailVerifyActivity extends AppCompatActivity {
@@ -63,6 +68,8 @@ public class EmailVerifyActivity extends AppCompatActivity {
                 lbl_warn_code_check.setTextColor(Color.BLUE);
                 btn_email_verify.setEnabled(false);
                 btn_code_check.setEnabled(false);
+                input_code.setEnabled(false);
+                input_email.setEnabled(false);
                 lbl_warn_email_verify.setText("이메일 인증을 완료하였습니다.");
                 lbl_warn_code_check.setText("이메일 인증을 완료하였습니다.");
                 CustomDialogAlert alert = new CustomDialogAlert(EmailVerifyActivity.this);
@@ -74,6 +81,11 @@ public class EmailVerifyActivity extends AppCompatActivity {
                 Toast.makeText(EmailVerifyActivity.this, "회원가입에 실패했습니다.", Toast.LENGTH_LONG).show();
             } else if(msg.what == RegisterMessage.REGISTER_DONE.ordinal()) {
                 Toast.makeText(EmailVerifyActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                finish();
+
             } else if(msg.what == RegisterMessage.SENDING_PROGRESS.ordinal()) {
                 btn_email_verify.setEnabled(false);
             } else if(msg.what == RegisterMessage.SENDING_DONE.ordinal()) {
@@ -138,6 +150,9 @@ public class EmailVerifyActivity extends AppCompatActivity {
 
                 String email = input_email.getText().toString();
 
+                CustomDialogLoading loading = new CustomDialogLoading(EmailVerifyActivity.this);
+                loading.callFunction();
+
                 new Thread(new Runnable() {
                     public void run() {
 
@@ -151,6 +166,7 @@ public class EmailVerifyActivity extends AppCompatActivity {
                             if(cnt > 0){ //이미 존재하면
                                 message = handler.obtainMessage(RegisterMessage.ALREADY_USE_EMAIL.ordinal());
                             } else {
+
                                 MyRequestUtility.requestEmailVerify(email);
                                 message = handler.obtainMessage(RegisterMessage.SEND_CODE_SUCCESS.ordinal());
                             }
@@ -158,6 +174,7 @@ public class EmailVerifyActivity extends AppCompatActivity {
                             message = handler.obtainMessage(RegisterMessage.SEND_CODE_FAIL.ordinal());
                             e.printStackTrace();
                         }
+                        loading.dismiss();
                         handler.sendMessage(message);
 
                         Message enableMsg = handler.obtainMessage(RegisterMessage.SENDING_DONE.ordinal());
@@ -214,11 +231,14 @@ public class EmailVerifyActivity extends AppCompatActivity {
 
                 btn_code_check.setEnabled(false);
 
+                CustomDialogLoading loading = new CustomDialogLoading(EmailVerifyActivity.this);
+                loading.callFunction();
+
                 new Thread(new Runnable() {
                     public void run() {
                         Message message = null;
                         try {
-                            boolean isConsistent = MyRequestUtility.verifyCodeComapre(email, code); //코드 일치 확인
+                            boolean isConsistent = MyRequestUtility.verifyCodeCompare(email, code); //코드 일치 확인
                             if(isConsistent){ //일치하면
                                 message = handler.obtainMessage(RegisterMessage.CODE_CONSISTENT.ordinal());
                             } else {
@@ -228,9 +248,12 @@ public class EmailVerifyActivity extends AppCompatActivity {
                             message = handler.obtainMessage(NetworkMessage.NETWORK_FAIL.ordinal());
                             e.printStackTrace();
                         }
+                        loading.dismiss();
                         handler.sendMessage(message);
+
                     }
                 }).start();
+
 
                 btn_code_check.setEnabled(true);
             }
@@ -242,25 +265,51 @@ public class EmailVerifyActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(isCodeChecked){
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                    finish();
+//                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+//                    startActivity(intent);
+//                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+//                    finish();
 
+                    //btn_done.setEnabled(false);
+
+                    CustomDialogLoading loading = new CustomDialogLoading(EmailVerifyActivity.this);
+                    loading.callFunction();
 
                     new Thread(new Runnable() {
                         public void run() {
                             Message message = null;
                             try {
-                                MyRequestUtility.register(RegisterInfo.tmpId, RegisterInfo.tmpPw, finalEmail, "", "", ""); //코드 일치 확인
-                                message = handler.obtainMessage(RegisterMessage.REGISTER_DONE.ordinal());
+                                //회원가입 진행
+                                MyRequestUtility.register(RegisterInfo.tmpId, RegisterInfo.tmpPw, finalEmail, RegisterInfo.nickName, RegisterInfo.phone); 
+
+                                String id = RegisterInfo.tmpId;
+                                String pw = RegisterInfo.tmpPw;
+
+                                //로그인 시도
+                                try {
+                                    if(MyRequestUtility.instantLogin(id,pw)){
+                                        LoginInfo.ID = id;
+                                        LoginInfo.PW = pw;
+                                        message = handler.obtainMessage(RegisterMessage.REGISTER_DONE.ordinal());
+                                    } else {
+                                        message = handler.obtainMessage(RegisterMessage.REGISTER_FAIL.ordinal());
+                                    }
+                                } catch (Exception e) {
+                                    message = handler.obtainMessage(NetworkMessage.NETWORK_FAIL.ordinal());
+                                    e.printStackTrace();
+                                }
+
+
                             } catch (Exception e) {
                                 message = handler.obtainMessage(RegisterMessage.REGISTER_FAIL.ordinal());
                                 e.printStackTrace();
                             }
+                            loading.dismiss();
                             handler.sendMessage(message);
                         }
                     }).start();
+
+
 
                 } else {
                     CustomDialogAlert alert = new CustomDialogAlert(EmailVerifyActivity.this);
@@ -301,6 +350,7 @@ public class EmailVerifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_verify);
 
+        ScreenManager.transparentStatusBar(this);
 
         loadComponents();
         setFilters();

@@ -22,6 +22,7 @@ import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.inputfilter.EmailFilter;
 import hanium.oldercare.oldercareservice.inputfilter.IDFilter;
+import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class FindPWActivity extends AppCompatActivity {
@@ -134,7 +135,6 @@ public class FindPWActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // 입력란에 변화가 있을 시 조치
-                VibrateUtility.errorVibrate(vibrator);
             }
 
             @Override
@@ -158,6 +158,8 @@ public class FindPWActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_pw);
+
+        ScreenManager.transparentStatusBar(this);
 
         loadComponents();
         setFilters();

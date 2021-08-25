@@ -106,9 +106,9 @@ public class RegisterActivity extends AppCompatActivity {
                     RegisterInfo.tmpId = id_final;
                     RegisterInfo.tmpPw = pw_final;
 
-                    Intent intent = new Intent(getApplicationContext(), EmailVerifyActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ProfileInputActivity.class);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
 

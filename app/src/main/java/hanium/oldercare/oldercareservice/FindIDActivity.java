@@ -20,6 +20,7 @@ import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.inputfilter.EmailFilter;
+import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class FindIDActivity extends AppCompatActivity {
@@ -113,7 +114,7 @@ public class FindIDActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // 입력란에 변화가 있을 시 조치
-                VibrateUtility.errorVibrate(vibrator);
+
             }
 
             @Override
@@ -136,7 +137,7 @@ public class FindIDActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_id);
 
-
+        ScreenManager.transparentStatusBar(this);
 
         loadComponents();
 

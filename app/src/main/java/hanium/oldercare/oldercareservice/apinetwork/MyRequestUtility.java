@@ -110,7 +110,7 @@ public class MyRequestUtility {
         String code: 입력한 인증코드
     }
      */
-    public static boolean verifyCodeComapre(String email, String code) throws Exception {
+    public static boolean verifyCodeCompare(String email, String code) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "code_compare");
@@ -149,18 +149,17 @@ public class MyRequestUtility {
         String email: 가입할 email
     }
      */
-    public static void register(String id, String pw, String email, String address, String nickname, String age) throws Exception {
+    public static void register(String id, String pw, String email, String nickname, String phone) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "register");
 
         HashMap<String, Object> param = new HashMap();
-        param.put("id", id);
-        param.put("pw", pw);
-        param.put("email", email);
-        param.put("address", address);
-        param.put("nickname", nickname);
-        param.put("age", age);
+        param.put("id", id.trim());
+        param.put("pw", pw.trim());
+        param.put("email", email.trim());
+        param.put("nickname", nickname.trim());
+        param.put("phone", phone.trim());
 
         requestData.put("param", param);
 

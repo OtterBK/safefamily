@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/find_id_base"
+    android:id="@+id/profileInput_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white"
+    android:scrollbarSize="12dp"
     tools:context=".HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,91 +19,105 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="50dp"
-            android:alpha="0.25"
-            app:layout_constraintBottom_toTopOf="@+id/find_id_btn_find"
+        <EditText
+            android:id="@+id/profileInput_phone"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@color/skyblue"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lotte_dream"
+            android:hint="전화번호를 입력해주세요"
+            android:maxLength="16"
+            android:inputType="phone"
+            android:paddingLeft="10dp"
+            android:textColor="@color/fr_black"
+            android:textColorHint="@color/fr_darkGray"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/find_id_input_email"
-            app:srcCompat="@drawable/search" />
+            app:layout_constraintTop_toBottomOf="@+id/profileInput_name" />
 
         <TextView
-            android:id="@+id/find_id_lbl1"
+            android:id="@+id/profileInput_lbl1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="60dp"
             android:fontFamily="@font/lotte_happy"
-            android:text="아이디 찾기"
+            android:text="프로필"
             android:textColor="@color/fr_black"
             android:textSize="28sp"
             android:typeface="sans"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/find_id_lbl2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:fontFamily="@font/lotte_happy"
-            android:text="이메일"
-            android:textColor="@color/skyblue"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/find_id_lbl1"
-            app:layout_constraintTop_toBottomOf="@+id/find_id_lbl1" />
-
         <EditText
-            android:id="@+id/find_id_input_email"
+            android:id="@+id/profileInput_name"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="80dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/my_text_field"
+            android:backgroundTint="@color/skyblue"
             android:drawablePadding="10dp"
             android:ems="10"
             android:fontFamily="@font/lotte_dream"
-            android:hint="이메일 주소를 입력해주세요."
-            android:inputType="textPersonName"
+            android:hint="이름을 입력해주세요"
             android:maxLength="16"
             android:paddingLeft="10dp"
             android:textColor="@color/fr_black"
-            android:textColorHint="@color/bg_softgray"
+            android:textColorHint="@color/fr_darkGray"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/find_id_lbl2" />
+            app:layout_constraintTop_toBottomOf="@+id/profileInput_lbl1" />
 
         <Button
-            android:id="@+id/find_id_btn_find"
+            android:id="@+id/profileInput_btn_next"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:background="@drawable/ripple_button_skyblue"
             android:fontFamily="@font/elice"
-            android:text="아이디 찾기"
+            android:text="다음 단계"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/profileInput_lbl2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/bmdohyeon"
-            android:text="가입 시 입력한 이메일을 입력해주세요."
+            android:text="추가 정보를 입력해주세요."
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/find_id_lbl1"
-            app:layout_constraintTop_toBottomOf="@+id/find_id_lbl1" />
+            app:layout_constraintStart_toStartOf="@+id/profileInput_lbl1"
+            app:layout_constraintTop_toBottomOf="@+id/profileInput_lbl1" />
+
+        <EditText
+            android:id="@+id/profileInput_lbl3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/fr_lightblack"
+            android:editable="false"
+            android:fontFamily="@font/elice"
+            android:text="해당 정보는 긴급신고 시에만 사용됩니다."
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/profileInput_btn_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

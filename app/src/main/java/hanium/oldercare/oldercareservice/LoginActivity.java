@@ -22,11 +22,13 @@ import java.util.Calendar;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
 import hanium.oldercare.oldercareservice.handlermessage.LoginMessage;
 import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
 import hanium.oldercare.oldercareservice.inputfilter.IDFilter;
 import hanium.oldercare.oldercareservice.inputfilter.PWFilter;
+import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button btn_login;
     private TextView btn_find_id;
     private TextView btn_find_pw;
-    private TextView btn_register;
     private TextView input_id;
     private TextView input_pw;
     private Vibrator vibrator;
@@ -71,11 +72,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void loadComponents(){
-        lbl_today = (TextView) findViewById(R.id.login_lbl_today); //오늘 날짜 설정
+//        lbl_today = (TextView) findViewById(R.id.login_lbl_today); //오늘 날짜 설정
         btn_login = (Button) findViewById(R.id.login_btn_login);
         btn_find_id = (TextView) findViewById(R.id.login_lbl_find_id);
         btn_find_pw = (TextView) findViewById(R.id.login_lbl_find_pw);
-        btn_register = (TextView) findViewById(R.id.login_lbl_register);
+
         input_id = (TextView) findViewById(R.id.login_input_id);
         input_pw = (TextView) findViewById(R.id.login_input_pw);
     }
@@ -121,11 +122,16 @@ public class LoginActivity extends AppCompatActivity {
                     String pw = input_pw.getText().toString();
 
 
+                    CustomDialogLoading loading = new CustomDialogLoading(LoginActivity.this);
+                    loading.callFunction();
+
                     new Thread(new Runnable() {
                         public void run() {
                             Message message = null;
                             try {
                                 if(MyRequestUtility.instantLogin(id,pw)){
+                                    LoginInfo.ID = id;
+                                    LoginInfo.PW = pw;
                                     message = handler.obtainMessage(LoginMessage.LOGIN_SUCCEED.ordinal());
                                 } else {
                                     message = handler.obtainMessage(LoginMessage.LOGIN_FAIL.ordinal());
@@ -134,9 +140,11 @@ public class LoginActivity extends AppCompatActivity {
                                 message = handler.obtainMessage(NetworkMessage.NETWORK_FAIL.ordinal());
                                 e.printStackTrace();
                             }
+                            loading.dismiss();
                             handler.sendMessage(message);
                         }
                     }).start();
+
                 }
 
 
@@ -168,15 +176,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        //버튼별 화면 이동 기능
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
     }
 
     private void setDayLabel() {
@@ -244,9 +243,11 @@ public class LoginActivity extends AppCompatActivity {
         loadTypeface();
         setContentView(R.layout.activity_login);
 
+        ScreenManager.transparentStatusBar(this);
+
         loadComponents();
 
-        setDayLabel();
+        //setDayLabel();
 
         setInputFilters();
 

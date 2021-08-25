@@ -89,7 +89,7 @@
         android:alpha="0.7"
         android:background="@drawable/bg_blue_with_bubbleborder"
         android:fontFamily="@font/lotte_dream"
-        android:text="회원가입"
+        android:text="시작하기"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/select_login_btn_login"
