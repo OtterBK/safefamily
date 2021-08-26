@@ -31,10 +31,10 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
 
         public ViewHolder(View view) {
             super(view);
-//            statusIcon = (ImageView)view.findViewById(R.id.device_item_status_image);
-//            wardName = (TextView)view.findViewById(R.id.device_item_ward_name);
-//            doorCount = (TextView)view.findViewById(R.id.device_item_door_count);
-//            speakerCount = (TextView)view.findViewById(R.id.device_item_speaker_count);
+            statusIcon = (ImageView)view.findViewById(R.id.device_item_status_image);
+            wardName = (TextView)view.findViewById(R.id.device_item_ward_name);
+            doorCount = (TextView)view.findViewById(R.id.device_item_door_count);
+            speakerCount = (TextView)view.findViewById(R.id.device_item_speaker_count);
         }
     }
 
@@ -61,7 +61,15 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        //holder.statusIcon.setImageResource();
+
+        int iconId = R.drawable.status_safe;
+        if(deviceList.get(position).getStatus() == 2){
+            iconId = R.drawable.status_warn;
+        } else if(deviceList.get(position).getStatus() == 3){
+            iconId = R.drawable.status_danger;
+        }
+
+        holder.statusIcon.setImageResource(iconId);
 //        holder.wardName.setText(deviceList.get(position).getWard_name());
 //        holder.doorCount.setText(deviceList.get(position).getDoorLogs().size());
 //        holder.speakerCount.setText(deviceList.get(position).getSpeakerLogs().size());

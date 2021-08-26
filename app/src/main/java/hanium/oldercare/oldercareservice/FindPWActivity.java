@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
 import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.inputfilter.EmailFilter;
@@ -91,6 +92,9 @@ public class FindPWActivity extends AppCompatActivity {
                     alert.callFunction("경고", "이메일을 입력해주세요.");
                 } else {
 
+                    CustomDialogLoading loading = new CustomDialogLoading(FindPWActivity.this);
+                    loading.callFunction();
+
                     String id = input_id.getText().toString();
                     String email = input_email.getText().toString();
                     new Thread(new Runnable() {
@@ -117,6 +121,7 @@ public class FindPWActivity extends AppCompatActivity {
                                 message = handler.obtainMessage(NetworkMessage.NETWORK_FAIL.ordinal());
                                 e.printStackTrace();
                             }
+                            loading.dismiss();
                             handler.sendMessage(message);
 
                         }

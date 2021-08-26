@@ -47,9 +47,10 @@ public class HomeActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        deviceList.add(new DeviceModel("1","tester","20","어딘가", "추가정보"));
-        deviceList.add(new DeviceModel("1","tester2","20","어딘가", "추가정보"));
-        deviceList.add(new DeviceModel("1","tester3","20","어딘가", "추가정보"));
+        deviceList.add(new DeviceModel("1","1234"));
+        deviceList.add(new DeviceModel("1","1234"));
+        deviceList.add(new DeviceModel("1","1234"));
+
 
         // specify an adapter (see also next example)
         mAdapter = new DeviceViewAdapter(deviceList);

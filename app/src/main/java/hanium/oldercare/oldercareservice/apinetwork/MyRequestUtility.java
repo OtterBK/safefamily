@@ -1,14 +1,14 @@
 package hanium.oldercare.oldercareservice.apinetwork;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orhanobut.logger.Logger;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class MyRequestUtility {
 
@@ -287,6 +287,88 @@ public class MyRequestUtility {
         } else {
             return false;
         }
+    }
+
+    /*
+    디바이스 정보 가져오기, pw도 맞아야 가져옴
+    
+    return: boolean
+    param{
+        String id: 디바이스 id
+        String id: 디바이스 pw
+    }
+     */
+    public static JSONObject getDeviceInfo(String id, String pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "get_device_info"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_device_info", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        return jsonObj;
+    }
+
+    public static ArrayList<HashMap<String, String>> getDoorLogs(String id, String pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "get_door_logs"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_door_logs", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        ArrayList<HashMap<String, String>> logs = (ArrayList<HashMap<String, String>>) jsonObj.get("result"); //응답 저장
+
+        return logs;
+    }
+
+    public static ArrayList<HashMap<String, String>> getSpeakerLogs(String id, String pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "get_speaker_logs"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_speaker_logs", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        ArrayList<HashMap<String, String>> logs = (ArrayList<HashMap<String, String>>) jsonObj.get("result"); //응답 저장
+
+        return logs;
     }
 
 }

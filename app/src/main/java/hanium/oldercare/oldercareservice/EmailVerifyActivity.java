@@ -156,6 +156,8 @@ public class EmailVerifyActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     public void run() {
 
+                        boolean isFail = false;
+
                         Message blockMsg = handler.obtainMessage(RegisterMessage.SENDING_PROGRESS.ordinal());
                         handler.sendMessage(blockMsg);
 
@@ -164,6 +166,7 @@ public class EmailVerifyActivity extends AppCompatActivity {
                             isCodeChecked = false;
                             int cnt = MyRequestUtility.getCompareEmailAmount(email); //이미 존재하는 아이디인지 확인
                             if(cnt > 0){ //이미 존재하면
+                                isFail = true;
                                 message = handler.obtainMessage(RegisterMessage.ALREADY_USE_EMAIL.ordinal());
                             } else {
 
@@ -176,9 +179,11 @@ public class EmailVerifyActivity extends AppCompatActivity {
                         }
                         loading.dismiss();
                         handler.sendMessage(message);
+                        if(!isFail){
+                            Message enableMsg = handler.obtainMessage(RegisterMessage.SENDING_DONE.ordinal());
+                            handler.sendMessage(enableMsg);
+                        }
 
-                        Message enableMsg = handler.obtainMessage(RegisterMessage.SENDING_DONE.ordinal());
-                        handler.sendMessage(enableMsg);
                     }
                 }).start();
 

@@ -1,30 +1,72 @@
 package hanium.oldercare.oldercareservice.cardutility;
 
+import android.os.Message;
+
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
+import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 
 public class DeviceModel {
 
     private String device_id;
+    private String device_pw;
     private String ward_name;
     private String ward_age;
     private String ward_address;
     private String ward_description;
 
-    private List<Map<String, String>> doorLogs = new ArrayList<Map<String, String>>();
-    private List<Map<String, String>> speakerLogs = new ArrayList<Map<String, String>>();
+    private ArrayList<HashMap<String, String>> doorLogs = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> speakerLogs = new ArrayList<HashMap<String, String>>();
 
 
 
-    private int status = 0; //0, 1, 2 각각 안전, 주의, 위험
+    private int status = 1; //0, 1, 2 각각 연결실패, 안전, 주의, 위험
 
-    public DeviceModel(String device_id, String ward_name, String ward_age, String ward_address, String ward_description) {
+    public DeviceModel(String device_id, String device_pw) {
         this.device_id = device_id;
-        this.ward_name = ward_name;
-        this.ward_age = ward_age;
-        this.ward_address = ward_address;
-        this.ward_description = ward_description;
+        this.device_pw = device_pw;
+
+        refreshData();
+    }
+
+    //데이터 새로 받아오기
+    public void refreshData(){
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                try {
+                    JSONObject deviceInfo = MyRequestUtility.getDeviceInfo(device_id,device_pw);
+                    if(deviceInfo != null){
+                        ward_name = (String)deviceInfo.get("ward_name");
+                        ward_age = (String)deviceInfo.get("ward_age");
+                        ward_address = (String)deviceInfo.get("ward_address");
+                        ward_description = (String)deviceInfo.get("ward_description");
+                    }
+
+                    ArrayList<HashMap<String, String>> tmpDoorLogs = MyRequestUtility.getDoorLogs(device_id, device_pw);
+                    if(tmpDoorLogs != null){
+                        doorLogs = tmpDoorLogs;
+                    }
+
+                    ArrayList<HashMap<String, String>> tmpSpeakerLogs = MyRequestUtility.getSpeakerLogs(device_id, device_pw);
+                    if(tmpSpeakerLogs != null){
+                        speakerLogs = tmpSpeakerLogs;
+                    }
+
+
+                } catch (Exception e) {
+                    return;
+                }
+            }
+        }).start();
+
 
     }
 
@@ -69,19 +111,19 @@ public class DeviceModel {
         this.ward_description = ward_description;
     }
 
-    public List<Map<String, String>> getDoorLogs() {
+    public ArrayList<HashMap<String, String>> getDoorLogs() {
         return doorLogs;
     }
 
-    public void setDoorLogs(List<Map<String, String>> doorLogs) {
+    public void setDoorLogs(ArrayList<HashMap<String, String>> doorLogs) {
         this.doorLogs = doorLogs;
     }
 
-    public List<Map<String, String>> getSpeakerLogs() {
+    public ArrayList<HashMap<String, String>> getSpeakerLogs() {
         return speakerLogs;
     }
 
-    public void setSpeakerLogs(List<Map<String, String>> speakerLogs) {
+    public void setSpeakerLogs(ArrayList<HashMap<String, String>> speakerLogs) {
         this.speakerLogs = speakerLogs;
     }
 
