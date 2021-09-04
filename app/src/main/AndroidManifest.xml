@@ -13,54 +13,67 @@
         android:roundIcon="@mipmap/icon_main_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.MainTheme">
-        <activity android:name=".LoadingActivity">
+        <activity android:name=".LoadingActivity"
+            android:launchMode="singleInstance">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity">
+        <activity android:name=".HomeActivity"
+            android:launchMode="singleInstance">
+
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginSelectActivity">
+        <activity android:name=".LoginSelectActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeviceInfoActivity">
+        <activity android:name=".DeviceInfoActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FindIDActivity">
+        <activity android:name=".FindIDActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FindPWActivity">
+        <activity android:name=".FindPWActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".RegisterActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EmailVerifyActivity">
+        <activity android:name=".EmailVerifyActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileInputActivity">
+        <activity android:name=".ProfileInputActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

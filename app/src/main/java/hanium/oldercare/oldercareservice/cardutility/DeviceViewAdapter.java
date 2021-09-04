@@ -1,6 +1,8 @@
 package hanium.oldercare.oldercareservice.cardutility;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +12,19 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import hanium.oldercare.oldercareservice.FindIDActivity;
 import hanium.oldercare.oldercareservice.R;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
+import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.ViewHolder> {
+
+
     private ArrayList<DeviceModel> deviceList;
 
     // Provide a reference to the views for each data item
@@ -69,10 +77,11 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
             iconId = R.drawable.status_danger;
         }
 
-        holder.statusIcon.setImageResource(iconId);
-//        holder.wardName.setText(deviceList.get(position).getWard_name());
-//        holder.doorCount.setText(deviceList.get(position).getDoorLogs().size());
-//        holder.speakerCount.setText(deviceList.get(position).getSpeakerLogs().size());
+        DeviceModel device = deviceList.get(position);
+
+        device.setComponent(holder.statusIcon, holder.wardName, holder.doorCount, holder.speakerCount);
+        device.refreshData();
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

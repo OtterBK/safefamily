@@ -1,6 +1,9 @@
 package hanium.oldercare.oldercareservice.cardutility;
 
+import android.os.Handler;
 import android.os.Message;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.simple.JSONObject;
 
@@ -9,8 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import hanium.oldercare.oldercareservice.FindIDActivity;
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
+import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
+import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class DeviceModel {
 
@@ -21,9 +29,17 @@ public class DeviceModel {
     private String ward_address;
     private String ward_description;
 
-    private ArrayList<HashMap<String, String>> doorLogs = new ArrayList<HashMap<String, String>>();
+    private ArrayList<ArrayList<String>> doorLogs = new ArrayList<ArrayList<String>>();
     private ArrayList<HashMap<String, String>> speakerLogs = new ArrayList<HashMap<String, String>>();
 
+
+
+    private ImageView comp_status_image;
+    private TextView comp_ward_name;
+    private TextView comp_door_count;
+    private TextView comp_speaker_count;
+
+    private boolean isCompSet = false;
 
 
     private int status = 1; //0, 1, 2 각각 연결실패, 안전, 주의, 위험
@@ -31,12 +47,22 @@ public class DeviceModel {
     public DeviceModel(String device_id, String device_pw) {
         this.device_id = device_id;
         this.device_pw = device_pw;
+    }
 
-        refreshData();
+
+    public void setComponent(ImageView comp_status_image, TextView comp_ward_name, TextView comp_door_count, TextView comp_speaker_count){
+        this.comp_status_image = comp_status_image;
+        this.comp_ward_name = comp_ward_name;
+        this.comp_door_count = comp_door_count;
+        this.comp_speaker_count = comp_speaker_count;
+        isCompSet = true;
+
     }
 
     //데이터 새로 받아오기
     public void refreshData(){
+
+        if(!isCompSet) return;
 
         new Thread(new Runnable() {
             public void run() {
@@ -50,7 +76,7 @@ public class DeviceModel {
                         ward_description = (String)deviceInfo.get("ward_description");
                     }
 
-                    ArrayList<HashMap<String, String>> tmpDoorLogs = MyRequestUtility.getDoorLogs(device_id, device_pw);
+                    ArrayList<ArrayList<String>> tmpDoorLogs = MyRequestUtility.getDoorLogs(device_id, device_pw);
                     if(tmpDoorLogs != null){
                         doorLogs = tmpDoorLogs;
                     }
@@ -60,12 +86,14 @@ public class DeviceModel {
                         speakerLogs = tmpSpeakerLogs;
                     }
 
+                    comp_ward_name.setText(ward_name);
 
                 } catch (Exception e) {
                     return;
                 }
             }
         }).start();
+
 
 
     }
@@ -111,11 +139,11 @@ public class DeviceModel {
         this.ward_description = ward_description;
     }
 
-    public ArrayList<HashMap<String, String>> getDoorLogs() {
+    public ArrayList<ArrayList<String>> getDoorLogs() {
         return doorLogs;
     }
 
-    public void setDoorLogs(ArrayList<HashMap<String, String>> doorLogs) {
+    public void setDoorLogs(ArrayList<ArrayList<String>> doorLogs) {
         this.doorLogs = doorLogs;
     }
 
