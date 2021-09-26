@@ -31,7 +31,7 @@ public class AccountManageCheckActivity extends AppCompatActivity{
     }
 
     // 호출할 다이얼로그 함수를 정의한다.
-    public int Access_check(TextView pw) {
+    public int Access_check(TextView pw, Runnable successCallback) {
 
         final Dialog dlg = new Dialog(context);        // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.
 
@@ -59,6 +59,8 @@ public class AccountManageCheckActivity extends AppCompatActivity{
                 }
                 // 커스텀 다이얼로그를 종료한다.
                 dlg.dismiss();
+                //성공 시 콜백 실행
+                successCallback.run();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {

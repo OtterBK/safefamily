@@ -126,10 +126,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
-                android:visibility="gone"
+                android:visibility="invisible"
+                tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="248dp"
-                tools:layout_editor_absoluteY="560dp"
-                tools:ignore="MissingConstraints" />
+                tools:layout_editor_absoluteY="560dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

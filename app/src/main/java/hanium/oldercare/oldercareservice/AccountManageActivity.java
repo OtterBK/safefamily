@@ -18,7 +18,7 @@ public class AccountManageActivity extends AppCompatActivity {
     private Button btn_editLoginInfo_page;
     private Button btn_logout_page;
     private Button btn_deleteLoginInfo_page;
-    final TextView tt_pw = (TextView) findViewById(R.id.check_pw);
+    private TextView tt_pw; //컴포넌트는 onCreate 함수에서 로드하는게 에러 안나요
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,7 @@ public class AccountManageActivity extends AppCompatActivity {
         btn_editLoginInfo_page = (Button) findViewById(R.id.account_manage_btn_changeInfo);
         btn_logout_page = (Button) findViewById(R.id.account_manage_btn_logout);
         btn_deleteLoginInfo_page = (Button) findViewById(R.id.account_manage_btn_unregister);
+        tt_pw = (TextView) findViewById(R.id.check_pw);
     }
 
     private void setComponentsEvent(){
@@ -59,7 +60,21 @@ public class AccountManageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 AccountManageCheckActivity dlg = new AccountManageCheckActivity(AccountManageActivity.this);
-                dlg.Access_check(tt_pw);
+
+                Runnable successCallback = new Runnable(){
+                  public void run(){
+                      Thread thread = new Thread(){
+                          public void run(){
+                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class); //이거를 띄울 액티비티로 변경
+                              startActivity(intent);
+                              overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                          }
+                      };
+                      thread.start();
+                  }
+                };
+
+                dlg.Access_check(tt_pw, successCallback);
             }
         });
 
