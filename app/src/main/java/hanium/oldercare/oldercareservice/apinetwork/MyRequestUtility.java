@@ -294,6 +294,46 @@ public class MyRequestUtility {
     }
 
     /*
+        비밀번호 변경 요청
+
+        return: boolean
+        param{
+            String id: 로그인된 사용자 id
+            String new_pw: 입력한 비밀번호
+        }
+         */
+    public static boolean editPassword(String id, String new_pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "user_password_update"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", new_pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/user_password_update", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("PW_UPDATE_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
     디바이스 정보 가져오기, pw도 맞아야 가져옴
     
     return: boolean

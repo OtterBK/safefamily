@@ -60,8 +60,12 @@ public class HomeActivity extends AppCompatActivity {
         btn_account_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AccountManageActivity.class);
+                startActivity(intent);
+                //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.none);
 
-                MyNotificationManager.createNotification(HomeActivity.this);
+//                MyNotificationManager.createNotification(HomeActivity.this);
                 //MyNotificationManager.sendAlarm(HomeActivity.this, "홍길동님의 이상 징후가 파악되었습니다.");
 
             }
