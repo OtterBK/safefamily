@@ -49,18 +49,16 @@ public class AccountManageCheckActivity extends AppCompatActivity{
             public void onClick(View view) {
                 // '확인' 버튼 클릭시 메인 액티비티에서 설정한 main_label에
                 // 커스텀 다이얼로그에서 입력한 메시지를 대입한다.
-                Toast.makeText(context, "회원정보를 확인중입니다.", Toast.LENGTH_SHORT).show();
                 if(LoginInfo.PW.equals(message.getText().toString())){
                     pw.setText(message.getText().toString());
-                    Toast.makeText(context, "if 들어옴", Toast.LENGTH_SHORT).show();
+                    //성공 시 콜백 실행
+                    successCallback.run();
                 }
                 else {
-                    Toast.makeText(context, "if 안들어옴", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                 }
                 // 커스텀 다이얼로그를 종료한다.
                 dlg.dismiss();
-                //성공 시 콜백 실행
-                successCallback.run();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {

@@ -21,6 +21,7 @@ public class EditLoginInfoActivity extends AppCompatActivity {
 
     private Button btn_editPassword;
     String id = LoginInfo.ID;
+    private TextView user_ID;
     private TextView input_pw;
     private TextView input_new_pw;
     private TextView input_new_pwCheck;

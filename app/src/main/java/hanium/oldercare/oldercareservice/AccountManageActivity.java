@@ -38,14 +38,6 @@ public class AccountManageActivity extends AppCompatActivity {
             }
         }*/
     }
-    /*if((tt_pw.getText().toString()).equals(LoginInfo.PW)){
-        Intent intent = new Intent(getApplicationContext(), EditLoginInfoActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.none);
-    }else{
-        CustomDialogAlert alert = new CustomDialogAlert(AccountManageActivity.this);
-        alert.callFunction("경고", "비밀번호가 일치하지 않습니다.");
-    }*/
 
     private void loadComponents(){
         btn_editLoginInfo_page = (Button) findViewById(R.id.account_manage_btn_changeInfo);
@@ -65,7 +57,7 @@ public class AccountManageActivity extends AppCompatActivity {
                   public void run(){
                       Thread thread = new Thread(){
                           public void run(){
-                              Intent intent = new Intent(getApplicationContext(), HomeActivity.class); //이거를 띄울 액티비티로 변경
+                              Intent intent = new Intent(getApplicationContext(), EditLoginInfoActivity.class); //이거를 띄울 액티비티로 변경
                               startActivity(intent);
                               overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                           }

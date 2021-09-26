@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/bmdohyeon"
-                android:text="비밀번호 변경"
+                android:text="프로필 정보"
                 android:textColor="@color/fr_black"
                 android:textSize="28sp"
                 android:typeface="sans"
@@ -47,87 +47,86 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/account_lbl2"
+                android:id="@+id/account_edit_ID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/bmdohyeon"
-                android:text="현재 비밀번호"
+                android:text="아이디"
                 android:textColor="@color/fr_black"
-                app:layout_constraintStart_toStartOf="@+id/user_input_pw"
+                app:layout_constraintStart_toStartOf="@+id/user_ID"
                 app:layout_constraintTop_toBottomOf="@+id/account_edit_lbl1" />
 
             <TextView
-                android:id="@+id/account_lbl3"
+                android:id="@+id/account_edit_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/bmdohyeon"
-                android:text="새 비밀번호"
-                android:textColor="@color/skyblue"
-                app:layout_constraintStart_toStartOf="@+id/user_input_pw"
-                app:layout_constraintTop_toBottomOf="@+id/user_input_pw" />
+                android:text="이메일"
+                android:textColor="@color/fr_black"
+                app:layout_constraintStart_toStartOf="@+id/user_ID"
+                app:layout_constraintTop_toBottomOf="@+id/user_ID" />
 
             <TextView
-                android:id="@+id/account_lbl4"
+                android:id="@+id/account_edit_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/bmdohyeon"
-                android:text="새 비밀번호 확인"
+                android:text="이름"
                 android:textColor="@color/skyblue"
-                app:layout_constraintStart_toStartOf="@+id/user_input_pw"
-                app:layout_constraintTop_toBottomOf="@+id/user_input_new_pw" />
+                app:layout_constraintStart_toStartOf="@+id/user_ID"
+                app:layout_constraintTop_toBottomOf="@+id/user_email" />
 
-            <EditText
-                android:id="@+id/user_input_pw"
+            <TextView
+                android:id="@+id/user_ID"
                 android:layout_width="260dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/my_text_field"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="현재 비밀번호 입력"
+                android:hint="현재 아이디 출력"
+                android:text = "현재 아이디"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"
-                android:textColor="@color/fr_black"
+                android:textColor="@color/gray"
                 android:textColorHint="@color/bg_softgray"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_lbl2" />
+                app:layout_constraintTop_toBottomOf="@+id/account_edit_ID" />
 
-            <EditText
-                android:id="@+id/user_input_new_pw"
+            <TextView
+                android:id="@+id/user_email"
                 android:layout_width="260dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/my_text_field"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="새 비밀번호 입력"
+                android:text = "현재 이메일"
+                android:hint="이메일 출력"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"
-                android:textColor="@color/fr_black"
+                android:textColor="@color/gray"
                 android:textColorHint="@color/bg_softgray"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.542"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_lbl3" />
+                app:layout_constraintTop_toBottomOf="@+id/account_edit_email" />
 
             <EditText
-                android:id="@+id/user_input_new_pwcheck"
+                android:id="@+id/user_input_name"
                 android:layout_width="260dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="3dp"
                 android:background="@drawable/my_text_field"
                 android:drawablePadding="10dp"
                 android:ems="10"
-                android:hint="새 비밀번호 확인"
+                android:hint="이름출력"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"
                 android:textColor="@color/fr_black"
@@ -136,18 +135,107 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.514"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_lbl4" />
+                app:layout_constraintTop_toBottomOf="@+id/account_edit_name" />
+
+
+            <TextView
+                android:id="@+id/account_name_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/elice"
+                android:text="*"
+                android:textColor="@color/fr_red"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/user_input_name"
+                app:layout_constraintStart_toEndOf="@+id/account_edit_name" />
 
             <TextView
                 android:id="@+id/account_pw_warn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="2dp"
                 android:fontFamily="@font/elice"
+                android:text="*"
                 android:textColor="@color/fr_red"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/user_input_new_pwcheck"
-                app:layout_constraintTop_toBottomOf="@+id/user_input_new_pwcheck" />
+                app:layout_constraintBottom_toTopOf="@+id/user_input_pw"
+                app:layout_constraintStart_toEndOf="@+id/account_edit_pw" />
+
+            <TextView
+                android:id="@+id/account_phoneNumber_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/elice"
+                android:text="*"
+                android:textColor="@color/fr_red"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/user_input_phoneNumber"
+                app:layout_constraintStart_toEndOf="@+id/account_edit_phoneNumber" />
+
+            <EditText
+                android:id="@+id/user_input_phoneNumber"
+                android:layout_width="260dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/my_text_field"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="폰번호 출력"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:textColor="@color/fr_black"
+                android:textColorHint="@color/bg_softgray"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/account_edit_phoneNumber" />
+
+            <TextView
+                android:id="@+id/account_edit_phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/bmdohyeon"
+                android:text="핸드폰 번호"
+                android:textColor="@color/skyblue"
+                app:layout_constraintStart_toStartOf="@+id/user_ID"
+                app:layout_constraintTop_toBottomOf="@+id/user_input_name" />
+
+            <TextView
+                android:id="@+id/account_edit_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/bmdohyeon"
+                android:text="비밀번호"
+                android:textColor="@color/skyblue"
+                app:layout_constraintStart_toStartOf="@+id/user_ID"
+                app:layout_constraintTop_toBottomOf="@+id/user_input_phoneNumber" />
+
+            <EditText
+                android:id="@+id/user_input_pw"
+                android:layout_width="260dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/my_text_field"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="비밀번호 출력"
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:textColor="@color/fr_black"
+                android:textColorHint="@color/bg_softgray"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/account_edit_pw" />
 
 
             <Button
@@ -161,6 +249,24 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/user_input_new_pwcheck"
+                android:layout_width="260dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/my_text_field"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:hint="비밀번호를 변경할 경우, 새로운 비밀번호를 재입력하십시오."
+                android:inputType="textPersonName"
+                android:paddingLeft="10dp"
+                android:textColor="@color/fr_black"
+                android:textColorHint="@color/bg_softgray"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_input_pw" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
