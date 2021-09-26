@@ -1,20 +1,16 @@
 package hanium.oldercare.oldercareservice.apinetwork;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 
-import org.json.JSONArray;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 import hanium.oldercare.oldercareservice.utility.ParseManager;
 
@@ -350,9 +346,8 @@ public class MyRequestUtility {
         JSONObject jsonObj = (JSONObject) obj;
 
 
-        Object logs = (Object)jsonObj.get("result"); //응답 저장
-
-        //List<String> columns = ParseManager.stringToArrayList(logs);
+        String logStr = (String)jsonObj.get("result"); //응답 저장
+        JSONArray logs = (JSONArray) parser.parse(logStr);
 
         return null;
 
@@ -378,7 +373,9 @@ public class MyRequestUtility {
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
 
-        ArrayList<HashMap<String, String>> logs = (ArrayList<HashMap<String, String>>) jsonObj.get("result"); //응답 저장
+
+        String logStr = (String)jsonObj.get("result"); //응답 저장
+        JSONArray logs = (JSONArray) parser.parse(logStr);
 
         return logs;
     }
