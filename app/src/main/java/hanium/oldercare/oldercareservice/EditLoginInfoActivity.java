@@ -135,30 +135,33 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                 String phoneNumber_tmp = input_phoneNumber.getText().toString();
                 String pw_tmp = input_pw.getText().toString();
 
-                CustomDialogLoading loading = new CustomDialogLoading(EditLoginInfoActivity.this);
-                loading.callFunction();
+                CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
 
-                new Thread(new Runnable() {
-                    public void run() {
-                        Message message = null;
-                        try {
-                            CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
+                if((name_warn.getText().toString()).equals("*") && (input_name.getText().toString()).equals("")){
+                    alert.callFunction("경고", "닉네임을 입력하여 주세요.");
+                }else if((phoneNumber_warn.getText().toString()).equals("*") && (input_phoneNumber.getText().toString()).equals("")){
+                    alert.callFunction("경고", "연락처를 입력하여 주세요.");
+                }else if(!((pw_warn.getText().toString()).equals("")) || !((pw_warn.getText().toString()).equals("*"))){
+                    alert.callFunction("경고", "비밀번호를 확인하여 주세요.");
+                }else {
 
-                            if(name_warn.getText().equals("*") || input_name.getText())){
+                    CustomDialogLoading loading = new CustomDialogLoading(EditLoginInfoActivity.this);
+                    loading.callFunction();
 
-                                MyRequestUtility.editUserInfo(id, new_pw);
-                                finish();
-                            } else {
-                                alert.callFunction("비밀번호 오류", "잘못된 비밀번호입니다.");
+                    new Thread(new Runnable() {
+                        public void run() {
+                            Message message = null;
+                            try {
+                                    MyRequestUtility.editUserInfo(LoginInfo.ID, name_tmp, phoneNumber_tmp, pw_tmp);
+                            } catch (Exception e) {
+                                CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
+                                alert.callFunction("연결 실패", "요청에 실패하였습니다.\n네트워크를 확인하거나\n잠시 후 다시 시도해주세요.");
+                                e.printStackTrace();
                             }
-                        } catch (Exception e) {
-                            CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
-                            alert.callFunction("연결 실패", "요청에 실패하였습니다.\n네트워크를 확인하거나\n잠시 후 다시 시도해주세요.");
-                            e.printStackTrace();
+                            loading.dismiss();
                         }
-                        loading.dismiss();
-                    }
-                }).start();
+                    }).start();
+                }
             }
         });
 
