@@ -1,24 +1,19 @@
 package hanium.oldercare.oldercareservice.cardutility;
 
 import android.os.Handler;
-import android.os.Message;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import hanium.oldercare.oldercareservice.FindIDActivity;
+
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
-import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
-import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
-import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
-import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
-import hanium.oldercare.oldercareservice.utility.VibrateUtility;
+
 
 public class DeviceModel {
 
@@ -28,9 +23,11 @@ public class DeviceModel {
     private String ward_age;
     private String ward_address;
     private String ward_description;
+    private String door_count;
+    private String speaker_count;
 
-    private ArrayList<ArrayList<String>> doorLogs = new ArrayList<ArrayList<String>>();
-    private ArrayList<HashMap<String, String>> speakerLogs = new ArrayList<HashMap<String, String>>();
+    private JSONArray doorLogs;
+    private JSONArray speakerLogs;
 
 
 
@@ -68,27 +65,34 @@ public class DeviceModel {
             public void run() {
 
                 try {
-                    JSONObject deviceInfo = MyRequestUtility.getDeviceInfo(device_id,device_pw);
-                    if(deviceInfo != null){
-                        ward_name = (String)deviceInfo.get("ward_name");
-                        ward_age = (String)deviceInfo.get("ward_age");
-                        ward_address = (String)deviceInfo.get("ward_address");
-                        ward_description = (String)deviceInfo.get("ward_description");
+                    JSONArray deviceInfoArray = MyRequestUtility.getDeviceInfo(device_id,device_pw);
+                    if(deviceInfoArray != null){
+                        JSONArray deviceInfo = (JSONArray)deviceInfoArray.get(0);
+                        ward_name = String.valueOf(deviceInfo.get(0));
+                        ward_age = String.valueOf(deviceInfo.get(1));
+                        ward_address = String.valueOf(deviceInfo.get(2));
+                        ward_description = String.valueOf(deviceInfo.get(3));
                     }
 
-                    ArrayList<ArrayList<String>> tmpDoorLogs = MyRequestUtility.getDoorLogs(device_id, device_pw);
+                    JSONArray tmpDoorLogs = MyRequestUtility.getDoorLogs(device_id, device_pw);
                     if(tmpDoorLogs != null){
                         doorLogs = tmpDoorLogs;
+                        door_count = String.valueOf(doorLogs.size());
+
                     }
 
-                    ArrayList<HashMap<String, String>> tmpSpeakerLogs = MyRequestUtility.getSpeakerLogs(device_id, device_pw);
+                    JSONArray tmpSpeakerLogs = MyRequestUtility.getSpeakerLogs(device_id, device_pw);
                     if(tmpSpeakerLogs != null){
                         speakerLogs = tmpSpeakerLogs;
+                        speaker_count = String.valueOf(speakerLogs.size());
                     }
 
                     comp_ward_name.setText(ward_name);
+                    comp_door_count.setText(door_count);
+                    comp_speaker_count.setText(speaker_count);
 
                 } catch (Exception e) {
+                    e.printStackTrace();
                     return;
                 }
             }
@@ -139,19 +143,19 @@ public class DeviceModel {
         this.ward_description = ward_description;
     }
 
-    public ArrayList<ArrayList<String>> getDoorLogs() {
+    public JSONArray getDoorLogs() {
         return doorLogs;
     }
 
-    public void setDoorLogs(ArrayList<ArrayList<String>> doorLogs) {
+    public void setDoorLogs(JSONArray doorLogs) {
         this.doorLogs = doorLogs;
     }
 
-    public ArrayList<HashMap<String, String>> getSpeakerLogs() {
+    public JSONArray getSpeakerLogs() {
         return speakerLogs;
     }
 
-    public void setSpeakerLogs(ArrayList<HashMap<String, String>> speakerLogs) {
+    public void setSpeakerLogs(JSONArray speakerLogs) {
         this.speakerLogs = speakerLogs;
     }
 

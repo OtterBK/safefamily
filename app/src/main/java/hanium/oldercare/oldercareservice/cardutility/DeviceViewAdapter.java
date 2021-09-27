@@ -1,5 +1,9 @@
 package hanium.oldercare.oldercareservice.cardutility;
 
+/*
+그냥... JSONARRAY 가져다 쓰죠 나중에 리팩토링 할 때 고치겟습니다.
+ */
+
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;

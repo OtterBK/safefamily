@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 
-import org.json.JSONArray;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -306,7 +306,7 @@ public class MyRequestUtility {
         String id: 디바이스 pw
     }
      */
-    public static JSONObject getDeviceInfo(String id, String pw) throws Exception {
+    public static JSONArray getDeviceInfo(String id, String pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "get_device_info"); //요청 타입 설정
@@ -326,10 +326,14 @@ public class MyRequestUtility {
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
 
-        return jsonObj;
+        String resultStr = (String)jsonObj.get("result");
+
+        JSONArray result = (JSONArray) parser.parse(resultStr);
+
+        return result;
     }
 
-    public static ArrayList<ArrayList<String>> getDoorLogs(String id, String pw) throws Exception {
+    public static JSONArray getDoorLogs(String id, String pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "get_door_logs"); //요청 타입 설정
@@ -349,16 +353,15 @@ public class MyRequestUtility {
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
 
+        String resultStr = (String)jsonObj.get("result");
 
-        Object logs = (Object)jsonObj.get("result"); //응답 저장
+        JSONArray result = (JSONArray) parser.parse(resultStr);
 
-        //List<String> columns = ParseManager.stringToArrayList(logs);
-
-        return null;
+        return result;
 
     }
 
-    public static ArrayList<HashMap<String, String>> getSpeakerLogs(String id, String pw) throws Exception {
+    public static JSONArray getSpeakerLogs(String id, String pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "get_speaker_logs"); //요청 타입 설정
@@ -378,9 +381,11 @@ public class MyRequestUtility {
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
 
-        ArrayList<HashMap<String, String>> logs = (ArrayList<HashMap<String, String>>) jsonObj.get("result"); //응답 저장
+        String resultStr = (String)jsonObj.get("result");
 
-        return logs;
+        JSONArray result = (JSONArray) parser.parse(resultStr);
+
+        return result;
     }
 
 }
