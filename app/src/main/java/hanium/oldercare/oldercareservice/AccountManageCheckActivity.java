@@ -53,14 +53,15 @@ public class AccountManageCheckActivity extends AppCompatActivity{
                 if(LoginInfo.PW.equals(message.getText().toString())){
                     pw.setText(message.getText().toString());
                     Toast.makeText(context, "if 들어옴", Toast.LENGTH_SHORT).show();
+                    //성공 시 콜백 실행
+                    successCallback.run();
                 }
                 else {
                     Toast.makeText(context, "if 안들어옴", Toast.LENGTH_SHORT).show();
                 }
                 // 커스텀 다이얼로그를 종료한다.
                 dlg.dismiss();
-                //성공 시 콜백 실행
-                successCallback.run();
+
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
