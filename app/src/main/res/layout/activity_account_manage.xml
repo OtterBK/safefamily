@@ -47,13 +47,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/account_manage_btn_changePW"
+                android:id="@+id/account_manage_btn_changeInfo"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_blue_with_bubbleborder_black"
                 android:fontFamily="@font/elice"
-                android:text="비밀번호 변경"
+                android:text="계정정보 변경"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/view" />
@@ -98,7 +98,7 @@
                 android:layout_marginTop="12dp"
                 android:background="@color/fr_darkBlue"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_manage_btn_changePW" />
+                app:layout_constraintTop_toBottomOf="@+id/account_manage_btn_changeInfo" />
 
             <View
                 android:id="@+id/view3"
@@ -120,6 +120,16 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/account_manage_btn_unregister" />
+
+            <TextView
+                android:id="@+id/check_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="invisible"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="248dp"
+                tools:layout_editor_absoluteY="560dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

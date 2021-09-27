@@ -1,20 +1,16 @@
 package hanium.oldercare.oldercareservice.apinetwork;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 import hanium.oldercare.oldercareservice.utility.ParseManager;
 
@@ -298,6 +294,121 @@ public class MyRequestUtility {
     }
 
     /*
+        비밀번호 변경 요청
+
+        return: boolean
+        param{
+            String id: 로그인된 사용자 id
+            String new_pw: 입력한 비밀번호
+        }
+         */
+    public static boolean editPassword(String id, String new_pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "user_password_update"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", new_pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/user_password_update", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("PW_UPDATE_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*최지혜:2021-09-27
+       사용자 정보 변경 요청
+
+       return: boolean
+       param{
+            String id: 로그인된 id
+            String pw: 변경할 pw
+            String nickName: 변경할 nickName
+            String phoneNumber: 변경할 phoneNumber
+
+       }
+        */
+    public static boolean editUserInfo(String id, String nickName, String phoneNumber, String new_pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "user_Info_update"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", new_pw.trim());
+        param.put("nickName", nickName.trim());
+        param.put("phoneNumber", phoneNumber.trim());
+
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/user_Info_update", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("UserInfo_UPDATE_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /*최지혜:2021-09-27
+    로그인 정보를 이용해 사용자 정보 가져오기
+
+    return: String
+    param{
+        String ID: 로그인된 ID
+    }
+     */
+    public static JSONObject getUserInfo(String id) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "get_user_info"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_userInfo", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        return jsonObj;
+    }
+
+    /*
     디바이스 정보 가져오기, pw도 맞아야 가져옴
     
     return: boolean
@@ -380,7 +491,7 @@ public class MyRequestUtility {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
-
+        
         String resultStr = (String)jsonObj.get("result");
 
         JSONArray result = (JSONArray) parser.parse(resultStr);
