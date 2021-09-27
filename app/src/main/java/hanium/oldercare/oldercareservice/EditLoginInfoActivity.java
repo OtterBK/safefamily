@@ -2,29 +2,53 @@ package hanium.oldercare.oldercareservice;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
+import hanium.oldercare.oldercareservice.inputfilter.PhoneFilter;
+import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class EditLoginInfoActivity extends AppCompatActivity {
 
-    private Button btn_editPassword;
-    String id = LoginInfo.ID;
-    private TextView input_pw;
-    private TextView input_new_pw;
-    private TextView input_new_pwCheck;
-    private TextView account_pw_warn;
+    private Button btn_editUserInfo;
+    private TextView user_ID; // = (LoginInfo.ID);
+    private TextView user_email;
+    private EditText input_pw;
+    private EditText input_pwCheck;
+    private EditText input_name;
+    private EditText input_phoneNumber;
+
+    private String name;
+    private String phoneNumber;
+    private String pw;
+
+    private TextView name_warn;
+    private TextView phoneNumber_warn;
+    private TextView pw_warn;
+
+    private boolean isCompSet = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,79 +56,126 @@ public class EditLoginInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_info);
 
         loadComponents();
+        refreshData();
+        setFilters();
         setComponentsEvent();
-        LoginInfo.Login_check = false;
     }
 
+
     private void loadComponents(){
-        btn_editPassword = (Button) findViewById(R.id.account_btn_next);
-        input_pw = (TextView) findViewById(R.id.user_input_pw);
-        input_new_pw = (TextView) findViewById(R.id.user_input_new_pw);
-        input_new_pwCheck = (TextView) findViewById(R.id.user_input_new_pwcheck);
-        account_pw_warn = (TextView) findViewById(R.id.account_pw_warn);
+        btn_editUserInfo = (Button) findViewById(R.id.account_btn_next);
+
+        user_ID = (TextView) findViewById(R.id.user_ID);
+        user_email = (TextView) findViewById(R.id.user_email);
+        input_name = (EditText) findViewById(R.id.user_input_name);
+        input_phoneNumber = (EditText) findViewById(R.id.user_input_phoneNumber);
+        input_pw = (EditText) findViewById(R.id.user_input_pw);
+        input_pwCheck = (EditText) findViewById(R.id.user_input_new_pwcheck);
+        input_pwCheck.setVisibility(View.INVISIBLE);
+
+
+        name_warn = (TextView) findViewById(R.id.account_name_warn);
+        phoneNumber_warn = (TextView) findViewById(R.id.account_phoneNumber_warn);
+        pw_warn = (TextView) findViewById(R.id.account_pw_warn);
+        name_warn.setVisibility(View.INVISIBLE);
+        phoneNumber_warn.setVisibility(View.INVISIBLE);
+        pw_warn.setVisibility(View.INVISIBLE);
+
+        isCompSet = true;
     }
+
+    private void refreshData() {
+
+        if(!isCompSet) return;
+
+        new Thread(new Runnable() {
+            public void run() {
+
+                try {
+                    JSONObject userInfo = MyRequestUtility.getUserInfo(LoginInfo.ID);
+                    if(userInfo != null){
+                        user_email.setText((String)userInfo.get("email"));
+                        input_name.setText(name = (String)userInfo.get("nickName"));
+                        input_phoneNumber.setText(phoneNumber = (String)userInfo.get("phoneNumber"));
+                        input_pw.setText(pw = (String)userInfo.get("pw"));
+                    }
+                    user_ID.setText(LoginInfo.ID);
+
+                } catch (Exception e) {
+                    return;
+                }
+            }
+        }).start();
+    }
+
+    private void setFilters(){
+        InputFilter nickName_lengthFilter = new InputFilter.LengthFilter(15);
+        InputFilter[] nickNameFilters = new InputFilter[] { nickName_lengthFilter}; //입력 제한 필터
+        input_name.setFilters(nickNameFilters);
+
+        InputFilter phone_lengthFilter = new InputFilter.LengthFilter(13);
+        InputFilter[] phoneFilters = new InputFilter[] { new PhoneFilter(), phone_lengthFilter}; //입력 제한 필터
+        input_phoneNumber.setFilters(phoneFilters);
+
+        input_phoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+        InputFilter pw_lengthFilter = new InputFilter.LengthFilter(15);
+        InputFilter[] pwFilters = new InputFilter[] { pw_lengthFilter}; //입력 제한 필터
+        input_pw.setFilters(pwFilters);
+        input_pwCheck.setFilters(pwFilters);
+    }
+
 
     private void setComponentsEvent(){
         //버튼별 화면 이동 기능
-        btn_editPassword.setOnClickListener(new View.OnClickListener() {
+        btn_editUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String pw = input_pw.getText().toString();
-                String new_pw = input_new_pw.getText().toString();
-                String new_pwcheck = input_new_pwCheck.getText().toString();
+                String name_tmp = input_name.getText().toString();
+                String phoneNumber_tmp = input_phoneNumber.getText().toString();
+                String pw_tmp = input_pw.getText().toString();
 
+                CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
 
-                CustomDialogLoading loading = new CustomDialogLoading(EditLoginInfoActivity.this);
-                loading.callFunction();
+                if((name_warn.getText().toString()).equals("*") && (input_name.getText().toString()).equals("")){
+                    alert.callFunction("경고", "닉네임을 입력하여 주세요.");
+                }else if((phoneNumber_warn.getText().toString()).equals("*") && (input_phoneNumber.getText().toString()).equals("")){
+                    alert.callFunction("경고", "연락처를 입력하여 주세요.");
+                }else if(!((pw_warn.getText().toString()).equals("")) || !((pw_warn.getText().toString()).equals("*"))){
+                    alert.callFunction("경고", "비밀번호를 확인하여 주세요.");
+                }else {
 
-                new Thread(new Runnable() {
-                    public void run() {
-                        Message message = null;
-                        try {
-                            CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
+                    CustomDialogLoading loading = new CustomDialogLoading(EditLoginInfoActivity.this);
+                    loading.callFunction();
 
-                            if(MyRequestUtility.instantLogin(id,pw)){
-                                MyRequestUtility.editPassword(id, new_pw);
-                                finish();
-                            } else {
-                                alert.callFunction("비밀번호 오류", "잘못된 비밀번호입니다.");
+                    new Thread(new Runnable() {
+                        public void run() {
+                            Message message = null;
+                            try {
+                                    MyRequestUtility.editUserInfo(LoginInfo.ID, name_tmp, phoneNumber_tmp, pw_tmp);
+                            } catch (Exception e) {
+                                CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
+                                alert.callFunction("연결 실패", "요청에 실패하였습니다.\n네트워크를 확인하거나\n잠시 후 다시 시도해주세요.");
+                                e.printStackTrace();
                             }
-                        } catch (Exception e) {
-                            CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
-                            alert.callFunction("연결 실패", "요청에 실패하였습니다.\n네트워크를 확인하거나\n잠시 후 다시 시도해주세요.");
-                            e.printStackTrace();
+                            loading.dismiss();
                         }
-                        loading.dismiss();
-                    }
-                }).start();
+                    }).start();
+                }
             }
         });
 
-        input_new_pw.addTextChangedListener(new TextWatcher(){
+        input_name.addTextChangedListener(new TextWatcher(){
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // 입력란에 변화가 있을 시 조치
-                if(TextUtils.isEmpty(input_new_pw.getText()) || input_new_pw.getText().length() < 8) {
-                    account_pw_warn.setTextColor(Color.RED);
-                    account_pw_warn.setText("비밀번호는 8자 이상이여야합니다.");
-                } else if(!TextUtils.isEmpty(input_new_pwCheck.getText())){
-                    if(!input_pw.getText().toString().equals(input_new_pwCheck.getText().toString())){
-                        account_pw_warn.setTextColor(Color.RED);
-                        account_pw_warn.setText("비밀번호가 일치하지 않습니다.");
-                    } else {
-                        account_pw_warn.setTextColor(Color.BLUE);
-                        account_pw_warn.setText("비밀번호가 일치합니다.");
-                        LoginInfo.PW = input_new_pw.getText().toString();
-                    }
-                } else {
-                    account_pw_warn.setTextColor(Color.BLUE);
-                    account_pw_warn.setText("");
-                }
+                changed(name, input_name, name_warn);
             }
 
             @Override
             public void afterTextChanged(Editable arg0) {
                 // 입력이 끝났을 때 조치
+                changed(name, input_name, name_warn);
             }
 
             @Override
@@ -114,22 +185,63 @@ public class EditLoginInfoActivity extends AppCompatActivity {
 
         });
 
-        input_new_pwCheck.addTextChangedListener(new TextWatcher(){
+        input_phoneNumber.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 입력란에 변화가 있을 시 조치
+                changed(phoneNumber, input_phoneNumber, phoneNumber_warn);
+            }
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // 입력이 끝났을 때 조치
+                changed(phoneNumber, input_phoneNumber, phoneNumber_warn);
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // 입력하기 전에 조치
+            }
+        });
+
+        input_pw.addTextChangedListener(new TextWatcher(){
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // 입력난에 변화가 있을 시 조치
-                if(TextUtils.isEmpty(input_new_pw.getText()) || input_new_pw.getText().length() < 8) {
-                    account_pw_warn.setTextColor(Color.RED);
-                    account_pw_warn.setText("비밀번호는 8자 이상이여야합니다.");
-                } else if(!TextUtils.isEmpty(input_new_pw.getText())){
-                    if(!input_pw.getText().toString().equals(input_new_pwCheck.getText().toString())){
-                        account_pw_warn.setTextColor(Color.RED);
-                        account_pw_warn.setText("비밀번호가 일치하지 않습니다.");
-                    } else {
-                        account_pw_warn.setTextColor(Color.BLUE);
-                        account_pw_warn.setText("비밀번호가 일치합니다.");
-                        LoginInfo.PW = input_new_pw.getText().toString();
+                // 입력란에 변화가 있을 시 조치
+                changed(pw, input_pw, pw_warn);
+                if(pw_warn.getVisibility() == View.VISIBLE){
+                    if(TextUtils.isEmpty(input_pw.getText()) || input_pw.getText().length() < 8) {
+                        pw_warn.setText("비밀번호는 8자 이상이어야합니다.");
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // 입력이 끝났을 때 조치
+                changed(pw, input_pw, pw_warn);
+                if(pw_warn.getVisibility() == View.VISIBLE)
+                    input_pwCheck.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // 입력하기 전에 조치
+            }
+        });
+
+        input_pwCheck.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // 입력란에 변화가 있을 시 조치
+                if(input_pwCheck.getVisibility() == View.VISIBLE){
+                    if(!TextUtils.isEmpty(input_pwCheck.getText())) {
+                        if (!input_pw.getText().toString().equals(input_pwCheck.getText().toString())) {
+                            pw_warn.setTextColor(Color.RED);
+                            pw_warn.setText("비밀번호가 일치하지 않습니다.");
+                        } else {
+                            pw_warn.setText("*");
+                            LoginInfo.PW = input_name.getText().toString();
+                        }
                     }
                 }
             }
@@ -145,5 +257,12 @@ public class EditLoginInfoActivity extends AppCompatActivity {
             }
         });
     }
-
+    public void changed(String item, EditText changed_item, TextView symbol){
+        if(item.equals(changed_item.getText().toString())){
+            symbol.setVisibility(View.INVISIBLE);
+        }
+        else {
+            symbol.setVisibility(View.VISIBLE);
+        }
+    }
 }
