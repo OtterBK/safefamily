@@ -422,7 +422,7 @@ public class MyRequestUtility {
         String id: 디바이스 pw
     }
      */
-    public static JSONObject getDeviceInfo(String id, String pw) throws Exception {
+    public static JSONArray getDeviceInfo(String id, String pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "get_device_info"); //요청 타입 설정
@@ -442,10 +442,14 @@ public class MyRequestUtility {
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
 
-        return jsonObj;
+        String resultStr = (String)jsonObj.get("result");
+
+        JSONArray result = (JSONArray) parser.parse(resultStr);
+
+        return result;
     }
 
-    public static ArrayList<ArrayList<String>> getDoorLogs(String id, String pw) throws Exception {
+    public static JSONArray getDoorLogs(String id, String pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "get_door_logs"); //요청 타입 설정
@@ -465,14 +469,15 @@ public class MyRequestUtility {
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
 
+        String resultStr = (String)jsonObj.get("result");
 
-        String logStr = (String)jsonObj.get("result"); //응답 저장
-        JSONArray logs = (JSONArray) parser.parse(logStr);
+        JSONArray result = (JSONArray) parser.parse(resultStr);
 
-        return null;
+        return result;
+
     }
 
-    public static ArrayList<HashMap<String, String>> getSpeakerLogs(String id, String pw) throws Exception {
+    public static JSONArray getSpeakerLogs(String id, String pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "get_speaker_logs"); //요청 타입 설정
@@ -491,12 +496,12 @@ public class MyRequestUtility {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
+        
+        String resultStr = (String)jsonObj.get("result");
 
+        JSONArray result = (JSONArray) parser.parse(resultStr);
 
-        String logStr = (String)jsonObj.get("result"); //응답 저장
-        JSONArray logs = (JSONArray) parser.parse(logStr);
-
-        return logs;
+        return result;
     }
 
 }

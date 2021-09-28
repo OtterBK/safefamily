@@ -51,6 +51,7 @@ public class AccountManageCheckActivity extends AppCompatActivity{
                 // 커스텀 다이얼로그에서 입력한 메시지를 대입한다.
                 if(LoginInfo.PW.equals(message.getText().toString())){
                     pw.setText(message.getText().toString());
+
                     //성공 시 콜백 실행
                     successCallback.run();
                 }
