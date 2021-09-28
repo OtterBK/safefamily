@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.simple.JSONObject;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,6 +44,7 @@ public class EditLoginInfoActivity extends AppCompatActivity {
     private String name;
     private String phoneNumber;
     private String pw;
+    private String email;
 
     private TextView name_warn;
     private TextView phoneNumber_warn;
@@ -88,20 +91,35 @@ public class EditLoginInfoActivity extends AppCompatActivity {
 
         if(!isCompSet) return;
 
+
         new Thread(new Runnable() {
             public void run() {
 
                 try {
-                    JSONObject userInfo = MyRequestUtility.getUserInfo(LoginInfo.ID);
-                    if(userInfo != null){
-                        user_email.setText((String)userInfo.get("email"));
-                        input_name.setText(name = (String)userInfo.get("nickName"));
-                        input_phoneNumber.setText(phoneNumber = (String)userInfo.get("phoneNumber"));
-                        input_pw.setText(pw = (String)userInfo.get("pw"));
-                    }
-                    user_ID.setText(LoginInfo.ID);
+                    pw = LoginInfo.PW;
+                    JSONObject userInfo = MyRequestUtility.getUserInfo(LoginInfo.ID, pw);
 
-                } catch (Exception e) {
+                    /*if(userInfo != null){
+                        email = (String)userInfo.get("email");
+                        name = (String)userInfo.get("user_name");
+                        phoneNumber = (String)userInfo.get("phone");
+                        user_email.setText(email);
+                        input_name.setText(name);
+                        input_phoneNumber.setText(phoneNumber);
+                    }*/
+                    user_ID.setText(LoginInfo.ID);
+                    input_pw.setText(pw);
+
+                }
+                catch (Exception e) {
+                    input_pw.setText(LoginInfo.PW);
+                    StringWriter error = new StringWriter();
+                    e.printStackTrace(new PrintWriter(error));
+                    user_ID.setText(error.toString());
+
+/*
+                    input_pw.setText(LoginInfo.PW);
+*/
                     return;
                 }
             }
