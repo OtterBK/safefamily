@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogInput;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
+import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class AccountManageActivity extends AppCompatActivity {
 
@@ -19,6 +21,9 @@ public class AccountManageActivity extends AppCompatActivity {
     private Button btn_logout_page;
     private Button btn_deleteLoginInfo_page;
     private TextView tt_pw; //컴포넌트는 onCreate 함수에서 로드하는게 에러 안나요
+    private TextView main_label;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +51,28 @@ public class AccountManageActivity extends AppCompatActivity {
         tt_pw = (TextView) findViewById(R.id.check_pw);
     }
 
-    private void setComponentsEvent(){
+    private void setComponentsEvent() {
         //버튼별 화면 이동 기능
         btn_editLoginInfo_page.setOnClickListener(new View.OnClickListener() { //계정 정보 관리
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 AccountManageCheckActivity dlg = new AccountManageCheckActivity(AccountManageActivity.this);
 
-                Runnable successCallback = new Runnable(){
-                  public void run(){
-                      Thread thread = new Thread(){
-                          public void run(){
-                              Intent intent = new Intent(getApplicationContext(), EditLoginInfoActivity.class); //이거를 띄울 액티비티로 변경
-                              startActivity(intent);
-                              overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                          }
-                      };
-                      thread.start();
-                  }
+                Runnable successCallback = new Runnable() {
+                    public void run() {
+                        Thread thread = new Thread() {
+                            public void run() {
+                                Intent intent = new Intent(getApplicationContext(), EditLoginInfoActivity.class); //이거를 띄울 액티비티로 변경
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                            }
+                        };
+                        thread.start();
+                    }
                 };
 
-                dlg.Access_check(tt_pw, successCallback);
+                dlg.Access_check(tt_pw, successCallback, 0);
+
             }
         });
 
@@ -83,10 +89,15 @@ public class AccountManageActivity extends AppCompatActivity {
         btn_deleteLoginInfo_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EditLoginInfoActivity.class);
-                startActivity(intent);
-                //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.none);
+                AccountManageCheckActivity dlg = new AccountManageCheckActivity(AccountManageActivity.this);
+
+                Runnable successCallback = new Runnable() {
+                    public void run() {
+                        CustomDialogInput check = new CustomDialogInput(AccountManageActivity.this);
+                        check.callFunction("주의", "계정을 삭제하시겠습니까?");
+                    }
+                };
+                dlg.Access_check(tt_pw, successCallback, 1);
             }
         });
     }

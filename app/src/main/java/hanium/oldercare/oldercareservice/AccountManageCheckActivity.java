@@ -24,19 +24,29 @@ import hanium.oldercare.oldercareservice.info.LoginInfo;
 public class AccountManageCheckActivity extends AppCompatActivity{
 
     private Context context;
-    private int retVal; // ok-success: 2, ok-fails: 1, cancel: 0
+//    private int retVal; // ok-success: 2, ok-fails: 1, cancel: 0
+    private TextView titleTxt;
+
 
     public AccountManageCheckActivity(Context context) {
         this.context = context;
     }
 
     // 호출할 다이얼로그 함수를 정의한다.
-    public int Access_check(TextView pw, Runnable successCallback) {
+    public void Access_check(TextView pw, Runnable successCallback, Integer val) {
 
         final Dialog dlg = new Dialog(context);        // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.
 
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);          // 액티비티의 타이틀바를 숨긴다.
         dlg.setContentView(R.layout.activity_change_info_check);    // 커스텀 다이얼로그의 레이아웃을 설정한다.
+        titleTxt = (TextView) dlg.findViewById(R.id.account_usr_lbl1);
+
+        if(val == 0){
+            titleTxt.setText("계정정보 접근");
+        }
+        else if(val == 1){
+            titleTxt.setText("회원탈퇴");
+        }
         dlg.show();                                                 // 커스텀 다이얼로그를 노출한다.
 
         // 커스텀 다이얼로그의 각 위젯들을 정의한다.
@@ -49,28 +59,24 @@ public class AccountManageCheckActivity extends AppCompatActivity{
             public void onClick(View view) {
                 // '확인' 버튼 클릭시 메인 액티비티에서 설정한 main_label에
                 // 커스텀 다이얼로그에서 입력한 메시지를 대입한다.
-                if(LoginInfo.PW.equals(message.getText().toString())){
-                    pw.setText(message.getText().toString());
-
-                    //성공 시 콜백 실행
-                    successCallback.run();
-                }
-                else {
+                if(!(LoginInfo.PW.equals(message.getText().toString()))){
                     Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    dlg.dismiss();
+                    return;
                 }
                 // 커스텀 다이얼로그를 종료한다.
                 dlg.dismiss();
+
+                successCallback.run();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "취소했습니다.", Toast.LENGTH_SHORT).show();
-                retVal = 2;
                 // 커스텀 다이얼로그를 종료한다.
                 dlg.dismiss();
             }
         });
-        return retVal;
     }
 }

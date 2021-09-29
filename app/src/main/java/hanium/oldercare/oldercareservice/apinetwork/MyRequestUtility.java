@@ -1,6 +1,7 @@
 package hanium.oldercare.oldercareservice.apinetwork;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 
 import org.json.simple.JSONArray;
@@ -386,18 +387,19 @@ public class MyRequestUtility {
         String ID: 로그인된 ID
     }
      */
-    public static JSONObject getUserInfo(String id) throws Exception {
+    public static JSONArray getUserInfo(String id, String pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "get_user_info"); //요청 타입 설정
 
         HashMap<String, Object> param = new HashMap(); //파라미터 설정
         param.put("id", id);
+        param.put("pw", pw);
         requestData.put("param", param);
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
-        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_userInfo", json); //기능 요청 주소
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/user_info/get", json); //기능 요청 주소
 
         Logger.i(msgMap);
 
@@ -405,8 +407,13 @@ public class MyRequestUtility {
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
 
-        return jsonObj;
+        String resultStr = (String) jsonObj.get("result");
+        JSONArray resultSet = (JSONArray)parser.parse(resultStr);
+        JSONArray userInfo = (JSONArray)resultSet.get(0);
+
+        return userInfo;
     }
+
 
     /*
     디바이스 정보 가져오기, pw도 맞아야 가져옴
