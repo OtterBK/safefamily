@@ -72,7 +72,7 @@ public class CustomDialogInput {
         });
     }
 
-    public void callFunction(String title, String label) {
+    public void callFunction(String title, String label, Runnable s) {
 
         // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.
         final Dialog dlg = new Dialog(context);
@@ -94,7 +94,7 @@ public class CustomDialogInput {
 
         titleView.setText(title);
 
-        message.setText(label);
+        message.setText(label + "하시겠습니까?");
         message.setEnabled(false);
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +102,11 @@ public class CustomDialogInput {
             public void onClick(View view) {
                 // '확인' 버튼 클릭시 메인 액티비티에서 설정한 main_label에
                 // 커스텀 다이얼로그에서 입력한 메시지를 대입한다.
-                Toast.makeText(context, "계정이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, label+"되었습니다.", Toast.LENGTH_SHORT).show();
 
                 // 커스텀 다이얼로그를 종료한다.
                 dlg.dismiss();
+                s.run();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {

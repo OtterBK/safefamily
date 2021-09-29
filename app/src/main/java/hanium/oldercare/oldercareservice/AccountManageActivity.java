@@ -79,10 +79,15 @@ public class AccountManageActivity extends AppCompatActivity {
         btn_logout_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EditLoginInfoActivity.class);
-                startActivity(intent);
-                //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.none);
+                CustomDialogInput check = new CustomDialogInput(AccountManageActivity.this);
+                Runnable successCallback = new Runnable(){
+                    public void run(){
+                        Intent i = new Intent(AccountManageActivity.this/*현재 액티비티 위치*/ , LoginSelectActivity.class/*이동 액티비티 위치*/);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+                };
+                check.callFunction("주의", "로그아웃",successCallback);
             }
         });
 
@@ -91,10 +96,18 @@ public class AccountManageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AccountManageCheckActivity dlg = new AccountManageCheckActivity(AccountManageActivity.this);
 
+
                 Runnable successCallback = new Runnable() {
                     public void run() {
                         CustomDialogInput check = new CustomDialogInput(AccountManageActivity.this);
-                        check.callFunction("주의", "계정을 삭제하시겠습니까?");
+                        Runnable successCallback = new Runnable(){
+                            public void run(){
+                                Intent i = new Intent(AccountManageActivity.this/*현재 액티비티 위치*/ , LoginSelectActivity.class/*이동 액티비티 위치*/);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+                            }
+                        };
+                        check.callFunction("주의", "계정 삭제",successCallback);
                     }
                 };
                 dlg.Access_check(tt_pw, successCallback, 1);
