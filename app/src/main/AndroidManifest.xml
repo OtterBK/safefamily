@@ -39,7 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeviceInfoActivity"
+        <activity android:name=".customdialog.DeviceInfoDialog"
             android:launchMode="singleTop">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

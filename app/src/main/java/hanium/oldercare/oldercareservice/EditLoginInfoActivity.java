@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -97,29 +97,22 @@ public class EditLoginInfoActivity extends AppCompatActivity {
 
                 try {
                     pw = LoginInfo.PW;
-                    JSONObject userInfo = MyRequestUtility.getUserInfo(LoginInfo.ID, pw);
+                    JSONArray userInfo = MyRequestUtility.getUserInfo(LoginInfo.ID, pw);
 
-                    /*if(userInfo != null){
-                        email = (String)userInfo.get("email");
-                        name = (String)userInfo.get("user_name");
-                        phoneNumber = (String)userInfo.get("phone");
+                    if(userInfo != null){
+                        email = (String)userInfo.get(0);
+                        name = (String)userInfo.get(1);
+                        phoneNumber = (String)userInfo.get(2);
+
                         user_email.setText(email);
                         input_name.setText(name);
                         input_phoneNumber.setText(phoneNumber);
-                    }*/
+                    }
                     user_ID.setText(LoginInfo.ID);
                     input_pw.setText(pw);
-
                 }
                 catch (Exception e) {
-                    input_pw.setText(LoginInfo.PW);
-                    StringWriter error = new StringWriter();
-                    e.printStackTrace(new PrintWriter(error));
-                    user_ID.setText(error.toString());
-
-/*
-                    input_pw.setText(LoginInfo.PW);
-*/
+                    e.printStackTrace();
                     return;
                 }
             }

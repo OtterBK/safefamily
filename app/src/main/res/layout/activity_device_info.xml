@@ -1,149 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/email_verify_base"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gray"
-    android:elevation="10sp"
-    tools:context=".HomeActivity">
+    android:background="@drawable/bg_white_with_bubbleborder_gray"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deviceInfo_center"
-        android:layout_width="380dp"
-        android:layout_height="278dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/bg_white_with_bubbleborder"
         android:elevation="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:minWidth="400dp"
+        android:minHeight="600dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/deviceInfo_layout_top"
-            android:layout_width="371dp"
-            android:layout_height="204dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/deviceInfo_picture_background"
-                android:layout_width="157dp"
-                android:layout_height="167dp"
+                android:id="@+id/deviceInfo_text_layer1"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_gray_with_bubbleborder_white"
-                android:elevation="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/deviceInfo_lbl1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/deviceInfo_picture"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:background="@drawable/door_back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
+                <TextView
+                    android:id="@+id/deviceInfo_lbl3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:drawablePadding="1dp"
+                    android:fontFamily="@font/lotte_dream"
+                    android:gravity="right|center_vertical"
+                    android:paddingStart="2dp"
+                    android:text="성명:"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0">
+                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl1" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/deviceInfo_lbl11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:drawablePadding="1dp"
+                    android:fontFamily="@font/lotte_dream"
+                    android:gravity="right|center_vertical"
+                    android:paddingStart="2dp"
+                    android:text="연령:"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textView6"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/deviceInfo_lbl1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="1dp"
+                    android:fontFamily="@font/elice"
+                    android:gravity="right|center_vertical"
+                    android:paddingStart="2dp"
+                    android:text="디바이스 번호:"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/lotte_dream"
+                    android:text="주소:"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/deviceInfo_lbl1"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/deviceInfo_text_layer2"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:drawablePadding="1dp"
-                android:fontFamily="@font/elice"
-                android:gravity="right|center_vertical"
-                android:paddingStart="2dp"
-                android:text="디바이스 번호:"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/deviceInfo_text_deviceNum"
-                app:layout_constraintEnd_toStartOf="@+id/deviceInfo_text_deviceNum"
-                app:layout_constraintStart_toEndOf="@+id/deviceInfo_picture_background"
-                app:layout_constraintTop_toTopOf="@+id/deviceInfo_text_deviceNum" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/deviceInfo_text_layer1"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/deviceInfo_lbl11"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginTop="60dp"
-                android:drawablePadding="1dp"
-                android:fontFamily="@font/elice"
-                android:gravity="right|center_vertical"
-                android:paddingStart="2dp"
-                android:text="연령:"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/deviceInfo_lbl1"
-                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl1" />
+                <TextView
+                    android:id="@+id/deviceInfo_text_targetAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:fontFamily="@font/elice"
+                    android:gravity="right|center_vertical"
+                    android:text="65세"
+                    android:textColor="@color/skyblue"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/deviceInfo_text_targetAddress"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/deviceInfo_text_deviceNum"
-                android:layout_width="53dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/elice"
-                android:gravity="right|center_vertical"
-                android:text="0번"
-                android:textColor="@color/skyblue"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/deviceInfo_lbl1"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/deviceInfo_text_deviceNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/elice"
+                    android:gravity="right|center_vertical"
+                    android:text="0번"
+                    android:textColor="@color/skyblue"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/deviceInfo_text_targetName"
-                android:layout_width="53dp"
-                android:layout_height="35dp"
-                android:fontFamily="@font/elice"
-                android:gravity="right|center_vertical"
-                android:text="김미숙"
-                android:textColor="@color/skyblue"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/deviceInfo_lbl3"
-                app:layout_constraintEnd_toEndOf="@+id/deviceInfo_text_deviceNum"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/deviceInfo_text_deviceNum" />
+                <TextView
+                    android:id="@+id/deviceInfo_text_targetName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/lotte_dream"
+                    android:gravity="right|center_vertical"
+                    android:text="김미숙"
+                    android:textColor="@color/skyblue"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_text_deviceNum" />
 
-            <TextView
-                android:id="@+id/deviceInfo_lbl3"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginTop="12dp"
-                android:drawablePadding="1dp"
-                android:fontFamily="@font/elice"
-                android:gravity="right|center_vertical"
-                android:paddingStart="2dp"
-                android:text="대상자:"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/deviceInfo_lbl1"
-                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl1" />
+                <TextView
+                    android:id="@+id/deviceInfo_text_targetAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/lotte_dream"
+                    android:gravity="right|center_vertical"
+                    android:text="주소지"
+                    android:textColor="@color/skyblue"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/deviceInfo_text_targetAge"
-                android:layout_width="53dp"
-                android:layout_height="35dp"
-                android:fontFamily="@font/elice"
-                android:gravity="right|center_vertical"
-                android:text="65세"
-                android:textColor="@color/skyblue"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/deviceInfo_lbl11"
-                app:layout_constraintEnd_toEndOf="@+id/deviceInfo_text_deviceNum"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/deviceInfo_text_deviceNum" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -151,8 +159,8 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/bmdohyeon"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/lotte_happy"
             android:text="디바이스 정보"
             android:textColor="@color/fr_black"
             android:textSize="18sp"
@@ -160,30 +168,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/deviceInfo_layout_bottom"
-        android:layout_width="380dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="25dp"
-        android:elevation="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deviceInfo_center">
-
         <TableLayout
             android:id="@+id/deviceInfo_table"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/bg_white"
             android:elevation="10sp"
             android:stretchColumns="*"
-            tools:layout_editor_absoluteX="82dp"
-            tools:layout_editor_absoluteY="94dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deviceInfo_layout_top">
 
             <TableRow
                 android:id="@+id/deviceInfo_table_top"
@@ -196,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_single_border"
                     android:drawablePadding="5dp"
-                    android:fontFamily="@font/elice"
+                    android:fontFamily="@font/lotte_dream"
                     android:gravity="center"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
@@ -209,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_single_border"
                     android:drawablePadding="5dp"
-                    android:fontFamily="@font/elice"
+                    android:fontFamily="@font/lotte_dream"
                     android:gravity="center"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
@@ -222,7 +221,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_single_border"
                     android:drawablePadding="5dp"
-                    android:fontFamily="@font/elice"
+                    android:fontFamily="@font/lotte_dream"
                     android:gravity="center"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
@@ -231,6 +230,6 @@
             </TableRow>
 
         </TableLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

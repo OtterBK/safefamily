@@ -107,7 +107,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         // specify an adapter (see also next example)
-        mAdapter = new DeviceViewAdapter(deviceList);
+        mAdapter = new DeviceViewAdapter(deviceList, HomeActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 
     }
