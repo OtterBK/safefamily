@@ -85,10 +85,10 @@ public class DeviceInfoDialog extends AppCompatActivity {
         wardName.setText(device.getWard_name());
 
         final TextView wardAge = (TextView) dialog.findViewById(R.id.deviceInfo_text_targetAge);
-        wardAge.setText(device.getWard_age());
+        wardAge.setText(device.getWard_age() + "세");
 
         final TextView wardAddress = (TextView) dialog.findViewById(R.id.deviceInfo_text_targetAddress);
-        wardAge.setText(device.getWard_address());
+        wardAddress.setText(device.getWard_address());
 
         final TableLayout tableLayout = (TableLayout) dialog.findViewById(R.id.deviceInfo_table);
 
