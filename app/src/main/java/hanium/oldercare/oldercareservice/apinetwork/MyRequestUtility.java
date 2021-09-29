@@ -1,6 +1,7 @@
 package hanium.oldercare.oldercareservice.apinetwork;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 
 import org.json.simple.JSONArray;
@@ -386,7 +387,7 @@ public class MyRequestUtility {
         String ID: 로그인된 ID
     }
      */
-    public static JSONObject getUserInfo(String id, String pw) throws Exception {
+    public static JSONArray getUserInfo(String id, String pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "get_user_info"); //요청 타입 설정
@@ -406,10 +407,11 @@ public class MyRequestUtility {
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
 
-        String resultSet = (String) jsonObj.get("result");
+        String resultStr = (String) jsonObj.get("result");
+        JSONArray resultSet = (JSONArray)parser.parse(resultStr);
+        JSONArray userInfo = (JSONArray)resultSet.get(0);
 
-
-        return jsonObj;
+        return userInfo;
     }
 
 

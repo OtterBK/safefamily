@@ -90,16 +90,11 @@ public class AccountManageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AccountManageCheckActivity dlg = new AccountManageCheckActivity(AccountManageActivity.this);
-                CustomDialogInput check = new CustomDialogInput(AccountManageActivity.this);
 
                 Runnable successCallback = new Runnable() {
                     public void run() {
-                        Thread thread = new Thread() {
-                            public void run() {
-                                check.callFunction("주의", "계정을 삭제하시겠습니까?");
-                            }
-                        };
-                        thread.start();
+                        CustomDialogInput check = new CustomDialogInput(AccountManageActivity.this);
+                        check.callFunction("주의", "계정을 삭제하시겠습니까?");
                     }
                 };
                 dlg.Access_check(tt_pw, successCallback, 1);
