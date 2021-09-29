@@ -59,18 +59,15 @@ public class AccountManageCheckActivity extends AppCompatActivity{
             public void onClick(View view) {
                 // '확인' 버튼 클릭시 메인 액티비티에서 설정한 main_label에
                 // 커스텀 다이얼로그에서 입력한 메시지를 대입한다.
-                if(LoginInfo.PW.equals(message.getText().toString())){
-                    pw.setText(message.getText().toString());
-
-                    //성공 시 콜백 실행
-
-                    successCallback.run();
-                }
-                else {
+                if(!(LoginInfo.PW.equals(message.getText().toString()))){
                     Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    dlg.dismiss();
+                    return;
                 }
                 // 커스텀 다이얼로그를 종료한다.
                 dlg.dismiss();
+
+                successCallback.run();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
