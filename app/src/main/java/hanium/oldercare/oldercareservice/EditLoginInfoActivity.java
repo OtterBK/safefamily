@@ -110,7 +110,6 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                     }
                     user_ID.setText(LoginInfo.ID);
                     input_pw.setText(pw);
-
                 }
                 catch (Exception e) {
                     e.printStackTrace();
