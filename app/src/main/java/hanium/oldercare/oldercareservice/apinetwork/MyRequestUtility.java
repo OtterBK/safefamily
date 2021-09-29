@@ -491,7 +491,7 @@ public class MyRequestUtility {
         JSONParser parser = new JSONParser();
         Object obj = parser.parse( msgMap );
         JSONObject jsonObj = (JSONObject) obj;
-        
+
         String resultStr = (String)jsonObj.get("result");
 
         JSONArray result = (JSONArray) parser.parse(resultStr);

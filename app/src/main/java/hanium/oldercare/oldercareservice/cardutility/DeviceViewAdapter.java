@@ -5,6 +5,7 @@ package hanium.oldercare.oldercareservice.cardutility;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -16,9 +17,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import hanium.oldercare.oldercareservice.EmailVerifyActivity;
 import hanium.oldercare.oldercareservice.FindIDActivity;
 import hanium.oldercare.oldercareservice.R;
+import hanium.oldercare.oldercareservice.RegisterActivity;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.customdialog.DeviceInfoDialog;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
@@ -30,6 +34,7 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
 
 
     private ArrayList<DeviceModel> deviceList;
+    private Context context;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -40,19 +45,24 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
         public TextView wardName;
         public TextView doorCount;
         public TextView speakerCount;
+        public View mainView;
 
         public ViewHolder(View view) {
             super(view);
+
             statusIcon = (ImageView)view.findViewById(R.id.device_item_status_image);
             wardName = (TextView)view.findViewById(R.id.device_item_ward_name);
             doorCount = (TextView)view.findViewById(R.id.device_item_door_count);
             speakerCount = (TextView)view.findViewById(R.id.device_item_speaker_count);
+            mainView = view;
+
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public DeviceViewAdapter(ArrayList<DeviceModel> deviceList) {
+    public DeviceViewAdapter(ArrayList<DeviceModel> deviceList, Context context) {
         this.deviceList = deviceList;
+        this.context = context;
     }
 
     // Create new views (invoked by the layout manager)
@@ -65,6 +75,7 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
         // set the view's size, margins, paddings and layout parameters
 
         ViewHolder vh = new ViewHolder(v);
+
         return vh;
     }
 
@@ -74,14 +85,23 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
+        DeviceModel device = deviceList.get(position);
+
         int iconId = R.drawable.status_safe;
-        if(deviceList.get(position).getStatus() == 2){
+        if(device.getStatus() == 2){
             iconId = R.drawable.status_warn;
-        } else if(deviceList.get(position).getStatus() == 3){
+        } else if(device.getStatus() == 3){
             iconId = R.drawable.status_danger;
         }
 
-        DeviceModel device = deviceList.get(position);
+        holder.mainView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DeviceInfoDialog deviceInfoDialog = new DeviceInfoDialog(context);
+                deviceInfoDialog.callFunction(device);
+            }
+        });
 
         device.setComponent(holder.statusIcon, holder.wardName, holder.doorCount, holder.speakerCount);
         device.refreshData();
