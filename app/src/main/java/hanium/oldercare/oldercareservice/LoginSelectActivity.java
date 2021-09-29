@@ -53,7 +53,6 @@ public class LoginSelectActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
             }
         });
 
@@ -65,11 +64,8 @@ public class LoginSelectActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
             }
         });
-
-
     }
 
 
@@ -86,7 +82,5 @@ public class LoginSelectActivity extends AppCompatActivity {
 
         setComponentsEvent();
 
-
     }
-
 }

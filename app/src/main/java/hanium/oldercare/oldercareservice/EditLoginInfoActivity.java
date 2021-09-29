@@ -152,7 +152,7 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                     alert.callFunction("경고", "닉네임을 입력하여 주세요.");
                 }else if((phoneNumber_warn.getText().toString()).equals("*") && (input_phoneNumber.getText().toString()).equals("")){
                     alert.callFunction("경고", "연락처를 입력하여 주세요.");
-                }else if(!((pw_warn.getText().toString()).equals("")) || !((pw_warn.getText().toString()).equals("*"))){
+                }else if(!((pw_warn.getText().toString()).equals("") || ((pw_warn.getText().toString()).equals("*")))){
                     alert.callFunction("경고", "비밀번호를 확인하여 주세요.");
                 }else {
 
@@ -163,7 +163,7 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                         public void run() {
                             Message message = null;
                             try {
-                                    MyRequestUtility.editUserInfo(LoginInfo.ID, name_tmp, phoneNumber_tmp, pw_tmp);
+                                    MyRequestUtility.editUserInfo(LoginInfo.ID, name_tmp, phoneNumber_tmp, LoginInfo.PW);
                             } catch (Exception e) {
                                 CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
                                 alert.callFunction("연결 실패", "요청에 실패하였습니다.\n네트워크를 확인하거나\n잠시 후 다시 시도해주세요.");
@@ -222,7 +222,9 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                 if(pw_warn.getVisibility() == View.VISIBLE){
                     if(TextUtils.isEmpty(input_pw.getText()) || input_pw.getText().length() < 8) {
                         pw_warn.setText("비밀번호는 8자 이상이어야합니다.");
-                    }
+                        input_pwCheck.setVisibility(View.INVISIBLE);
+                    }else
+                        input_pwCheck.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -230,8 +232,6 @@ public class EditLoginInfoActivity extends AppCompatActivity {
             public void afterTextChanged(Editable arg0) {
                 // 입력이 끝났을 때 조치
                 changed(pw, input_pw, pw_warn);
-                if(pw_warn.getVisibility() == View.VISIBLE)
-                    input_pwCheck.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -246,12 +246,11 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                 // 입력란에 변화가 있을 시 조치
                 if(input_pwCheck.getVisibility() == View.VISIBLE){
                     if(!TextUtils.isEmpty(input_pwCheck.getText())) {
-                        if (!input_pw.getText().toString().equals(input_pwCheck.getText().toString())) {
-                            pw_warn.setTextColor(Color.RED);
+                        if (!(input_pw.getText().toString().equals(input_pwCheck.getText().toString()))) {
                             pw_warn.setText("비밀번호가 일치하지 않습니다.");
                         } else {
                             pw_warn.setText("*");
-                            LoginInfo.PW = input_name.getText().toString();
+                            LoginInfo.PW = input_pwCheck.getText().toString();
                         }
                     }
                 }
