@@ -62,12 +62,10 @@ public class AccountManageCheckActivity extends AppCompatActivity{
                 if(!(LoginInfo.PW.equals(message.getText().toString()))){
                     Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                     dlg.dismiss();
-                    return;
-                }
+                }else{dlg.dismiss();
+                    successCallback.run();}
                 // 커스텀 다이얼로그를 종료한다.
-                dlg.dismiss();
 
-                successCallback.run();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
