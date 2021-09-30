@@ -45,6 +45,9 @@ public class EditLoginInfoActivity extends AppCompatActivity {
 
             boolean isVibrate = false;
             if(msg.what == AccountMessage.EDIT_SUCCEED.ordinal()){
+
+                LoginInfo.PW = (String)msg.obj; //로컬 로그인 정보 갱신
+
                 CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
 
                 Runnable callback = ()->{
@@ -195,10 +198,18 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                         Message message = null;
 
                         try {
-                            boolean isSucceed = MyRequestUtility.editUserInfo(LoginInfo.ID, name_tmp, phoneNumber_tmp, LoginInfo.PW);
+
+                            // 비밀번호를 변경했다면
+                            String new_pw = LoginInfo.PW;
+                            if(!LoginInfo.PW.equals(pw_tmp)){
+                                new_pw = pw_tmp;
+                            }
+
+                            boolean isSucceed = MyRequestUtility.editUserInfo(LoginInfo.ID, LoginInfo.PW, name_tmp, phoneNumber_tmp, new_pw);
                             loading.dismiss();
                             if(isSucceed){
                                 message = handler.obtainMessage(AccountMessage.EDIT_SUCCEED.ordinal());
+                                message.obj = new_pw;
                             } else {
                                 message = handler.obtainMessage(AccountMessage.EDIT_FAIL.ordinal());
                             }
@@ -306,7 +317,6 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                             pw_warn.setText("비밀번호가 일치하지 않습니다.");
                         } else {
                             pw_warn.setText("*");
-                            LoginInfo.PW = input_pwCheck.getText().toString();
                         }
                     }
                 }

@@ -348,16 +348,17 @@ public class MyRequestUtility {
 
        }
         */
-    public static boolean editUserInfo(String id, String nickName, String phoneNumber, String new_pw) throws Exception {
+    public static boolean editUserInfo(String id, String pw, String nickName, String phoneNumber, String new_pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
         requestData.put("requestType", "user_info_update"); //요청 타입 설정
 
         HashMap<String, Object> param = new HashMap(); //파라미터 설정
         param.put("id", id);
-        param.put("pw", new_pw.trim());
+        param.put("pw", pw);
         param.put("nickname", nickName.trim());
         param.put("phone", phoneNumber.trim());
+        param.put("new_pw", new_pw.trim());
 
         requestData.put("param", param);
 
