@@ -61,45 +61,41 @@ public class DeviceModel {
 
         if(!isCompSet) return;
 
-        new Thread(new Runnable() {
-            public void run() {
-
-                try {
-                    JSONArray deviceInfoArray = MyRequestUtility.getDeviceInfo(device_id,device_pw);
-                    if(deviceInfoArray != null){
-                        JSONArray deviceInfo = (JSONArray)deviceInfoArray.get(0);
-                        ward_name = String.valueOf(deviceInfo.get(0));
-                        ward_age = String.valueOf(deviceInfo.get(1));
-                        ward_address = String.valueOf(deviceInfo.get(2));
-                        ward_description = String.valueOf(deviceInfo.get(3));
-                    }
-
-                    JSONArray tmpDoorLogs = MyRequestUtility.getDoorLogs(device_id, device_pw);
-                    if(tmpDoorLogs != null){
-                        doorLogs = tmpDoorLogs;
-                        door_count = String.valueOf(doorLogs.size());
-
-                    }
-
-                    JSONArray tmpSpeakerLogs = MyRequestUtility.getSpeakerLogs(device_id, device_pw);
-                    if(tmpSpeakerLogs != null){
-                        speakerLogs = tmpSpeakerLogs;
-                        speaker_count = String.valueOf(speakerLogs.size());
-                    }
-
-                    comp_ward_name.setText(ward_name);
-                    comp_door_count.setText(door_count);
-                    comp_speaker_count.setText(speaker_count);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return;
-                }
+        try {
+            JSONArray deviceInfoArray = MyRequestUtility.getDeviceInfo(device_id,device_pw);
+            if(deviceInfoArray != null){
+                JSONArray deviceInfo = (JSONArray)deviceInfoArray.get(0);
+                ward_name = String.valueOf(deviceInfo.get(0));
+                ward_age = String.valueOf(deviceInfo.get(1));
+                ward_address = String.valueOf(deviceInfo.get(2));
+                ward_description = String.valueOf(deviceInfo.get(3));
             }
-        }).start();
 
+            JSONArray tmpDoorLogs = MyRequestUtility.getDoorLogs(device_id, device_pw);
+            if(tmpDoorLogs != null){
+                doorLogs = tmpDoorLogs;
+                door_count = String.valueOf(doorLogs.size());
 
+            }
 
+            JSONArray tmpSpeakerLogs = MyRequestUtility.getSpeakerLogs(device_id, device_pw);
+            if(tmpSpeakerLogs != null) {
+                speakerLogs = tmpSpeakerLogs;
+                speaker_count = String.valueOf(speakerLogs.size());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+    }
+
+    //컴포넌트에 값 재설정
+    public void refreshComp(){
+        comp_ward_name.setText(ward_name);
+        comp_door_count.setText(door_count);
+        comp_speaker_count.setText(speaker_count);
     }
 
 

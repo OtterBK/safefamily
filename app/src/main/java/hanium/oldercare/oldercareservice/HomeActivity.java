@@ -9,7 +9,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.InputFilter;
@@ -17,13 +20,23 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.JsonObject;
+
+import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.cardutility.DeviceModel;
 import hanium.oldercare.oldercareservice.cardutility.DeviceViewAdapter;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
+import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
+import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
+import hanium.oldercare.oldercareservice.info.LoginInfo;
 import hanium.oldercare.oldercareservice.info.RegisterInfo;
 import hanium.oldercare.oldercareservice.inputfilter.PhoneFilter;
 import hanium.oldercare.oldercareservice.utility.MyNotificationManager;
@@ -32,11 +45,45 @@ import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class HomeActivity extends AppCompatActivity {
 
+    //백그라운드 작업 응답 처리에 사용할 메시지 핸들러
+    final Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            if(msg == null) return;
+
+            boolean isVibrate = false;
+
+            if(msg.what == DeviceMessage.REFRESH_DEVICE_READAPT.ordinal()){
+
+                bindCheckCount = 0; //바인드 아이템 갯수 카운터 초기화
+                
+                Runnable bindCallback = () -> {
+                    Message handleMsg = handler.obtainMessage(DeviceMessage.CHECK_DEVICE_BIND_DONE.ordinal());
+                    handler.sendMessage(handleMsg);
+                };
+
+                mAdapter = new DeviceViewAdapter(deviceList, HomeActivity.this, bindCallback);
+                mRecyclerView.setAdapter(mAdapter); //어댑터 재생성
+
+            } else if(msg.what == DeviceMessage.REFRESH_DEVICE_COMP.ordinal()){
+                int deviceIndex = msg.arg1;
+                DeviceModel deviceModel = deviceList.get(deviceIndex);
+
+                deviceModel.refreshComp();
+            } else if(msg.what == DeviceMessage.CHECK_DEVICE_BIND_DONE.ordinal()){ // 모든 아이템이 바인드되면 디바이스 새로고침 실행
+                bindCheckCount += 1;
+                if(bindCheckCount >= deviceList.size())
+                    refreshDevice();
+            }
+
+            if(isVibrate) VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
+        }
+    };
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<DeviceModel> deviceList = new ArrayList<>();
+    private int bindCheckCount = 0;
 
 
     private Button btn_account_page;
@@ -101,14 +148,69 @@ public class HomeActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        deviceList.add(new DeviceModel("1","1234"));
-        deviceList.add(new DeviceModel("1","1234"));
-        deviceList.add(new DeviceModel("1","1234"));
+        refreshDeviceList(); //디바이스 목록 갱신
+
+    }
 
 
-        // specify an adapter (see also next example)
-        mAdapter = new DeviceViewAdapter(deviceList, HomeActivity.this);
-        mRecyclerView.setAdapter(mAdapter);
+    public void refreshDevice(){
+
+        Thread refreshThread = new Thread(){
+            public void run(){
+                try{
+
+                    for(DeviceModel deviceModel : deviceList){
+                        deviceModel.refreshData();
+                    }
+
+                    for(int i = 0; i < deviceList.size(); i++){
+                        final int deviceIndex = i;
+
+                        Message handleMsg = handler.obtainMessage(DeviceMessage.REFRESH_DEVICE_COMP.ordinal());
+                        handleMsg.arg1 = deviceIndex;
+                        handler.sendMessage(handleMsg);
+
+                    }
+
+
+                }catch (Exception exc){
+                    exc.printStackTrace();
+                }
+            }
+        };
+        refreshThread.start();
+
+    }
+
+    public void refreshDeviceList(){
+
+        //디바이스 목록 다시 불러와서 리스트 구성
+        Thread refreshThread = new Thread(){
+            public void run(){
+                try{
+                    deviceList.clear();
+
+                    JSONArray deviceArray = MyRequestUtility.getDeviceList(LoginInfo.ID, LoginInfo.PW);
+
+                    for(int i = 0; i < deviceArray.size(); i++){
+                        JSONArray tmpDeviceId = (JSONArray) deviceArray.get(i);
+                        String deviceId = String.valueOf(tmpDeviceId.get(0));
+                        String devicePw = String.valueOf(tmpDeviceId.get(1));
+
+                        deviceList.add(new DeviceModel(deviceId,devicePw));
+                    }
+
+
+                    // specify an adapter (see also next example)
+                    Message handleMsg = handler.obtainMessage(DeviceMessage.REFRESH_DEVICE_READAPT.ordinal());
+                    handler.sendMessage(handleMsg);
+
+                }catch (Exception exc){
+                    exc.printStackTrace();
+                }
+            }
+        };
+        refreshThread.start();
 
     }
 

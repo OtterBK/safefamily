@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import hanium.oldercare.oldercareservice.EmailVerifyActivity;
@@ -29,12 +30,14 @@ import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.ViewHolder> {
 
 
     private ArrayList<DeviceModel> deviceList;
     private Context context;
+    private Runnable bindCallback; //아이템 바인드할 때 마다 실행
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -60,9 +63,10 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public DeviceViewAdapter(ArrayList<DeviceModel> deviceList, Context context) {
+    public DeviceViewAdapter(ArrayList<DeviceModel> deviceList, Context context, Runnable bindCallback) {
         this.deviceList = deviceList;
         this.context = context;
+        this.bindCallback = bindCallback;
     }
 
     // Create new views (invoked by the layout manager)
@@ -104,7 +108,8 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
         });
 
         device.setComponent(holder.statusIcon, holder.wardName, holder.doorCount, holder.speakerCount);
-        device.refreshData();
+
+        bindCallback.run(); //콜백 실행
 
     }
 

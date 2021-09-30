@@ -414,6 +414,41 @@ public class MyRequestUtility {
         return userInfo;
     }
 
+    /*
+    디바이스 목록 가져오기, pw도 맞아야 가져옴
+
+    return: JSONArray
+    param{
+        String id: 디바이스 id
+        String id: 디바이스 pw
+    }
+     */
+    public static JSONArray getDeviceList(String id, String pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "get_device_list"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_device/list", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultStr = (String)jsonObj.get("result");
+
+        JSONArray result = (JSONArray) parser.parse(resultStr);
+
+        return result;
+    }
 
     /*
     디바이스 정보 가져오기, pw도 맞아야 가져옴

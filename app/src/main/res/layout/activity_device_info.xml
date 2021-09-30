@@ -40,7 +40,7 @@
                     android:id="@+id/deviceInfo_lbl3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:drawablePadding="1dp"
                     android:fontFamily="@font/lotte_dream"
                     android:gravity="right|center_vertical"
@@ -54,15 +54,15 @@
                     android:id="@+id/deviceInfo_lbl11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="20dp"
                     android:drawablePadding="1dp"
                     android:fontFamily="@font/lotte_dream"
                     android:gravity="right|center_vertical"
                     android:paddingStart="2dp"
                     android:text="연령:"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textView6"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl3" />
 
                 <TextView
                     android:id="@+id/deviceInfo_lbl1"
@@ -70,10 +70,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:drawablePadding="1dp"
-                    android:fontFamily="@font/elice"
+                    android:fontFamily="@font/lotte_dream"
                     android:gravity="right|center_vertical"
                     android:paddingStart="2dp"
-                    android:text="디바이스 번호:"
+                    android:text="ID:"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -82,12 +82,12 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/lotte_dream"
                     android:text="주소:"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl11" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -103,14 +103,13 @@
                     android:id="@+id/deviceInfo_text_targetAge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/elice"
                     android:gravity="right|center_vertical"
-                    android:text="65세"
                     android:textColor="@color/skyblue"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/deviceInfo_text_targetAddress"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_text_targetName" />
 
                 <TextView
                     android:id="@+id/deviceInfo_text_deviceNum"
@@ -119,7 +118,6 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/elice"
                     android:gravity="right|center_vertical"
-                    android:text="0번"
                     android:textColor="@color/skyblue"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -129,10 +127,9 @@
                     android:id="@+id/deviceInfo_text_targetName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/lotte_dream"
                     android:gravity="right|center_vertical"
-                    android:text="김미숙"
                     android:textColor="@color/skyblue"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -142,14 +139,13 @@
                     android:id="@+id/deviceInfo_text_targetAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/lotte_dream"
                     android:gravity="right|center_vertical"
-                    android:text="주소지"
                     android:textColor="@color/skyblue"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_text_targetAge" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
