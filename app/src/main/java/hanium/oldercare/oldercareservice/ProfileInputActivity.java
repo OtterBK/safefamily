@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.info.RegisterInfo;
-import hanium.oldercare.oldercareservice.inputfilter.NumberFilter;
 import hanium.oldercare.oldercareservice.inputfilter.PhoneFilter;
 import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
@@ -44,7 +43,7 @@ public class ProfileInputActivity extends AppCompatActivity {
     };
 
     private void loadComponents(){
-        btn_next = (Button) findViewById(R.id.profileInput_btn_next);
+        btn_next = (Button) findViewById(R.id.profileInput_btn_do_crendent);
 
         nickName = (TextView) findViewById(R.id.profileInput_name);
 //        address = (TextView) findViewById(R.id.profileInput_address);

@@ -32,21 +32,6 @@ public class CustomDialogLoading {
         dlg.show();
     }
 
-    public void callFunction(Runnable s) {
-        // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.
-        final Dialog dlg = new Dialog(context);
-        this.dlg = dlg;
-
-        dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dlg.setCanceledOnTouchOutside(false);
-        dlg.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dlg.setContentView(R.layout.activity_dialog_loading);
-
-        dlg.show();
-        this.dismiss();
-        s.run();
-    }
-
     public void dismiss(){
         dlg.dismiss();
     }

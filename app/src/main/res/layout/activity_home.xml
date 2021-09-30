@@ -34,11 +34,11 @@
         android:text="모니터링"
         android:textColor="@color/fr_black"
         android:textSize="28dp"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/home_device_add"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView5"
+    <Button
+        android:id="@+id/home_device_add"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
@@ -69,8 +69,8 @@
         android:layout_marginTop="40dp"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintEnd_toEndOf="@+id/home_device_add"
+        app:layout_constraintStart_toStartOf="@+id/home_device_add"
+        app:layout_constraintTop_toBottomOf="@+id/home_device_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

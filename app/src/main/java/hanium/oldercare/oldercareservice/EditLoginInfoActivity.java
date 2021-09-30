@@ -28,11 +28,40 @@ import java.util.HashMap;
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
+import hanium.oldercare.oldercareservice.handlermessage.AccountMessage;
+import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
+import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
+import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
 import hanium.oldercare.oldercareservice.inputfilter.PhoneFilter;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class EditLoginInfoActivity extends AppCompatActivity {
+
+    //백그라운드 작업 응답 처리에 사용할 메시지 핸들러
+    final Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            if(msg == null) return;
+
+            boolean isVibrate = false;
+            if(msg.what == AccountMessage.EDIT_SUCCEED.ordinal()){
+                CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
+
+                Runnable callback = ()->{
+                    EditLoginInfoActivity.this.finish();
+                };
+
+                alert.callFunction("계정 변경 성공", "~~설명", callback);
+
+            } else if(msg.what == AccountMessage.EDIT_FAIL.ordinal()){
+                CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
+                alert.callFunction("연결 실패", "요청에 실패하였습니다.\n\n네트워크를 확인하거나\n\n잠시 후 다시 시도해주세요.");
+                isVibrate = true;
+            }
+
+        }
+    };
+
 
     private Button btn_editUserInfo;
     private TextView user_ID; // = (LoginInfo.ID);
@@ -160,21 +189,30 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                 }else {
 
                     CustomDialogLoading loading = new CustomDialogLoading(EditLoginInfoActivity.this);
-                    Runnable successCallback = new Runnable(){
-                        public void run(){
-                            Message message = null;
-                            try {
+                    loading.callFunction();
 
-                                MyRequestUtility.editUserInfo(LoginInfo.ID, name_tmp, phoneNumber_tmp, LoginInfo.PW);
-                                finish();
-                            } catch (Exception e) {
-                                CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
-                                alert.callFunction("연결 실패", "요청에 실패하였습니다.\n\n네트워크를 확인하거나\n\n잠시 후 다시 시도해주세요.");
-                                e.printStackTrace();
+                    Thread thread = new Thread(() -> {
+                        Message message = null;
+
+                        try {
+                            boolean isSucceed = MyRequestUtility.editUserInfo(LoginInfo.ID, name_tmp, phoneNumber_tmp, LoginInfo.PW);
+                            loading.dismiss();
+                            if(isSucceed){
+                                message = handler.obtainMessage(AccountMessage.EDIT_SUCCEED.ordinal());
+                            } else {
+                                message = handler.obtainMessage(AccountMessage.EDIT_FAIL.ordinal());
                             }
+
+
+
+                        } catch (Exception e) {
+                            message = handler.obtainMessage(AccountMessage.EDIT_FAIL.ordinal());
+                            e.printStackTrace();
                         }
-                    };
-                    loading.callFunction(successCallback);
+                        handler.sendMessage(message);
+                    });
+                    thread.start();
+
 //
 //
 //                    new Thread(new Runnable() {

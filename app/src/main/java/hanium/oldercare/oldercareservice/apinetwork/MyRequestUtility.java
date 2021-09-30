@@ -218,6 +218,8 @@ public class MyRequestUtility {
     }
 
 
+
+
     /*
     email 을 통해 id 찾기
 
@@ -349,19 +351,19 @@ public class MyRequestUtility {
     public static boolean editUserInfo(String id, String nickName, String phoneNumber, String new_pw) throws Exception {
 
         HashMap<String, Object> requestData = new HashMap();
-        requestData.put("requestType", "user_Info_update"); //요청 타입 설정
+        requestData.put("requestType", "user_info_update"); //요청 타입 설정
 
         HashMap<String, Object> param = new HashMap(); //파라미터 설정
         param.put("id", id);
         param.put("pw", new_pw.trim());
-        param.put("nickName", nickName.trim());
-        param.put("phoneNumber", phoneNumber.trim());
+        param.put("nickname", nickName.trim());
+        param.put("phone", phoneNumber.trim());
 
         requestData.put("param", param);
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
-        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/user_Info_update", json); //기능 요청 주소
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/user_info/update", json); //기능 요청 주소
 
         Logger.i(msgMap);
 
@@ -539,6 +541,46 @@ public class MyRequestUtility {
         JSONArray result = (JSONArray) parser.parse(resultStr);
 
         return result;
+    }
+
+    /*
+    id, pw 디바이스 인증
+
+    return: boolean
+    param{
+        String id: 디바이스 id
+        String pw: 디바이스 pw
+    }
+     */
+    public static boolean deviceCredential(String id, String pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "device_credential"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/instant_login", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("DEVICE_CREDENTIAL_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

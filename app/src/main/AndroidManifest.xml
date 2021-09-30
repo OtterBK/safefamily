@@ -39,12 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".customdialog.DeviceInfoDialog"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".FindIDActivity"
             android:launchMode="singleTop">
             <intent-filter>
@@ -82,6 +76,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditLoginInfoActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DeviceAddActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

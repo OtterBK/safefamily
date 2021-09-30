@@ -87,13 +87,14 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private Button btn_account_page;
+    private Button btn_device_add;
 
 
     private Vibrator vibrator;
 
     private void loadComponents(){
         btn_account_page = (Button) findViewById(R.id.home_setting_account);
-
+        btn_device_add = (Button) findViewById(R.id.home_device_add);
     }
 
 
@@ -108,6 +109,20 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AccountManageActivity.class);
+                startActivity(intent);
+                //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.none);
+
+//                MyNotificationManager.createNotification(HomeActivity.this);
+                //MyNotificationManager.sendAlarm(HomeActivity.this, "홍길동님의 이상 징후가 파악되었습니다.");
+
+            }
+        });
+
+        btn_device_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), DeviceAddActivity.class);
                 startActivity(intent);
                 //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.none);
