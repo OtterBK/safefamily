@@ -47,12 +47,11 @@ public class DeviceAddActivity extends AppCompatActivity {
             boolean isVibrate = false;
 
             if(msg.what == DeviceMessage.CREDENTIAL_SUCCEED.ordinal()){
-//                lbl_warn_id.setTextColor(Color.BLUE);
-//                lbl_warn_id.setText("사용 가능한 아이디입니다.");
-//                id_final = input_id.getText().toString();
+                CustomDialogAlert alert = new CustomDialogAlert(DeviceAddActivity.this);
+                alert.callFunction("인증 성공", "");
             } else if(msg.what == DeviceMessage.CREDENTIAL_FAIL.ordinal()){
                 CustomDialogAlert alert = new CustomDialogAlert(DeviceAddActivity.this);
-                alert.callFunction("인증 실피", "인증에 실패하였습니다.\n디바이스 번호 또는 비밀번호를 확인해주세요.");
+                alert.callFunction("인증 실패", "인증에 실패하였습니다.\n디바이스 번호 또는 비밀번호를 확인해주세요.");
                 isVibrate = true;
             } else if(msg.what == NetworkMessage.NETWORK_FAIL.ordinal()) {
                 CustomDialogAlert alert = new CustomDialogAlert(DeviceAddActivity.this);
@@ -68,7 +67,7 @@ public class DeviceAddActivity extends AppCompatActivity {
         btn_next = (Button) findViewById(R.id.device_credential_btn_next);
 
         input_id = (TextView) findViewById(R.id.device_credential_input_id);
-        input_pw = (TextView) findViewById(R.id.device_credential_input_id);
+        input_pw = (TextView) findViewById(R.id.device_credential_input_pw);
 
         reason = (TextView) findViewById(R.id.device_credential_reason);
     }
@@ -85,11 +84,11 @@ public class DeviceAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (input_id.getText().equals("")) {
+                if (input_id.getText().toString().equals("")) {
                     CustomDialogAlert alert = new CustomDialogAlert(DeviceAddActivity.this);
                     alert.callFunction("경고", "디바이스의 번호(ID)를 입력해주세요.");
                     VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
-                } else if (input_id.getText().equals("")) {
+                } else if (input_pw.getText().toString().equals("")) {
                     CustomDialogAlert alert = new CustomDialogAlert(DeviceAddActivity.this);
                     alert.callFunction("경고", "디바이스의 비밀번호를 입력해주세요.");
                     VibrateUtility.errorVibrate(vibrator); //오류시 진동효과

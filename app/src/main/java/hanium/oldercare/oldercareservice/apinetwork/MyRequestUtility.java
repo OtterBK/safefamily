@@ -564,7 +564,7 @@ public class MyRequestUtility {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
-        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/instant_login", json); //기능 요청 주소
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device_credential", json); //기능 요청 주소
 
         Logger.i(msgMap);
 

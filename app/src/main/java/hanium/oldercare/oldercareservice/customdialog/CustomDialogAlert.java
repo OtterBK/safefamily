@@ -33,7 +33,7 @@ public class CustomDialogAlert {
     public void callFunction(String title, String desc) {
 
         defineComponent(title, desc);
-        
+
     }
 
     public void callFunction(String title, String desc, Runnable callback) {
