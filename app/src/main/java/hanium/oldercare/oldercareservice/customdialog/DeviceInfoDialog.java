@@ -3,6 +3,7 @@ package hanium.oldercare.oldercareservice.customdialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -90,8 +91,10 @@ public class DeviceInfoDialog extends AppCompatActivity {
         final TextView wardAddress = (TextView) dialog.findViewById(R.id.deviceInfo_text_targetAddress);
         wardAddress.setText(device.getWard_address());
 
-        final TableLayout tableLayout = (TableLayout) dialog.findViewById(R.id.deviceInfo_table);
+        //final TableLayout tableLayout = (TableLayout) dialog.findViewById(R.id.deviceInfo_table);
+        final TableLayout tableLayout = null;
 
+        Typeface typeFace = Typeface.createFromAsset(getAssets(),"lotte_dream.ttf"); //asset > fonts 폴더 내 폰트파일 적용
 
         JSONArray doorLog = device.getDoorLogs();
         for(int li = 0; li < doorLog.size(); li++){
@@ -107,6 +110,7 @@ public class DeviceInfoDialog extends AppCompatActivity {
                     textView[i] = new TextView(context);
                     textView[i].setGravity(Gravity.CENTER);
                     textView[i].setTextSize(16);
+                    textView[i].setTypeface(typeFace);
                     tableRow.addView(textView[i]);
                 }
 
