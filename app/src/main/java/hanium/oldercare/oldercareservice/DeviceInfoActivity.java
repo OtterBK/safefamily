@@ -49,8 +49,7 @@ public class DeviceInfoActivity extends AppCompatActivity {
             boolean isVibrate = false;
 
             if(msg.what == DeviceMessage.REFRESH_DEVICE_READAPT.ordinal()){
-
-
+                
             }
 
             if(isVibrate) VibrateUtility.errorVibrate(vibrator); //오류시 진동효과

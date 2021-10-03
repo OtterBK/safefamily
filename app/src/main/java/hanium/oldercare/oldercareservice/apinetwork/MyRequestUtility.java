@@ -438,7 +438,7 @@ public class MyRequestUtility {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
-        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_device/list", json); //기능 요청 주소
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/get/list", json); //기능 요청 주소
 
         Logger.i(msgMap);
 
@@ -474,7 +474,7 @@ public class MyRequestUtility {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
-        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_device/info", json); //기능 요청 주소
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/get/info", json); //기능 요청 주소
 
         Logger.i(msgMap);
 
@@ -501,7 +501,7 @@ public class MyRequestUtility {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
-        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_device/door_logs", json); //기능 요청 주소
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/get/door_logs", json); //기능 요청 주소
 
         Logger.i(msgMap);
 
@@ -529,7 +529,7 @@ public class MyRequestUtility {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
-        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/get_device/speaker_logs", json); //기능 요청 주소
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/get/speaker_logs", json); //기능 요청 주소
 
         Logger.i(msgMap);
 
@@ -565,7 +565,7 @@ public class MyRequestUtility {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
-        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device_credential", json); //기능 요청 주소
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/credential", json); //기능 요청 주소
 
         Logger.i(msgMap);
 
@@ -578,6 +578,119 @@ public class MyRequestUtility {
         String resultMsg = String.valueOf(resultSet).trim();
         resultMsg = resultMsg.replace("\"","");
         if(resultMsg.equals("DEVICE_CREDENTIAL_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+    디바이스 정보 설정
+
+    return: boolean
+    param{
+        String id: id
+        String pw: pw
+        String name: 대상자 이름
+        String age: 대상자 연령
+        String address: 대상자 주소
+        String desc: 대상자 특이사항
+    }
+     */
+    public static boolean setDeviceProfile(String id, String pw, String name, String age, String address, String desc) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "device_set_profile"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", pw);
+        param.put("name", name);
+        param.put("age", age);
+        param.put("address", address);
+        param.put("desc", desc);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/set_profile", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("DEVICE_PROFILE_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean setDevicePassword(String id, String pw, String new_pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "device_edit_password"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", pw);
+        param.put("new_pw", new_pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/set_password", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("DEVICE_EDIT_PASSWORD_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean deviceAdd(String user_id, String user_pw, String device_id, String device_pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "device_add"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("user_id", user_id);
+        param.put("user_pw", user_pw);
+        param.put("device_id", device_id);
+        param.put("device_pw", device_pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/add", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("DEVICE_ADD _SUCCEED")){
             return true;
         } else {
             return false;

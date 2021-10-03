@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -54,15 +55,12 @@ public class DeviceAddActivity extends AppCompatActivity {
                 DeviceInfo.tmpId = final_id;
                 DeviceInfo.tmpPw = final_pw;
 
-                Runnable callback = () -> {
-                    Intent intent = new Intent(getApplicationContext(), DeviceProfileActivity.class);
-                    startActivity(intent);
-                    //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.none);
-                };
-
-                CustomDialogAlert alert = new CustomDialogAlert(DeviceAddActivity.this);
-                alert.callFunction("인증 성공", "디바이스 인증에 성공하였습니다.\n디바이스의 정보를 입력해주세요.", callback);
+                Toast.makeText(DeviceAddActivity.this, "디바이스 인증이 완료되었습니다.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), DeviceProfileActivity.class);
+                startActivity(intent);
+                //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.none);
+                finish();
 
             } else if(msg.what == DeviceMessage.CREDENTIAL_FAIL.ordinal()){
                 CustomDialogAlert alert = new CustomDialogAlert(DeviceAddActivity.this);

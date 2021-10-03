@@ -36,6 +36,7 @@ import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
 import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
+import hanium.oldercare.oldercareservice.info.ActivityInfo;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
 import hanium.oldercare.oldercareservice.info.RegisterInfo;
 import hanium.oldercare.oldercareservice.inputfilter.PhoneFilter;
@@ -144,6 +145,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        ActivityInfo.homeActivity = this; //홈 화면은 하나만 써서 계속 재활용
+
         ScreenManager.transparentStatusBar(this);
 
         loadComponents();
@@ -211,8 +214,10 @@ public class HomeActivity extends AppCompatActivity {
                         JSONArray tmpDeviceId = (JSONArray) deviceArray.get(i);
                         String deviceId = String.valueOf(tmpDeviceId.get(0));
                         String devicePw = String.valueOf(tmpDeviceId.get(1));
-
-                        deviceList.add(new DeviceModel(deviceId,devicePw));
+                        
+                        if(MyRequestUtility.deviceCredential(deviceId, devicePw)){ //인증 성공 디바이스만 추가
+                            deviceList.add(new DeviceModel(deviceId,devicePw));    
+                        }
                     }
 
 
