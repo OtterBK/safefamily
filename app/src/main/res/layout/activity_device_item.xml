@@ -9,17 +9,17 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="15dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="3dp"
-        android:layout_marginBottom="3dp">
-
+        android:layout_marginBottom="3dp"
+        app:cardCornerRadius="15dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            android:background="@drawable/bg_white_with_bubbleborder_gray">
 
             <TextView
                 android:id="@+id/device_item_speaker_lbl"

@@ -32,6 +32,7 @@ import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.cardutility.DeviceModel;
 import hanium.oldercare.oldercareservice.cardutility.DeviceViewAdapter;
 import hanium.oldercare.oldercareservice.customdialog.DeviceInfoDialog;
+import hanium.oldercare.oldercareservice.customdialog.DeviceLogDialog;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
 import hanium.oldercare.oldercareservice.info.DeviceInfo;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
@@ -85,17 +86,15 @@ public class DeviceInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DeviceInfoActivity.this.finish();
-
             }
         });
 
         btn_log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AccountManageActivity.class);
-                startActivity(intent);
-                //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.none);
+
+                DeviceLogDialog logDialog = new DeviceLogDialog(DeviceInfoActivity.this);
+                logDialog.callFunction(device);
 
             }
         });
