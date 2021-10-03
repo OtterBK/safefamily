@@ -54,7 +54,7 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                     EditLoginInfoActivity.this.finish();
                 };
 
-                alert.callFunction("계정 변경 성공", "~~설명", callback);
+                alert.callFunction("계정 변경 성공", "프로필 정보가 변경되었습니다.", callback);
 
             } else if(msg.what == AccountMessage.EDIT_FAIL.ordinal()){
                 CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
@@ -289,10 +289,11 @@ public class EditLoginInfoActivity extends AppCompatActivity {
                 if(pw_warn.getVisibility() == View.VISIBLE){
                     if(TextUtils.isEmpty(input_pw.getText()) || input_pw.getText().length() < 8) {
                         pw_warn.setText("비밀번호는 8자 이상이어야합니다.");
-                        input_pwCheck.setVisibility(View.INVISIBLE);
                     }else
-                        input_pwCheck.setVisibility(View.VISIBLE);
-                }
+                        pw_warn.setText("*");
+                    input_pwCheck.setVisibility(View.VISIBLE);
+                }else
+                    input_pwCheck.setVisibility(View.INVISIBLE);
             }
 
             @Override
