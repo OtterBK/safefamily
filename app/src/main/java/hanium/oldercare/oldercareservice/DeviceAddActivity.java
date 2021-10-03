@@ -22,6 +22,7 @@ import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
 import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
+import hanium.oldercare.oldercareservice.info.DeviceInfo;
 import hanium.oldercare.oldercareservice.info.RegisterInfo;
 import hanium.oldercare.oldercareservice.inputfilter.IDFilter;
 import hanium.oldercare.oldercareservice.inputfilter.NumberFilter;
@@ -35,6 +36,8 @@ public class DeviceAddActivity extends AppCompatActivity {
     private TextView reason;
     private TextView input_id;
     private TextView input_pw;
+    private String final_id;
+    private String final_pw;
 
     private Vibrator vibrator;
 
@@ -47,8 +50,20 @@ public class DeviceAddActivity extends AppCompatActivity {
             boolean isVibrate = false;
 
             if(msg.what == DeviceMessage.CREDENTIAL_SUCCEED.ordinal()){
+
+                DeviceInfo.tmpId = final_id;
+                DeviceInfo.tmpPw = final_pw;
+
+                Runnable callback = () -> {
+                    Intent intent = new Intent(getApplicationContext(), DeviceProfileActivity.class);
+                    startActivity(intent);
+                    //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.none);
+                };
+
                 CustomDialogAlert alert = new CustomDialogAlert(DeviceAddActivity.this);
-                alert.callFunction("인증 성공", "");
+                alert.callFunction("인증 성공", "디바이스 인증에 성공하였습니다.\n디바이스의 정보를 입력해주세요.", callback);
+
             } else if(msg.what == DeviceMessage.CREDENTIAL_FAIL.ordinal()){
                 CustomDialogAlert alert = new CustomDialogAlert(DeviceAddActivity.this);
                 alert.callFunction("인증 실패", "인증에 실패하였습니다.\n디바이스 번호 또는 비밀번호를 확인해주세요.");
@@ -96,6 +111,9 @@ public class DeviceAddActivity extends AppCompatActivity {
 
                     String id = input_id.getText().toString();
                     String pw = input_pw.getText().toString();
+
+                    final_id = id;
+                    final_pw = pw;
 
                     new Thread(()-> {
                         Message message = null;
