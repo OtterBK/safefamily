@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,9 +32,14 @@ import java.util.Calendar;
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.cardutility.DeviceModel;
 import hanium.oldercare.oldercareservice.cardutility.DeviceViewAdapter;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogConfirm;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
 import hanium.oldercare.oldercareservice.customdialog.DeviceInfoDialog;
 import hanium.oldercare.oldercareservice.customdialog.DeviceLogDialog;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
+import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
+import hanium.oldercare.oldercareservice.info.ActivityInfo;
 import hanium.oldercare.oldercareservice.info.DeviceInfo;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
 import hanium.oldercare.oldercareservice.utility.ScreenManager;
@@ -48,14 +54,22 @@ public class DeviceInfoActivity extends AppCompatActivity {
 
             boolean isVibrate = false;
 
-            if(msg.what == DeviceMessage.REFRESH_DEVICE_READAPT.ordinal()){
-                
+            if(msg.what == DeviceMessage.DELETE_DEVICE_SUCCEED.ordinal()){
+                Toast.makeText(DeviceInfoActivity.this, "디바이스를 삭제하였습니다.", Toast.LENGTH_LONG).show();
+
+                DeviceInfoActivity.this.finish();
+                ActivityInfo.homeActivity.refreshDeviceList();
+
+            } else if(msg.what == DeviceMessage.DELETE_DEVICE_FAIL.ordinal() || msg.what == NetworkMessage.NETWORK_FAIL.ordinal()){
+
+                CustomDialogAlert alert = new CustomDialogAlert(DeviceInfoActivity.this);
+                alert.callFunction("삭제 실패", "잠시 후 다시 시도해보세요.");
+
             }
 
             if(isVibrate) VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
         }
     };
-
 
     private Button btn_back;
     private Button btn_log;
@@ -98,6 +112,46 @@ public class DeviceInfoActivity extends AppCompatActivity {
             }
         });
 
+        btn_device_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomDialogConfirm dialogConfirm = new CustomDialogConfirm(DeviceInfoActivity.this);
+
+                Runnable okFunction = ()->{
+                    CustomDialogLoading loading = new CustomDialogLoading(DeviceInfoActivity.this);
+                    loading.callFunction();
+
+                    Thread thread = new Thread(()->{
+
+                        Message message = null;
+
+                        try {
+
+                            boolean isSucceed =
+                                    MyRequestUtility.deviceDelete(LoginInfo.ID, LoginInfo.PW, device.getDevice_id());
+
+                            if (isSucceed) {
+                                message = handler.obtainMessage(DeviceMessage.DELETE_DEVICE_SUCCEED.ordinal());
+                            } else {
+                                message = handler.obtainMessage(DeviceMessage.DELETE_DEVICE_FAIL.ordinal());
+                            }
+
+                        } catch (Exception e) {
+                            message = handler.obtainMessage(NetworkMessage.NETWORK_FAIL.ordinal());
+                            e.printStackTrace();
+                        } finally {
+                            loading.dismiss();
+                        }
+                        handler.sendMessage(message);
+
+
+                    });
+                    thread.start();
+                };
+
+                dialogConfirm.callFunction("삭제 확인", "정말로 디바이스를 삭제하시겠습니까?",okFunction);
+            }
+        });
     }
 
     private void setFilters(){
