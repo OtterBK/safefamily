@@ -178,59 +178,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void setDayLabel() {
-        String dayString = "";
-
-        Calendar calendar = Calendar.getInstance();
-        if (calendar.get(Calendar.HOUR_OF_DAY) < 10) calendar.add(Calendar.DATE, -1);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int dow = calendar.get(Calendar.DAY_OF_WEEK);
-
-
-        if (month < 10) { //한자리 수라면
-            dayString += "0";
-        }
-        dayString += month + ". ";
-
-        if (day < 10) { //한자리 수라면
-            dayString += "0";
-        }
-        dayString += day + ". ";
-
-        String dayName = "일";
-        switch (dow) {
-            case 1:
-                dayName = "일";
-                break;
-            case 2:
-                dayName = "월";
-                break;
-            case 3:
-                dayName = "화";
-                break;
-            case 4:
-                dayName = "수";
-                break;
-            case 5:
-                dayName = "목";
-                break;
-            case 6:
-                dayName = "금";
-                break;
-            case 7:
-                dayName = "토";
-                break;
-
-            default:
-                dayName = "일";
-        }
-
-        dayString += "(" + dayName + ")";
-
-        lbl_today.setText(dayString);
-    }
-
     private void setEffectObject(){
         vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 

@@ -2,11 +2,8 @@ package hanium.oldercare.oldercareservice.customdialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TableLayout;
@@ -14,7 +11,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -25,13 +21,13 @@ import java.util.Calendar;
 import hanium.oldercare.oldercareservice.R;
 import hanium.oldercare.oldercareservice.cardutility.DeviceModel;
 
-public class DeviceInfoDialog extends AppCompatActivity {
+public class DeviceLogDialog extends AppCompatActivity {
 
     private Context context;
     private DeviceModel device;
     private Dialog dialog;
 
-    public DeviceInfoDialog(Context context) {
+    public DeviceLogDialog(Context context) {
 
         this.context = context;
 
@@ -51,7 +47,7 @@ public class DeviceInfoDialog extends AppCompatActivity {
         dlg.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         // 커스텀 다이얼로그의 레이아웃을 설정한다.
-        dlg.setContentView(R.layout.activity_device_info);
+        dlg.setContentView(R.layout.activity_device_log);
 
         // 커스텀 다이얼로그를 노출한다.
         dlg.show();
@@ -79,22 +75,10 @@ public class DeviceInfoDialog extends AppCompatActivity {
     }
 
     public void refreshLog(){
-        final TextView deviceNum = (TextView) dialog.findViewById(R.id.deviceInfo_text_deviceNum);
-        deviceNum.setText(device.getDevice_id());
 
-        final TextView wardName = (TextView) dialog.findViewById(R.id.deviceInfo_text_targetName);
-        wardName.setText(device.getWard_name());
+        final TableLayout tableLayout = (TableLayout) dialog.findViewById(R.id.device_log_table);
 
-        final TextView wardAge = (TextView) dialog.findViewById(R.id.deviceInfo_text_targetAge);
-        wardAge.setText(device.getWard_age() + "세");
-
-        final TextView wardAddress = (TextView) dialog.findViewById(R.id.deviceInfo_text_targetAddress);
-        wardAddress.setText(device.getWard_address());
-
-        //final TableLayout tableLayout = (TableLayout) dialog.findViewById(R.id.deviceInfo_table);
-        final TableLayout tableLayout = null;
-
-        Typeface typeFace = Typeface.createFromAsset(getAssets(),"lotte_dream.ttf"); //asset > fonts 폴더 내 폰트파일 적용
+        Typeface typeFace = Typeface.createFromAsset(context.getAssets(),"lotte_dream.ttf"); //asset > fonts 폴더 내 폰트파일 적용
 
         JSONArray doorLog = device.getDoorLogs();
         for(int li = 0; li < doorLog.size(); li++){
@@ -113,6 +97,7 @@ public class DeviceInfoDialog extends AppCompatActivity {
                     textView[i].setTypeface(typeFace);
                     tableRow.addView(textView[i]);
                 }
+                tableRow.setPadding(0,5,0,5);
 
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat sdf1 = new SimpleDateFormat("YYYY년 MM월 dd일");

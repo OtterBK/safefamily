@@ -1,231 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_white_with_bubbleborder_gray"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/deviceInfo_center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_white_with_bubbleborder"
+        android:background="@color/bg_white"
         android:elevation="10sp"
-        android:minWidth="400dp"
-        android:minHeight="600dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/device_item_status_image2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/status_safe"
+            app:layout_constraintStart_toStartOf="@+id/deviceInfo_btn_back"
+            app:layout_constraintTop_toBottomOf="@+id/deviceInfo_btn_back" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/deviceInfo_layout_top"
             android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="25dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            app:layout_constraintTop_toBottomOf="@+id/device_item_status_image2">
+
+            <TextView
+                android:id="@+id/deviceInfo_text_targetAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lotte_dream"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/color1"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl4" />
+
+            <TextView
+                android:id="@+id/deviceInfo_text_targetDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lotte_dream"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/color1"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl6" />
+
+            <TextView
+                android:id="@+id/deviceInfo_text_targetName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lotte_dream"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/color1"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl3" />
+
+            <TextView
+                android:id="@+id/deviceInfo_text_targetAge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lotte_dream"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/color1"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl11" />
+
+            <TextView
+                android:id="@+id/deviceInfo_lbl4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/lotte_happy"
+                android:text="주소"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_text_targetAge" />
+
+            <TextView
+                android:id="@+id/deviceInfo_lbl6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/lotte_happy"
+                android:text="특이사항"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_text_targetAddress" />
+
+            <TextView
+                android:id="@+id/deviceInfo_lbl11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:drawablePadding="1dp"
+                android:fontFamily="@font/lotte_happy"
+                android:gravity="right|center_vertical"
+                android:text="연령"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_text_targetName" />
+
+            <TextView
+                android:id="@+id/deviceInfo_lbl3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:drawablePadding="1dp"
+                android:fontFamily="@font/lotte_happy"
+                android:gravity="right|center_vertical"
+                android:text="성명:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/deviceInfo_text_layer1"
-                android:layout_width="wrap_content"
+                android:id="@+id/constraintLayout3"
+                android:layout_width="1dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/deviceInfo_text_layer2"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/deviceInfo_lbl3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:drawablePadding="1dp"
-                    android:fontFamily="@font/lotte_dream"
-                    android:gravity="right|center_vertical"
-                    android:paddingStart="2dp"
-                    android:text="성명:"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl1" />
-
-                <TextView
-                    android:id="@+id/deviceInfo_lbl11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:drawablePadding="1dp"
-                    android:fontFamily="@font/lotte_dream"
-                    android:gravity="right|center_vertical"
-                    android:paddingStart="2dp"
-                    android:text="연령:"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl3" />
-
-                <TextView
-                    android:id="@+id/deviceInfo_lbl1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawablePadding="1dp"
-                    android:fontFamily="@font/lotte_dream"
-                    android:gravity="right|center_vertical"
-                    android:paddingStart="2dp"
-                    android:text="ID:"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/deviceInfo_lbl4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/lotte_dream"
-                    android:text="주소:"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_lbl11" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/deviceInfo_text_layer2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/deviceInfo_text_targetAge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/elice"
-                    android:gravity="right|center_vertical"
-                    android:textColor="@color/skyblue"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_text_targetName" />
-
-                <TextView
-                    android:id="@+id/deviceInfo_text_deviceNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/elice"
-                    android:gravity="right|center_vertical"
-                    android:textColor="@color/skyblue"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/deviceInfo_text_targetName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/lotte_dream"
-                    android:gravity="right|center_vertical"
-                    android:textColor="@color/skyblue"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_text_deviceNum" />
-
-                <TextView
-                    android:id="@+id/deviceInfo_text_targetAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/lotte_dream"
-                    android:gravity="right|center_vertical"
-                    android:textColor="@color/skyblue"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/deviceInfo_text_targetAge" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/lotte_happy"
-            android:text="디바이스 정보"
-            android:textColor="@color/fr_black"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
+        <Button
+            android:id="@+id/deviceInfo_btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TableLayout
-            android:id="@+id/deviceInfo_table"
+        <TextView
+            android:id="@+id/deviceInfo_lbl1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:drawablePadding="1dp"
+            android:fontFamily="@font/lotte_happy"
+            android:gravity="right|center_vertical"
+            android:text="디바이스 번호(ID)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/device_item_status_image2"
+            app:layout_constraintTop_toTopOf="@+id/device_item_status_image2" />
+
+        <TextView
+            android:id="@+id/deviceInfo_text_deviceNum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/lotte_dream"
+            android:gravity="right|center_vertical"
+            android:text="0번"
+            android:textColor="@color/color1"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/device_item_status_image2"
+            app:layout_constraintEnd_toEndOf="@+id/deviceInfo_lbl1"
+            app:layout_constraintStart_toEndOf="@+id/device_item_status_image2" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/fr_black"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+            app:layout_constraintEnd_toEndOf="@+id/deviceInfo_layout_top"
+            app:layout_constraintStart_toStartOf="@+id/deviceInfo_layout_top"
+            app:layout_constraintTop_toBottomOf="@+id/deviceInfo_layout_top" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/bg_white"
-            android:elevation="10sp"
-            android:stretchColumns="*"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp"
+            android:background="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/deviceInfo_layout_top">
+            app:layout_constraintEnd_toEndOf="@+id/deviceInfo_layout_top"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/deviceInfo_layout_top"
+            app:layout_constraintTop_toBottomOf="@+id/deviceInfo_layout_top"
+            app:layout_constraintVertical_bias="1.0">
 
-            <TableRow
-                android:id="@+id/deviceInfo_table_top"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <Button
+                android:id="@+id/deviceInfo_btn_log"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_white_with_underborder"
+                android:drawableLeft="@android:drawable/ic_menu_agenda"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/lotte_happy"
+                android:gravity="left|center_vertical"
+                android:text="동작 기록 확인"
+                android:textColor="@color/skyblue"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/deviceInfo_btn_device_edit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/deviceInfo_table_top_lbl1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_single_border"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/lotte_dream"
-                    android:gravity="center"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:text="날짜"
-                    android:textSize="16sp" />
+            <Button
+                android:id="@+id/deviceInfo_btn_device_edit"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_white_with_underborder"
+                android:drawableLeft="@android:drawable/ic_menu_edit"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/lotte_happy"
+                android:gravity="left|center_vertical"
+                android:text="정보 수정"
+                android:textColor="@color/skyblue"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/deviceInfo_btn_device_delete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_btn_log" />
 
-                <TextView
-                    android:id="@+id/deviceInfo_table_top_lbl2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_single_border"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/lotte_dream"
-                    android:gravity="center"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:text="시간"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/deviceInfo_table_top_lbl3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_single_border"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/lotte_dream"
-                    android:gravity="center"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:text="장소"
-                    android:textSize="16sp" />
-            </TableRow>
-
-        </TableLayout>
+            <Button
+                android:id="@+id/deviceInfo_btn_device_delete"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_white_with_underborder"
+                android:drawableLeft="@android:drawable/ic_menu_delete"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/lotte_happy"
+                android:gravity="left|center_vertical"
+                android:text="디바이스 삭제"
+                android:textColor="@color/skyblue"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_btn_device_edit" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

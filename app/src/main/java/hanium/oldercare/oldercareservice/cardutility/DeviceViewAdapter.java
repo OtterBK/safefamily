@@ -18,6 +18,8 @@ import android.widget.TextView;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import hanium.oldercare.oldercareservice.AccountManageActivity;
+import hanium.oldercare.oldercareservice.DeviceInfoActivity;
 import hanium.oldercare.oldercareservice.EmailVerifyActivity;
 import hanium.oldercare.oldercareservice.FindIDActivity;
 import hanium.oldercare.oldercareservice.R;
@@ -25,6 +27,7 @@ import hanium.oldercare.oldercareservice.RegisterActivity;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.customdialog.DeviceInfoDialog;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
+import hanium.oldercare.oldercareservice.info.DeviceInfo;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 
@@ -102,8 +105,12 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
             @Override
             public void onClick(View view) {
 
-                DeviceInfoDialog deviceInfoDialog = new DeviceInfoDialog(context);
-                deviceInfoDialog.callFunction(device);
+                DeviceInfo.infoDevice = device;
+
+                Intent intent = new Intent(context.getApplicationContext(), DeviceInfoActivity.class);
+                context.startActivity(intent);
+                //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                //context.overridePendingTransition(R.anim.slide_in_right, R.anim.none);
             }
         });
 
