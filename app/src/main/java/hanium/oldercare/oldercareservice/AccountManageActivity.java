@@ -4,16 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.customdialog.AccountManageCheckDialog;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogInput;
-import hanium.oldercare.oldercareservice.info.LoginInfo;
-import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class AccountManageActivity extends AppCompatActivity {
 
@@ -56,7 +52,7 @@ public class AccountManageActivity extends AppCompatActivity {
         btn_editLoginInfo_page.setOnClickListener(new View.OnClickListener() { //계정 정보 관리
             @Override
             public void onClick(View view) {
-                AccountManageCheckActivity dlg = new AccountManageCheckActivity(AccountManageActivity.this);
+                AccountManageCheckDialog dlg = new AccountManageCheckDialog(AccountManageActivity.this);
 
                 Runnable successCallback = new Runnable() {
                     public void run() {
@@ -94,7 +90,7 @@ public class AccountManageActivity extends AppCompatActivity {
         btn_deleteLoginInfo_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AccountManageCheckActivity dlg = new AccountManageCheckActivity(AccountManageActivity.this);
+                AccountManageCheckDialog dlg = new AccountManageCheckDialog(AccountManageActivity.this);
 
 
                 Runnable successCallback = new Runnable() {

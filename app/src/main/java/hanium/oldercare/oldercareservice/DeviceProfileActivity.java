@@ -131,10 +131,11 @@ public class DeviceProfileActivity extends AppCompatActivity {
                             } else {
                                 message = handler.obtainMessage(DeviceMessage.EDIT_PROFILE_FAIL.ordinal());
                             }
-                            loading.dismiss();
                         } catch (Exception e) {
                             message = handler.obtainMessage(NetworkMessage.NETWORK_FAIL.ordinal());
                             e.printStackTrace();
+                        } finally {
+                            loading.dismiss();
                         }
                         handler.sendMessage(message);
 

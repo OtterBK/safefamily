@@ -1,4 +1,4 @@
-package hanium.oldercare.oldercareservice;
+package hanium.oldercare.oldercareservice.customdialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import hanium.oldercare.oldercareservice.R;
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.handlermessage.LoginMessage;
@@ -21,14 +22,14 @@ import hanium.oldercare.oldercareservice.info.LoginInfo;
  * Created by Administrator on 2017-08-07.
  */
 
-public class AccountManageCheckActivity extends AppCompatActivity{
+public class AccountManageCheckDialog extends AppCompatActivity{
 
     private Context context;
 //    private int retVal; // ok-success: 2, ok-fails: 1, cancel: 0
     private TextView titleTxt;
 
 
-    public AccountManageCheckActivity(Context context) {
+    public AccountManageCheckDialog(Context context) {
         this.context = context;
     }
 

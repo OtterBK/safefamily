@@ -690,7 +690,39 @@ public class MyRequestUtility {
 
         String resultMsg = String.valueOf(resultSet).trim();
         resultMsg = resultMsg.replace("\"","");
-        if(resultMsg.equals("DEVICE_ADD _SUCCEED")){
+        if(resultMsg.equals("DEVICE_ADD_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean deviceDelete(String user_id, String user_pw, String device_id) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "device_delete"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("user_id", user_id);
+        param.put("user_pw", user_pw);
+        param.put("device_id", device_id);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/delete", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("DEVICE_DELETE_SUCCEED")){
             return true;
         } else {
             return false;
