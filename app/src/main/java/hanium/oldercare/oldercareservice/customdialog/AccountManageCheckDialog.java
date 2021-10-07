@@ -34,7 +34,7 @@ public class AccountManageCheckDialog extends AppCompatActivity{
     }
 
     // 호출할 다이얼로그 함수를 정의한다.
-    public void Access_check(TextView pw, Runnable successCallback, Integer val) {
+    public void Access_check(TextView pw, Runnable sc, Integer val) { //val:0 로그아웃 :1 계정삭제
 
         final Dialog dlg = new Dialog(context);        // 커스텀 다이얼로그를 정의하기위해 Dialog클래스를 생성한다.
 
@@ -63,8 +63,10 @@ public class AccountManageCheckDialog extends AppCompatActivity{
                 if(!(LoginInfo.PW.equals(message.getText().toString()))){
                     Toast.makeText(context, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                     dlg.dismiss();
-                }else{dlg.dismiss();
-                    successCallback.run();}
+                }else{
+                    dlg.dismiss();
+                    sc.run();
+                }
                 // 커스텀 다이얼로그를 종료한다.
 
             }
