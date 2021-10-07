@@ -112,6 +112,22 @@ public class DeviceInfoActivity extends AppCompatActivity {
             }
         });
 
+        btn_device_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), DeviceProfileActivity.class);
+                intent.putExtra("isEditMode", true);
+
+                DeviceInfo.infoDevice = device;
+                DeviceInfo.infoActivity = DeviceInfoActivity.this;
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.none);
+
+            }
+        });
+
         btn_device_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

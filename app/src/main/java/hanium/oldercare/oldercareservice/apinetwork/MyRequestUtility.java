@@ -613,6 +613,9 @@ public class MyRequestUtility {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
+
+        Logger.i(json);
+
         String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/set_profile", json); //기능 요청 주소
 
         Logger.i(msgMap);

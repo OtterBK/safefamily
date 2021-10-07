@@ -103,6 +103,11 @@ public class DeviceModel {
         return device_id;
     }
 
+    public String getDevice_pw() {
+        return device_pw;
+    }
+
+
     public void setDevice_id(String device_id) {
         this.device_id = device_id;
     }
