@@ -1,19 +1,17 @@
 package hanium.oldercare.oldercareservice;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.customdialog.AccountManageCheckDialog;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogInput;
-import hanium.oldercare.oldercareservice.info.LoginInfo;
-import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class AccountManageActivity extends AppCompatActivity {
 
@@ -21,7 +19,8 @@ public class AccountManageActivity extends AppCompatActivity {
     private Button btn_logout_page;
     private Button btn_deleteLoginInfo_page;
     private TextView tt_pw; //컴포넌트는 onCreate 함수에서 로드하는게 에러 안나요
-    private TextView main_label;
+    private Context context;
+
 
 
 
@@ -56,7 +55,7 @@ public class AccountManageActivity extends AppCompatActivity {
         btn_editLoginInfo_page.setOnClickListener(new View.OnClickListener() { //계정 정보 관리
             @Override
             public void onClick(View view) {
-                AccountManageCheckActivity dlg = new AccountManageCheckActivity(AccountManageActivity.this);
+                AccountManageCheckDialog dlg = new AccountManageCheckDialog(AccountManageActivity.this);
 
                 Runnable successCallback = new Runnable() {
                     public void run() {
@@ -87,27 +86,26 @@ public class AccountManageActivity extends AppCompatActivity {
                         startActivity(i);
                     }
                 };
-                check.callFunction("주의", "로그아웃",successCallback);
+                check.callFunction("주의", "로그아웃",successCallback,0);
             }
         });
 
         btn_deleteLoginInfo_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AccountManageCheckActivity dlg = new AccountManageCheckActivity(AccountManageActivity.this);
-
+                AccountManageCheckDialog dlg = new AccountManageCheckDialog(AccountManageActivity.this);
 
                 Runnable successCallback = new Runnable() {
                     public void run() {
                         CustomDialogInput check = new CustomDialogInput(AccountManageActivity.this);
-                        Runnable successCallback = new Runnable(){
+                        Runnable s = new Runnable(){
                             public void run(){
                                 Intent i = new Intent(AccountManageActivity.this/*현재 액티비티 위치*/ , LoginSelectActivity.class/*이동 액티비티 위치*/);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                             }
                         };
-                        check.callFunction("주의", "계정 삭제",successCallback);
+                        check.callFunction("주의", "계정 삭제",s,1);
                     }
                 };
                 dlg.Access_check(tt_pw, successCallback, 1);

@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.service.notification.StatusBarNotification;
 
 import androidx.core.app.NotificationCompat;
 
@@ -54,14 +55,14 @@ public class MyNotificationManager {
 
     }
 
-    public static void createNotification(Activity activity) {
+    public static void sendDangerNotification(Activity activity, String target_name) {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(activity, "default");
 
         builder.setSmallIcon(R.drawable.appicon);
-        builder.setContentTitle("이상 징후 파악");
-        builder.setContentText("홍길동 님의 이상 징후가 파악되었습니다.");
-        builder.setStyle(new NotificationCompat.BigTextStyle().bigText("홍길동 님의 이상 징후가 파악되었습니다.\n앱에서 상세정보를 확인하세요."));
+        builder.setContentTitle("이상 징후 파악됨");
+        builder.setContentText(target_name+" 님의 이상 징후가 파악되었습니다.");
+        builder.setStyle(new NotificationCompat.BigTextStyle().bigText(target_name+" 님의 이상 징후가 파악되었습니다.\n앱에서 상세정보를 확인하세요."));
         builder.setPriority(Notification.PRIORITY_MAX);
 
         builder.setColor(Color.RED);
@@ -76,7 +77,18 @@ public class MyNotificationManager {
 
         // id값은
         // 정의해야하는 각 알림의 고유한 int값
-        notificationManager.notify(1, builder.build());
+
+        boolean isAlreadySend = false;
+
+        for(StatusBarNotification activeNotification : notificationManager.getActiveNotifications()){
+            if(activeNotification.getId() == 1){ //이미 이상징후 보냈다면
+                isAlreadySend = true;
+                break;
+            }
+        }
+
+        if(!isAlreadySend)
+            notificationManager.notify(1, builder.build());
     }
 
 }

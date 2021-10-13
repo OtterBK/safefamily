@@ -416,6 +416,46 @@ public class MyRequestUtility {
 
         return userInfo;
     }
+    /*
+        로그인 정보를 이용해 로그인된 사용자 계정 삭제::회원탈퇴
+
+        return: String
+        param{
+            String ID: 로그인된 ID
+            String PW: 로그인된 PW
+
+        }
+       */
+    public static boolean deleteUserInfo(String id, String pw) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "user_info_delete"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("id", id);
+        param.put("pw", pw);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/user_info/delete", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("UserInfo_DELETE_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /*
     디바이스 목록 가져오기, pw도 맞아야 가져옴
@@ -613,6 +653,9 @@ public class MyRequestUtility {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(requestData);
+
+        Logger.i(json);
+
         String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/set_profile", json); //기능 요청 주소
 
         Logger.i(msgMap);
@@ -690,7 +733,39 @@ public class MyRequestUtility {
 
         String resultMsg = String.valueOf(resultSet).trim();
         resultMsg = resultMsg.replace("\"","");
-        if(resultMsg.equals("DEVICE_ADD _SUCCEED")){
+        if(resultMsg.equals("DEVICE_ADD_SUCCEED")){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean deviceDelete(String user_id, String user_pw, String device_id) throws Exception {
+
+        HashMap<String, Object> requestData = new HashMap();
+        requestData.put("requestType", "device_delete"); //요청 타입 설정
+
+        HashMap<String, Object> param = new HashMap(); //파라미터 설정
+        param.put("user_id", user_id);
+        param.put("user_pw", user_pw);
+        param.put("device_id", device_id);
+        requestData.put("param", param);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(requestData);
+        String msgMap = HttpConnectionUtility.sendPostREST(url_db_root+"/device/delete", json); //기능 요청 주소
+
+        Logger.i(msgMap);
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse( msgMap );
+        JSONObject jsonObj = (JSONObject) obj;
+
+        String resultSet = (String) jsonObj.get("result"); //응답 저장
+
+        String resultMsg = String.valueOf(resultSet).trim();
+        resultMsg = resultMsg.replace("\"","");
+        if(resultMsg.equals("DEVICE_DELETE_SUCCEED")){
             return true;
         } else {
             return false;

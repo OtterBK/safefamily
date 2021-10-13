@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
+import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
@@ -28,6 +28,9 @@ import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class DeviceProfileActivity extends AppCompatActivity {
+
+    private boolean isEditMode;
+    private DeviceModel device;
 
     private Button btn_done;
 
@@ -52,7 +55,13 @@ public class DeviceProfileActivity extends AppCompatActivity {
             boolean isVibrate = false;
 
             if(msg.what == DeviceMessage.EDIT_PROFILE_SUCCEED.ordinal()){
-                Toast.makeText(DeviceProfileActivity.this, "디바이스를 등록하였습니다.", Toast.LENGTH_LONG).show();
+                if(isEditMode) {
+                    Toast.makeText(DeviceProfileActivity.this, "디바이스를 수정하였습니다.", Toast.LENGTH_LONG).show();
+                    DeviceInfoActivity infoActivity = DeviceInfo.infoActivity;
+                    infoActivity.refreshInfo(); //정보 표시 화면 새로고침
+                } else {
+                    Toast.makeText(DeviceProfileActivity.this, "디바이스를 등록하였습니다.", Toast.LENGTH_LONG).show();
+                }
 //                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 //                startActivity(intent);
 //                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
@@ -63,7 +72,7 @@ public class DeviceProfileActivity extends AppCompatActivity {
             } else if(msg.what == DeviceMessage.EDIT_PROFILE_FAIL.ordinal() || msg.what == NetworkMessage.NETWORK_FAIL.ordinal()){
 
                 CustomDialogAlert alert = new CustomDialogAlert(DeviceProfileActivity.this);
-                alert.callFunction("변경 실패", "잠시 후 다시 시도해보세요.");
+                alert.callFunction("변경 실패", "네트워크 상태를 확인하거나 잠시 후 다시 시도해보세요.");
 
             }
 
@@ -126,15 +135,21 @@ public class DeviceProfileActivity extends AppCompatActivity {
                                     MyRequestUtility.setDeviceProfile(final_id, final_pw, ward_name, ward_age, ward_address, ward_desc);
 
                             if (isSucceed) {
-                                MyRequestUtility.deviceAdd(LoginInfo.ID, LoginInfo.PW, final_id, final_pw);
+                                //디바이스 수정 중이면 새로고침 실행
+                                if(isEditMode) {
+                                    device.refreshData();
+                                } else {
+                                    MyRequestUtility.deviceAdd(LoginInfo.ID, LoginInfo.PW, final_id, final_pw);
+                                }
                                 message = handler.obtainMessage(DeviceMessage.EDIT_PROFILE_SUCCEED.ordinal());
                             } else {
                                 message = handler.obtainMessage(DeviceMessage.EDIT_PROFILE_FAIL.ordinal());
                             }
-                            loading.dismiss();
                         } catch (Exception e) {
                             message = handler.obtainMessage(NetworkMessage.NETWORK_FAIL.ordinal());
                             e.printStackTrace();
+                        } finally {
+                            loading.dismiss();
                         }
                         handler.sendMessage(message);
 
@@ -167,6 +182,15 @@ public class DeviceProfileActivity extends AppCompatActivity {
 
     }
 
+    private void loadDeviceProfile(DeviceModel device){
+        final_id = device.getDevice_id();
+        final_pw = device.getDevice_pw();
+        input_name.setText(device.getWard_name());
+        input_age.setText(device.getWard_age());
+        input_address.setText(device.getWard_address());
+        input_desc.setText(device.getWard_description());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,6 +205,13 @@ public class DeviceProfileActivity extends AppCompatActivity {
         setFilters();
         setComponentsEvent();
         setEffectObject();
+
+         isEditMode = getIntent().getBooleanExtra("isEditMode", false);
+
+        if(isEditMode){ //수정 모드면 기존 정보 로드
+            device = DeviceInfo.infoDevice;
+            loadDeviceProfile(device);
+        }
 
     }
 

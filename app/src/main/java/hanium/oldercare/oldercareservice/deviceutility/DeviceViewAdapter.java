@@ -1,4 +1,4 @@
-package hanium.oldercare.oldercareservice.cardutility;
+package hanium.oldercare.oldercareservice.deviceutility;
 
 /*
 그냥... JSONARRAY 가져다 쓰죠 나중에 리팩토링 할 때 고치겟습니다.
@@ -6,34 +6,19 @@ package hanium.oldercare.oldercareservice.cardutility;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Method;
-import java.util.List;
-
-import hanium.oldercare.oldercareservice.AccountManageActivity;
 import hanium.oldercare.oldercareservice.DeviceInfoActivity;
-import hanium.oldercare.oldercareservice.EmailVerifyActivity;
-import hanium.oldercare.oldercareservice.FindIDActivity;
 import hanium.oldercare.oldercareservice.R;
-import hanium.oldercare.oldercareservice.RegisterActivity;
-import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
-import hanium.oldercare.oldercareservice.customdialog.DeviceInfoDialog;
-import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
 import hanium.oldercare.oldercareservice.info.DeviceInfo;
-import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
 public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.ViewHolder> {
 
@@ -93,13 +78,6 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
         // - replace the contents of the view with that element
 
         DeviceModel device = deviceList.get(position);
-
-        int iconId = R.drawable.status_safe;
-        if(device.getStatus() == 2){
-            iconId = R.drawable.status_warn;
-        } else if(device.getStatus() == 3){
-            iconId = R.drawable.status_danger;
-        }
 
         holder.mainView.setOnClickListener(new View.OnClickListener() {
             @Override

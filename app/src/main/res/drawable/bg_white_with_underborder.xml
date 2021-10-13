@@ -12,7 +12,7 @@ android:shape="rectangle">
     android:bottom="2dp"
     android:left="-2dp"
     android:right="-2dp"
-    android:top="2dp">
+    android:top="-2dp">
     <shape android:shape="rectangle" >
 
         <!-- 테두리 두께 및 색상 설정 -->
