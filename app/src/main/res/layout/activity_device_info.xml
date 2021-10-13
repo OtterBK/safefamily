@@ -283,7 +283,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/bg_white_with_underborder"
-                android:drawableLeft="@android:drawable/ic_menu_delete"
+                android:drawableLeft="@android:drawable/ic_menu_send"
                 android:drawablePadding="15dp"
                 android:fontFamily="@font/lotte_happy"
                 android:gravity="left|center_vertical"
