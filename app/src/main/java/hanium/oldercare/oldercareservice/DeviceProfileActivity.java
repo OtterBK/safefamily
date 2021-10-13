@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,7 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
-import hanium.oldercare.oldercareservice.cardutility.DeviceModel;
+import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;

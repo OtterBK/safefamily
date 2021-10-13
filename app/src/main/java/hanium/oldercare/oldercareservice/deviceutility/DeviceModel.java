@@ -1,6 +1,4 @@
-package hanium.oldercare.oldercareservice.cardutility;
-
-import android.os.Handler;
+package hanium.oldercare.oldercareservice.deviceutility;
 
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,17 +6,18 @@ import android.widget.TextView;
 import org.json.simple.JSONArray;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-
+import hanium.oldercare.oldercareservice.R;
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
+import hanium.oldercare.oldercareservice.info.ActivityInfo;
+import hanium.oldercare.oldercareservice.utility.MyNotificationManager;
 
 
 public class DeviceModel {
 
     private String device_id;
     private String device_pw;
+    private DangerLevel dangerLevel = DangerLevel.UNKNOWN;
+    private int device_status_icon = R.drawable.status_unknown;
     private String ward_name;
     private String ward_age;
     private String ward_address;
@@ -84,6 +83,8 @@ public class DeviceModel {
                 speaker_count = String.valueOf(speakerLogs.size());
             }
 
+            dangerLevel = DetectDanger.getDangerLevel(this);
+
         } catch (Exception e) {
             e.printStackTrace();
             return;
@@ -93,6 +94,19 @@ public class DeviceModel {
 
     //컴포넌트에 값 재설정
     public void refreshComp(){
+
+        if(dangerLevel == DangerLevel.SAFE){
+            device_status_icon = R.drawable.status_safe;
+        } else if(dangerLevel == DangerLevel.WARN){
+            device_status_icon = R.drawable.status_warn;
+        } else if(dangerLevel == DangerLevel.DANGER){
+            device_status_icon = R.drawable.status_danger;
+            MyNotificationManager.sendDangerNotification(ActivityInfo.homeActivity, ward_name); //위험 레벨일 시 알람
+        } else {
+            device_status_icon = R.drawable.status_unknown;
+        }
+
+        comp_status_image.setImageResource(device_status_icon);
         comp_ward_name.setText(ward_name);
         comp_door_count.setText(door_count);
         comp_speaker_count.setText(speaker_count);
@@ -107,6 +121,10 @@ public class DeviceModel {
         return device_pw;
     }
 
+
+    public int getDevice_status_icon() {
+        return device_status_icon;
+    }
 
     public void setDevice_id(String device_id) {
         this.device_id = device_id;

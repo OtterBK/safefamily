@@ -1,46 +1,28 @@
 package hanium.oldercare.oldercareservice;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.InputFilter;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.JsonObject;
 
 import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
-import hanium.oldercare.oldercareservice.cardutility.DeviceModel;
-import hanium.oldercare.oldercareservice.cardutility.DeviceViewAdapter;
-import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
+import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
+import hanium.oldercare.oldercareservice.deviceutility.DeviceViewAdapter;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
-import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
-import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.info.ActivityInfo;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
-import hanium.oldercare.oldercareservice.info.RegisterInfo;
-import hanium.oldercare.oldercareservice.inputfilter.PhoneFilter;
-import hanium.oldercare.oldercareservice.utility.MyNotificationManager;
 import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
@@ -166,10 +148,27 @@ public class HomeActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        refreshDeviceList(); //디바이스 목록 갱신
+        refreshScheduler(); //디바이스 목록 갱신 스케줄러 실행
 
     }
 
+    public void refreshScheduler(){
+        Thread refreshSchedulerThread = new Thread(){
+            public void run(){
+                try{
+
+                    while(true){
+                        refreshDeviceList();
+                        Thread.sleep(60000); //60초마다 1번 수행
+                    }
+
+                }catch (Exception exc){
+                    exc.printStackTrace();
+                }
+            }
+        };
+        refreshSchedulerThread.start();
+    }
 
     public void refreshDevice(){
 

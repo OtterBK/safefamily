@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/device_item_status_image2"
+            android:id="@+id/device_info_status_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/device_item_status_image2">
+            app:layout_constraintTop_toBottomOf="@+id/device_info_status_image">
 
             <TextView
                 android:id="@+id/deviceInfo_text_targetAddress"
@@ -177,8 +177,8 @@
             android:text="디바이스 번호(ID)"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/device_item_status_image2"
-            app:layout_constraintTop_toTopOf="@+id/device_item_status_image2" />
+            app:layout_constraintStart_toEndOf="@+id/device_info_status_image"
+            app:layout_constraintTop_toTopOf="@+id/device_info_status_image" />
 
         <TextView
             android:id="@+id/deviceInfo_text_deviceNum"
@@ -190,9 +190,9 @@
             android:text="0번"
             android:textColor="@color/color1"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/device_item_status_image2"
+            app:layout_constraintBottom_toBottomOf="@+id/device_info_status_image"
             app:layout_constraintEnd_toEndOf="@+id/deviceInfo_lbl1"
-            app:layout_constraintStart_toEndOf="@+id/device_item_status_image2" />
+            app:layout_constraintStart_toEndOf="@+id/device_info_status_image" />
 
         <View
             android:layout_width="0dp"

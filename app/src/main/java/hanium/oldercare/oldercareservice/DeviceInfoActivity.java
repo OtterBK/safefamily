@@ -1,41 +1,25 @@
 package hanium.oldercare.oldercareservice;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
-import hanium.oldercare.oldercareservice.cardutility.DeviceModel;
-import hanium.oldercare.oldercareservice.cardutility.DeviceViewAdapter;
+import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogConfirm;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
-import hanium.oldercare.oldercareservice.customdialog.DeviceInfoDialog;
 import hanium.oldercare.oldercareservice.customdialog.DeviceLogDialog;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
 import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
@@ -196,6 +180,9 @@ public class DeviceInfoActivity extends AppCompatActivity {
 
     public void refreshInfo(){
         Activity context = DeviceInfoActivity.this;
+
+        final ImageView deviceStatus = (ImageView) context.findViewById(R.id.device_info_status_image);
+        deviceStatus.setImageResource(device.getDevice_status_icon());
 
         final TextView deviceNum = (TextView) context.findViewById(R.id.deviceInfo_text_deviceNum);
         deviceNum.setText(device.getDevice_id()+"번 디바이스");

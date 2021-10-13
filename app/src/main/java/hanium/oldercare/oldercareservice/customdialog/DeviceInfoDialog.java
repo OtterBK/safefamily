@@ -2,11 +2,8 @@ package hanium.oldercare.oldercareservice.customdialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TableLayout;
@@ -14,7 +11,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import hanium.oldercare.oldercareservice.R;
-import hanium.oldercare.oldercareservice.cardutility.DeviceModel;
+import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
 
 public class DeviceInfoDialog extends AppCompatActivity {
 

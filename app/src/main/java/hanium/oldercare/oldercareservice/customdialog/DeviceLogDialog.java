@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import hanium.oldercare.oldercareservice.R;
-import hanium.oldercare.oldercareservice.cardutility.DeviceModel;
+import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
 
 public class DeviceLogDialog extends AppCompatActivity {
 
