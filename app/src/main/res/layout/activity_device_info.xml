@@ -209,8 +209,8 @@
             android:id="@+id/constraintLayout4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
             android:background="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/deviceInfo_layout_top"
@@ -231,12 +231,13 @@
                 android:gravity="left|center_vertical"
                 android:text="동작 기록 확인"
                 android:textColor="@color/skyblue"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@+id/deviceInfo_btn_device_edit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
 
             <Button
                 android:id="@+id/deviceInfo_btn_device_edit"
@@ -250,7 +251,7 @@
                 android:gravity="left|center_vertical"
                 android:text="정보 수정"
                 android:textColor="@color/skyblue"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@+id/deviceInfo_btn_device_delete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -269,12 +270,31 @@
                 android:gravity="left|center_vertical"
                 android:text="디바이스 삭제"
                 android:textColor="@color/skyblue"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/deviceInfo_btn_device_sendsos"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/deviceInfo_btn_device_edit" />
+
+            <Button
+                android:id="@+id/deviceInfo_btn_device_sendsos"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_white_with_underborder"
+                android:drawableLeft="@android:drawable/ic_menu_delete"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/lotte_happy"
+                android:gravity="left|center_vertical"
+                android:text="긴급 문자 전송"
+                android:textColor="@color/skyblue"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deviceInfo_btn_device_delete" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

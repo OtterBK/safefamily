@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat;
 
 import hanium.oldercare.oldercareservice.HomeActivity;
 import hanium.oldercare.oldercareservice.R;
+import hanium.oldercare.oldercareservice.info.ActivityInfo;
 
 public class MyNotificationManager {
 
@@ -81,14 +82,22 @@ public class MyNotificationManager {
         boolean isAlreadySend = false;
 
         for(StatusBarNotification activeNotification : notificationManager.getActiveNotifications()){
-            if(activeNotification.getId() == 1){ //이미 이상징후 보냈다면
+            if(activeNotification.getId() == 1598){ //이미 이상징후 보냈다면
                 isAlreadySend = true;
                 break;
             }
         }
 
-        if(!isAlreadySend)
-            notificationManager.notify(1, builder.build());
+        if(!isAlreadySend) {
+            //알림 클릭 시 HomeActivity 로 이
+            Intent notifyIntent = new Intent(activity, HomeActivity.class);
+            notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            PendingIntent notifyPendingIntent = PendingIntent.getActivity(activity, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(notifyPendingIntent);
+
+            Notification notification = builder.build();
+            notificationManager.notify(1598, notification);
+        }
     }
 
 }

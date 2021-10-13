@@ -9,129 +9,138 @@
     tools:context=".HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="380dp"
-        android:layout_height="650dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/bg_gray_with_bubble"
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bubbleborder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197">
+        app:layout_constraintVertical_bias="0.0">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:alpha="0.7"
+            app:layout_constraintBottom_toTopOf="@+id/find_id_btn_find"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_manage_control_pane"
+            app:srcCompat="@android:drawable/ic_menu_preferences" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="330dp"
-            android:layout_height="600dp"
-            android:background="@drawable/bubbleborder"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/account_manage_lbl1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/bmdohyeon"
-                android:text="계정 관리"
-                android:textColor="@color/fr_black"
-                android:textSize="28sp"
-                android:typeface="sans"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/account_manage_control_pane"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="60dp"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="@+id/account_manage_lbl1"
+            app:layout_constraintStart_toStartOf="@+id/account_manage_lbl1"
+            app:layout_constraintTop_toBottomOf="@+id/account_manage_lbl2">
 
             <Button
                 android:id="@+id/account_manage_btn_changeInfo"
-                android:layout_width="160dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_blue_with_bubbleborder_black"
-                android:fontFamily="@font/elice"
-                android:text="계정정보 변경"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_white_with_underborder"
+                android:drawableLeft="@android:drawable/ic_menu_edit"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/lotte_happy"
+                android:gravity="left|center_vertical"
+                android:text="계정 정보 변경"
+                android:textColor="@color/skyblue"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/account_manage_btn_logout"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
 
             <Button
                 android:id="@+id/account_manage_btn_logout"
-                android:layout_width="160dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_blue_with_bubbleborder_black"
-                android:fontFamily="@font/elice"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_white_with_underborder"
+                android:drawableLeft="@android:drawable/ic_menu_myplaces"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/lotte_happy"
+                android:gravity="left|center_vertical"
                 android:text="로그아웃"
+                android:textColor="@color/skyblue"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/account_manage_btn_unregister"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-            <Button
-                android:id="@+id/account_manage_btn_unregister"
-                android:layout_width="160dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/bg_blue_with_bubbleborder_black"
-                android:fontFamily="@font/elice"
-                android:text="회원탈퇴"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view3" />
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="5px"
-                android:layout_marginTop="40dp"
-                android:background="@color/fr_darkBlue"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_manage_lbl1" />
-
-            <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="5px"
-                android:layout_marginTop="12dp"
-                android:background="@color/fr_darkBlue"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/account_manage_btn_changeInfo" />
 
-            <View
-                android:id="@+id/view3"
-                android:layout_width="match_parent"
-                android:layout_height="5px"
-                android:layout_marginTop="12dp"
-                android:background="@color/fr_darkBlue"
+            <Button
+                android:id="@+id/account_manage_btn_unregister"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_white_with_underborder"
+                android:drawableLeft="@android:drawable/ic_menu_delete"
+                android:drawablePadding="15dp"
+                android:fontFamily="@font/lotte_happy"
+                android:gravity="left|center_vertical"
+                android:text="회원 탈퇴"
+                android:textColor="@color/skyblue"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/account_manage_btn_logout" />
 
-            <View
-                android:id="@+id/view4"
-                android:layout_width="match_parent"
-                android:layout_height="5px"
-                android:layout_marginTop="12dp"
-                android:background="@color/fr_darkBlue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_manage_btn_unregister" />
-
-            <TextView
-                android:id="@+id/check_pw"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:visibility="invisible"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="248dp"
-                tools:layout_editor_absoluteY="560dp" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/account_manage_lbl1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/lotte_happy"
+            android:text="계정 관리"
+            android:textColor="@color/fr_black"
+            android:textSize="28sp"
+            android:typeface="sans"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/account_manage_lbl2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/bmdohyeon"
+            android:text="로그인한 계정을 관리할 수 있습니다."
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/account_manage_lbl1"
+            app:layout_constraintTop_toBottomOf="@+id/account_manage_lbl1" />
+
+        <TextView
+            android:id="@+id/check_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="invisible"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="323dp"
+            tools:layout_editor_absoluteY="696dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

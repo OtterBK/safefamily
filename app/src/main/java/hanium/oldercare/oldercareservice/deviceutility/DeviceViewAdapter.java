@@ -6,6 +6,8 @@ package hanium.oldercare.oldercareservice.deviceutility;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import hanium.oldercare.oldercareservice.DeviceInfoActivity;
 import hanium.oldercare.oldercareservice.R;
+import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
 import hanium.oldercare.oldercareservice.info.DeviceInfo;
 
 
@@ -25,7 +28,7 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
 
     private ArrayList<DeviceModel> deviceList;
     private Context context;
-    private Runnable bindCallback; //아이템 바인드할 때 마다 실행
+    private Handler callbackHandler; //아이템 바인드할 때 마다 실행
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -51,10 +54,10 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public DeviceViewAdapter(ArrayList<DeviceModel> deviceList, Context context, Runnable bindCallback) {
+    public DeviceViewAdapter(ArrayList<DeviceModel> deviceList, Context context, Handler callbackHandler) {
         this.deviceList = deviceList;
         this.context = context;
-        this.bindCallback = bindCallback;
+        this.callbackHandler = callbackHandler;
     }
 
     // Create new views (invoked by the layout manager)
@@ -94,7 +97,15 @@ public class DeviceViewAdapter extends RecyclerView.Adapter<DeviceViewAdapter.Vi
 
         device.setComponent(holder.statusIcon, holder.wardName, holder.doorCount, holder.speakerCount);
 
-        bindCallback.run(); //콜백 실행
+        Thread refreshThread = new Thread(()->{
+            device.refreshData();
+            Message handleMsg = callbackHandler.obtainMessage(DeviceMessage.REFRESH_DEVICE_COMP.ordinal());
+            handleMsg.arg1 = position;
+            callbackHandler.sendMessage(handleMsg);
+        });
+        refreshThread.start();
+
+
 
     }
 

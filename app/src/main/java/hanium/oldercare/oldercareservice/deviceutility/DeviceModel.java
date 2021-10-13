@@ -58,8 +58,6 @@ public class DeviceModel {
     //데이터 새로 받아오기
     public void refreshData(){
 
-        if(!isCompSet) return;
-
         try {
             JSONArray deviceInfoArray = MyRequestUtility.getDeviceInfo(device_id,device_pw);
             if(deviceInfoArray != null){
@@ -84,6 +82,9 @@ public class DeviceModel {
             }
 
             dangerLevel = DetectDanger.getDangerLevel(this);
+            if(dangerLevel == DangerLevel.DANGER){
+                MyNotificationManager.sendDangerNotification(ActivityInfo.homeActivity, ward_name); //위험 레벨일 시 알람
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,13 +96,14 @@ public class DeviceModel {
     //컴포넌트에 값 재설정
     public void refreshComp(){
 
+        if(!isCompSet) return;
+
         if(dangerLevel == DangerLevel.SAFE){
             device_status_icon = R.drawable.status_safe;
         } else if(dangerLevel == DangerLevel.WARN){
             device_status_icon = R.drawable.status_warn;
         } else if(dangerLevel == DangerLevel.DANGER){
             device_status_icon = R.drawable.status_danger;
-            MyNotificationManager.sendDangerNotification(ActivityInfo.homeActivity, ward_name); //위험 레벨일 시 알람
         } else {
             device_status_icon = R.drawable.status_unknown;
         }

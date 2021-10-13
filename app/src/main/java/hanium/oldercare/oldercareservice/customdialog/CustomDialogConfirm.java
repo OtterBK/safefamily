@@ -21,6 +21,7 @@ public class CustomDialogConfirm {
     private TextView titleView;
     private TextView descView;
     private Button btn_ok;
+    private Button btn_cancel;
 
 
     public CustomDialogConfirm(Context context) {
@@ -63,30 +64,24 @@ public class CustomDialogConfirm {
         titleView = (TextView) dialog.findViewById(R.id.dialog_confirm_title);
         descView = (TextView) dialog.findViewById(R.id.dialog_confirm_desc);
         btn_ok = (Button) dialog.findViewById(R.id.dialog_confirm_ok);
+        btn_cancel = (Button) dialog.findViewById(R.id.dialog_confirm_cancel);
 
         titleView.setText(title);
         descView.setText(desc);
-
-        titleView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 커스텀 다이얼로그를 종료한다.
-                dialog.dismiss();
-            }
-        });
-        descView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 커스텀 다이얼로그를 종료한다.
-                dialog.dismiss();
-            }
-        });
+        
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 커스텀 다이얼로그를 종료한다.
                 dialog.dismiss();
                 okFunction.run();
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 커스텀 다이얼로그를 종료한다.
+                dialog.dismiss();
             }
         });
     }

@@ -36,26 +36,24 @@ public class HomeActivity extends AppCompatActivity {
             boolean isVibrate = false;
 
             if(msg.what == DeviceMessage.REFRESH_DEVICE_READAPT.ordinal()){
-
-                bindCheckCount = 0; //바인드 아이템 갯수 카운터 초기화
                 
-                Runnable bindCallback = () -> {
-                    Message handleMsg = handler.obtainMessage(DeviceMessage.CHECK_DEVICE_BIND_DONE.ordinal());
-                    handler.sendMessage(handleMsg);
-                };
-
-                mAdapter = new DeviceViewAdapter(deviceList, HomeActivity.this, bindCallback);
-                mRecyclerView.setAdapter(mAdapter); //어댑터 재생성
-
+                if(isActivityStopped){ //액티비티 비활성화 중이면
+                    for(DeviceModel device : deviceList){ //이상 징후 파악을 위해 데이터만 재요청
+                        Thread refreshThread = new Thread(()->{
+                            device.refreshData();    
+                        });
+                        refreshThread.start();
+                    }
+                } else { //액티비티 활성화 중이면
+                    mAdapter = new DeviceViewAdapter(deviceList, HomeActivity.this, handler);
+                    mRecyclerView.setAdapter(mAdapter); //어댑터 재생성
+                }
+                
             } else if(msg.what == DeviceMessage.REFRESH_DEVICE_COMP.ordinal()){
                 int deviceIndex = msg.arg1;
                 DeviceModel deviceModel = deviceList.get(deviceIndex);
 
                 deviceModel.refreshComp();
-            } else if(msg.what == DeviceMessage.CHECK_DEVICE_BIND_DONE.ordinal()){ // 모든 아이템이 바인드되면 디바이스 새로고침 실행
-                bindCheckCount += 1;
-                if(bindCheckCount >= deviceList.size())
-                    refreshDevice();
             }
 
             if(isVibrate) VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
@@ -72,8 +70,12 @@ public class HomeActivity extends AppCompatActivity {
     private Button btn_account_page;
     private Button btn_device_add;
 
+    private boolean alreadyRefreshing;
+    private boolean isActivityStopped;
 
     private Vibrator vibrator;
+
+    private Thread refreshSchedulerThread;
 
     private void loadComponents(){
         btn_account_page = (Button) findViewById(R.id.home_setting_account);
@@ -152,17 +154,44 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStop(){
+        super.onStop();
+        isActivityStopped = true;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        isActivityStopped = false;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        refreshSchedulerThread.interrupt();
+    }
+
     public void refreshScheduler(){
-        Thread refreshSchedulerThread = new Thread(){
+        refreshSchedulerThread = new Thread(){
             public void run(){
+                boolean stopFlag = false;
+
                 try{
 
-                    while(true){
+                    while(!stopFlag){
+
+                        if(alreadyRefreshing) {
+                            alreadyRefreshing = false;
+                            continue;
+                        }
                         refreshDeviceList();
-                        Thread.sleep(60000); //60초마다 1번 수행
+                        Thread.sleep(30000); //30초마다 1번 수행
                     }
 
-                }catch (Exception exc){
+                } catch (InterruptedException exc){
+                    stopFlag = true;
+                } catch (Exception exc){
                     exc.printStackTrace();
                 }
             }
@@ -205,6 +234,8 @@ public class HomeActivity extends AppCompatActivity {
         Thread refreshThread = new Thread(){
             public void run(){
                 try{
+                    alreadyRefreshing = true;
+
                     deviceList.clear();
 
                     JSONArray deviceArray = MyRequestUtility.getDeviceList(LoginInfo.ID, LoginInfo.PW);
@@ -226,6 +257,8 @@ public class HomeActivity extends AppCompatActivity {
 
                 }catch (Exception exc){
                     exc.printStackTrace();
+                }finally {
+                    alreadyRefreshing = false;
                 }
             }
         };
