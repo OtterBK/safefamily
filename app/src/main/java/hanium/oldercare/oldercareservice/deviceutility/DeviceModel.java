@@ -81,7 +81,7 @@ public class DeviceModel {
                 speaker_count = String.valueOf(speakerLogs.size());
             }
 
-            dangerLevel = DetectDanger.getDangerLevel(this);
+            dangerLevel = DangerDetector.getDangerLevel(this);
             if(dangerLevel == DangerLevel.DANGER){
                 MyNotificationManager.sendDangerNotification(ActivityInfo.homeActivity, ward_name); //위험 레벨일 시 알람
             }

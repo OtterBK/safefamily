@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import hanium.oldercare.oldercareservice.R;
 import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
@@ -110,14 +111,17 @@ public class DeviceInfoDialog extends AppCompatActivity {
                     tableRow.addView(textView[i]);
                 }
 
-                Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat sdf1 = new SimpleDateFormat("YYYY년 MM월 dd일");
-                SimpleDateFormat sdf2 = new SimpleDateFormat("hh시 mm분 ss초");
+                SimpleDateFormat sdf2 = new SimpleDateFormat("HH시 mm분 ss초");
 
                 JSONObject dateMap = (JSONObject) log.get(1);
                 String dateStr = String.valueOf(dateMap.get("$date"));
-                long date = Long.parseLong(dateStr);
+                long utcDate = Long.parseLong(dateStr);
 
+                Calendar tmpCalendar = Calendar.getInstance();
+                tmpCalendar.setTimeInMillis(utcDate);
+                tmpCalendar.add(Calendar.HOUR, -9);
+                long date = tmpCalendar.getTimeInMillis();
 
                 textView[0].setText(sdf1.format(date));
                 textView[1].setText(sdf2.format(date));

@@ -16,6 +16,7 @@ import android.widget.Button;
 import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
+import java.util.TimeZone;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
@@ -124,6 +125,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,7 +139,6 @@ public class HomeActivity extends AppCompatActivity {
         setFilters();
         setComponentsEvent();
         setEffectObject();
-
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.home_recyclerView);
