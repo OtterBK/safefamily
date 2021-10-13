@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import hanium.oldercare.oldercareservice.customdialog.AccountManageCheckDialog;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogInput;
+import hanium.oldercare.oldercareservice.utility.ScreenManager;
 
 public class AccountManageActivity extends AppCompatActivity {
 
@@ -28,6 +29,8 @@ public class AccountManageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_manage);
+
+        ScreenManager.transparentStatusBar(this);
 
         loadComponents();
         setComponentsEvent();
