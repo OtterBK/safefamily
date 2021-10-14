@@ -109,7 +109,7 @@ public class CustomDialogInput {
                         Thread thread = new Thread(() -> {
 
                             try {
-                                boolean isSucceed = MyRequestUtility.deleteUserInfo(LoginInfo.ID, LoginInfo.PW);
+                                    MyRequestUtility.deleteUserInfo(LoginInfo.ID, LoginInfo.PW);
                                     Toast.makeText(context, label+"되었습니다.", Toast.LENGTH_SHORT).show();
                             } catch (Exception e) {
                                 Toast.makeText(context, "네트워크 통신에 실패하였습니다.", Toast.LENGTH_SHORT).show();
@@ -119,13 +119,13 @@ public class CustomDialogInput {
                         thread.start();
                 }else{
                     Toast.makeText(context, label+"되었습니다.", Toast.LENGTH_SHORT).show();
+                    s.run();
                 }
                 // '확인' 버튼 클릭시 메인 액티비티에서 설정한 main_label에
                 // 커스텀 다이얼로그에서 입력한 메시지를 대입한다.
 
                 // 커스텀 다이얼로그를 종료한다.
                 dlg.dismiss();
-//                s.run();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {

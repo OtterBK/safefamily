@@ -34,16 +34,7 @@ public class AccountManageActivity extends AppCompatActivity {
 
         loadComponents();
         setComponentsEvent();
-/*        if(LoginInfo.Login_check) {
-            if (LoginInfo.PW.equals(tt_pw)) {
-                Intent intent = new Intent(getApplicationContext(), EditLoginInfoActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.none);
-            } else {
-                CustomDialogAlert alert = new CustomDialogAlert(AccountManageActivity.this);
-                alert.callFunction("경고", "비밀번호가 일치하지 않습니다.");
-            }
-        }*/
+
     }
 
     private void loadComponents(){

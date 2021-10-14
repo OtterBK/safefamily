@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,7 +50,13 @@ public class DeviceInfoActivity extends AppCompatActivity {
                 CustomDialogAlert alert = new CustomDialogAlert(DeviceInfoActivity.this);
                 alert.callFunction("삭제 실패", "잠시 후 다시 시도해보세요.");
 
+            } else if(msg.what == DeviceMessage.SEND_SOS_SUCCEED.ordinal()){
+                Toast.makeText(DeviceInfoActivity.this, "SOS 문자가 성공적으로 전송됐습니다.", Toast.LENGTH_LONG).show();
+            } else if(msg.what == DeviceMessage.SEND_SOS_FAIL.ordinal()){
+                CustomDialogAlert alert = new CustomDialogAlert(DeviceInfoActivity.this);
+                alert.callFunction("전송 실패", "잠시 후 다시 시도해보세요.");
             }
+
 
             if(isVibrate) VibrateUtility.errorVibrate(vibrator); //오류시 진동효과
         }
@@ -59,9 +66,9 @@ public class DeviceInfoActivity extends AppCompatActivity {
     private Button btn_log;
     private Button btn_device_edit;
     private Button btn_device_delete;
+    private Button btn_device_sendsos;
 
     private DeviceModel device;
-
 
     private Vibrator vibrator;
 
@@ -70,6 +77,7 @@ public class DeviceInfoActivity extends AppCompatActivity {
         btn_log = (Button) findViewById(R.id.deviceInfo_btn_log);
         btn_device_edit = (Button) findViewById(R.id.deviceInfo_btn_device_edit);
         btn_device_delete = (Button) findViewById(R.id.deviceInfo_btn_device_delete);
+        btn_device_sendsos = (Button) findViewById(R.id.deviceInfo_btn_device_sendsos);
     }
 
 
@@ -144,7 +152,6 @@ public class DeviceInfoActivity extends AppCompatActivity {
                         }
                         handler.sendMessage(message);
 
-
                     });
                     thread.start();
                 };
@@ -152,11 +159,50 @@ public class DeviceInfoActivity extends AppCompatActivity {
                 dialogConfirm.callFunction("삭제 확인", "정말로 디바이스를 삭제하시겠습니까?",okFunction);
             }
         });
-    }
 
-    private void setFilters(){
+        btn_device_sendsos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomDialogConfirm dialogConfirm = new CustomDialogConfirm(DeviceInfoActivity.this);
 
+                String phoneNo = "01054126975";
+                String sms = device.getWard_name()+" "+device.getWard_age()+"세\n"+device.getWard_address()+"\n특이사항:"+device.getWard_description()+"\n N시간동안 움직임 감지x \n출동요망";
 
+                Runnable okFunction = ()->{
+                    CustomDialogLoading loading = new CustomDialogLoading(DeviceInfoActivity.this);
+                    loading.callFunction();
+
+                    Thread thread = new Thread(()->{
+
+                        Message message = null;
+
+                        try {
+                            SmsManager smsManager = SmsManager.getDefault();
+                            if (sms.length()>=70){
+                                String sms_1 = sms.substring(0,70);
+                                String sms_2 = sms.substring(70);
+                                smsManager.sendTextMessage(phoneNo, null, sms_1, null, null);
+                                smsManager.sendTextMessage(phoneNo, null, sms_2, null, null);
+                            }
+                            else{
+                                smsManager.sendTextMessage(phoneNo, null, sms, null, null);
+                            }
+                            message = handler.obtainMessage(DeviceMessage.SEND_SOS_SUCCEED.ordinal());
+
+                        } catch (Exception e) {
+                            message = handler.obtainMessage(DeviceMessage.SEND_SOS_FAIL.ordinal());
+                            e.printStackTrace();
+
+                        } finally {
+                            loading.dismiss();
+                        }
+                        handler.sendMessage(message);
+                    });
+                    thread.start();
+                };
+                dialogConfirm.callFunction("SOS 문자 전송", sms,okFunction);
+            }
+        });
     }
 
     @Override
@@ -167,7 +213,6 @@ public class DeviceInfoActivity extends AppCompatActivity {
         ScreenManager.transparentStatusBar(this);
 
         loadComponents();
-        setFilters();
         setComponentsEvent();
         setEffectObject();
 
@@ -198,7 +243,6 @@ public class DeviceInfoActivity extends AppCompatActivity {
 
         final TextView desc = (TextView) context.findViewById(R.id.deviceInfo_text_targetDesc);
         desc.setText(device.getWard_description());
-
 
 
     }
