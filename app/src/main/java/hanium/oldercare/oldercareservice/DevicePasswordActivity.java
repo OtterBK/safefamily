@@ -20,9 +20,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogLoading;
+import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
 import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.info.DeviceInfo;
+import hanium.oldercare.oldercareservice.info.LoginInfo;
 import hanium.oldercare.oldercareservice.inputfilter.NumberFilter;
 import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
@@ -47,6 +49,9 @@ public class DevicePasswordActivity extends AppCompatActivity {
 
     private Vibrator vibrator;
 
+    private boolean isEditMode;
+    private DeviceModel device;
+
 
     //백그라운드 작업 응답 처리에 사용할 메시지 핸들러
     final Handler handler = new Handler() {
@@ -67,7 +72,7 @@ public class DevicePasswordActivity extends AppCompatActivity {
             } else if(msg.what == DeviceMessage.EDIT_PASSWORD_NOT_MATCH.ordinal()){
                 CustomDialogAlert alert = new CustomDialogAlert(DevicePasswordActivity.this);
                 alert.callFunction("인증 실패", "디바이스의 현재 비빌번호가 일치하지 않습니다.\n");
-            } else if(msg.what == DeviceMessage.EDIT_PASSWORD_NOT_MATCH.ordinal()){
+            } else if(msg.what == NetworkMessage.NETWORK_FAIL.ordinal()){
                 CustomDialogAlert alert = new CustomDialogAlert(DevicePasswordActivity.this);
                 alert.callFunction("연결 실패", "요청에 실패하였습니다.\n네트워크를 확인하거나\n잠시 후 다시 시도해주세요.");
             }
@@ -188,6 +193,14 @@ public class DevicePasswordActivity extends AppCompatActivity {
 
                         try {
 
+                            if(isEditMode){
+                                device_id = device.getDevice_id();
+                                device_pw = device.getDevice_pw();
+                            } else {
+                                device_id = DeviceInfo.tmpId;
+                                device_pw = DeviceInfo.tmpPw;
+                            }
+
                             boolean isCredentialSucceed =
                                     MyRequestUtility.deviceCredential(device_id, final_pw);
 
@@ -197,6 +210,15 @@ public class DevicePasswordActivity extends AppCompatActivity {
 
                                 if(isEditSucceed){
                                     message = handler.obtainMessage(DeviceMessage.EDIT_PASSWORD_SUCCEED.ordinal());
+
+                                    if(isEditMode){
+                                        device.setDevice_pw(final_new_pw);
+                                        MyRequestUtility.deviceDelete(LoginInfo.ID, LoginInfo.PW, device.getDevice_id());
+                                        MyRequestUtility.deviceAdd(LoginInfo.ID, LoginInfo.PW, device.getDevice_id(), device.getDevice_pw());
+                                    } else {
+                                        DeviceInfo.tmpPw = final_new_pw;
+                                    }
+
                                 } else {
                                     message = handler.obtainMessage(DeviceMessage.EDIT_PASSWORD_FAIL.ordinal());
                                 }
@@ -247,6 +269,12 @@ public class DevicePasswordActivity extends AppCompatActivity {
         setFilters();
         setComponentsEvent();
         setEffectObject();
+
+        isEditMode = getIntent().getBooleanExtra("isEditMode", false);
+
+        if(isEditMode){
+            device = DeviceInfo.infoDevice;
+        }
 
     }
 

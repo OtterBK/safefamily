@@ -131,6 +131,14 @@ public class DeviceProfileActivity extends AppCompatActivity {
                         Message message = null;
 
                         try {
+                            if(isEditMode){
+                                final_id = device.getDevice_id();
+                                final_pw = device.getDevice_pw();
+                            } else {
+                                final_id = DeviceInfo.tmpId;
+                                final_pw = DeviceInfo.tmpPw;
+                            }
+
                             boolean isSucceed =
                                     MyRequestUtility.setDeviceProfile(final_id, final_pw, ward_name, ward_age, ward_address, ward_desc);
 
@@ -166,6 +174,7 @@ public class DeviceProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), DevicePasswordActivity.class);
+                intent.putExtra("isEditMode", true);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 

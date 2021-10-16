@@ -119,6 +119,10 @@ public class DeviceModel {
         return device_id;
     }
 
+    public void setDevice_pw(String pw) {
+        device_pw = pw;
+    }
+
     public String getDevice_pw() {
         return device_pw;
     }
