@@ -34,6 +34,7 @@ import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.handlermessage.RegisterMessage;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
 import hanium.oldercare.oldercareservice.inputfilter.PhoneFilter;
+import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
 public class EditLoginInfoActivity extends AppCompatActivity {
@@ -90,6 +91,8 @@ public class EditLoginInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_info);
+
+        ScreenManager.transparentStatusBar(this);
 
         loadComponents();
         refreshData();
@@ -182,7 +185,7 @@ public class EditLoginInfoActivity extends AppCompatActivity {
 
                 if((name_warn.getText().toString()).equals("*") && (input_name.getText().toString()).equals("")){
                     CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
-                    alert.callFunction("경고", "닉네임을 입력하여 주세요.");
+                    alert.callFunction("경고", "이름을 입력하여 주세요.");
                 }else if((phoneNumber_warn.getText().toString()).equals("*") && (input_phoneNumber.getText().toString()).equals("")){
                     CustomDialogAlert alert = new CustomDialogAlert(EditLoginInfoActivity.this);
                     alert.callFunction("경고", "연락처를 입력하여 주세요.");

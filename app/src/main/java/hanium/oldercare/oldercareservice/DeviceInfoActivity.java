@@ -200,7 +200,7 @@ public class DeviceInfoActivity extends AppCompatActivity {
                     });
                     thread.start();
                 };
-                dialogConfirm.callFunction("SOS 문자 전송", sms,okFunction);
+                dialogConfirm.callFunction("이름 전송", sms,okFunction);
             }
         });
     }

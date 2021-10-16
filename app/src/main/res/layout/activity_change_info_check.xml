@@ -9,73 +9,65 @@
     tools:context=".HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="380dp"
-        android:layout_height="350dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/bg_gray_with_bubble"
+        android:id="@+id/constraintLayout2"
+        android:layout_width="330dp"
+        android:layout_height="300dp"
+        android:background="@color/skyblue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.197">
+        app:layout_constraintVertical_bias="0.3">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="330dp"
-            android:layout_height="300dp"
-            android:background="@drawable/bubbleborder"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <TextView
+            android:id="@+id/account_usr_lbl1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/bmdohyeon"
+            android:text="계정정보 접근"
+            android:textColor="@color/bg_white"
+            android:textSize="28sp"
+            android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/account_usr_lbl1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/bmdohyeon"
-                android:text="계정정보 접근"
-                android:textColor="@color/fr_black"
-                android:textSize="28sp"
-                android:typeface="sans"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/account_lbl2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/lotte_happy"
+            android:text="현재 비밀번호"
+            android:textColor="@color/bg_white"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/edit_pw"
+            app:layout_constraintTop_toBottomOf="@+id/account_usr_lbl1" />
 
-            <TextView
-                android:id="@+id/account_lbl2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:layout_marginTop="56dp"
-                android:fontFamily="@font/bmdohyeon"
-                android:text="현재 비밀번호"
-                android:textColor="@color/fr_black"
-                app:layout_constraintStart_toStartOf="@+id/edit_pw"
-                app:layout_constraintTop_toBottomOf="@+id/account_usr_lbl1" />
-
-            <EditText
-                android:id="@+id/edit_pw"
-                android:layout_width="260dp"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/my_text_field"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="현재 비밀번호를 입력하시오."
-                android:inputType="textPersonName"
-                android:paddingLeft="10dp"
-                android:textColor="@color/fr_black"
-                android:textColorHint="@color/bg_softgray"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/account_lbl2" />
-            <!--
+        <EditText
+            android:id="@+id/edit_pw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/my_text_field"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:fontFamily="@font/lotte_dream"
+            android:hint="현재 비밀번호를 입력하세요."
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:textColor="@color/fr_black"
+            android:textColorHint="@color/bg_softgray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_lbl2" />
+        <!--
 
             <Button
                 android:id="@+id/cancelButton"
@@ -89,34 +81,33 @@
                 android:background="#ffffff"/>-->
 
 
-            <Button
-                android:id="@+id/account_btn_check"
-                android:layout_width="130dp"
-                android:layout_height="52dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/ripple_custom"
-                android:fontFamily="@font/elice"
-                android:text="확인"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.152"
-                app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/account_btn_check"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_with_bubbleborder_clikable"
+            android:fontFamily="@font/lotte_happy"
+            android:text="확인"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/account_btn_cancel"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
-                android:id="@+id/account_btn_cancel"
-                android:layout_width="130dp"
-                android:layout_height="52dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/ripple_custom"
-                android:fontFamily="@font/elice"
-                android:text="취소"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.891"
-                app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/account_btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white_with_bubbleborder_clikable"
+            android:fontFamily="@font/elice"
+            android:text="취소"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/account_btn_check" />
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
