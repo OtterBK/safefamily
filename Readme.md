@@ -28,7 +28,7 @@
 
 
 ### 📑 계획서 
-#### :ledger: [SafeFamily 계획서](https://github.com/OtterBK/CoronaRun/tree/master/%EA%B3%84%ED%9A%8D%EC%84%9C)
+#### :ledger: [SafeFamily 계획서](https://github.com/OtterBK/safefamily/tree/master/%EA%B3%84%ED%9A%8D%EC%84%9C)
 
 <br>
 
