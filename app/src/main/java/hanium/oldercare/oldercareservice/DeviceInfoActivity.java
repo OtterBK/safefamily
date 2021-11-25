@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.sql.Time;
+
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
@@ -27,6 +29,7 @@ import hanium.oldercare.oldercareservice.handlermessage.NetworkMessage;
 import hanium.oldercare.oldercareservice.info.ActivityInfo;
 import hanium.oldercare.oldercareservice.info.DeviceInfo;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
+import hanium.oldercare.oldercareservice.info.TimeInfo;
 import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
@@ -166,7 +169,7 @@ public class DeviceInfoActivity extends AppCompatActivity {
                 CustomDialogConfirm dialogConfirm = new CustomDialogConfirm(DeviceInfoActivity.this);
 
                 String phoneNo = "01054126975";
-                String sms = device.getWard_name()+" "+device.getWard_age()+"세\n"+device.getWard_address()+"\n특이사항:"+device.getWard_description()+"\n N시간동안 움직임 감지x \n출동요망";
+                String sms = device.getWard_name()+" "+device.getWard_age()+"세\n"+device.getWard_address()+"\n특이사항:"+device.getWard_description()+"\n "+ TimeInfo.DANGER_HOUR +" 시간 동안 활동 감지 안됨 \n출동요망";
 
                 Runnable okFunction = ()->{
                     CustomDialogLoading loading = new CustomDialogLoading(DeviceInfoActivity.this);
