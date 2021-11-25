@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import hanium.oldercare.oldercareservice.customdialog.AccountManageCheckDialog;
+import hanium.oldercare.oldercareservice.customdialog.CustomDialogConfirm;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogInput;
 import hanium.oldercare.oldercareservice.utility.ScreenManager;
 
@@ -72,7 +73,7 @@ public class AccountManageActivity extends AppCompatActivity {
         btn_logout_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CustomDialogInput check = new CustomDialogInput(AccountManageActivity.this);
+                CustomDialogConfirm check = new CustomDialogConfirm(AccountManageActivity.this);
                 Runnable successCallback = new Runnable(){
                     public void run(){
                         Intent i = new Intent(AccountManageActivity.this/*현재 액티비티 위치*/ , LoginSelectActivity.class/*이동 액티비티 위치*/);
@@ -80,7 +81,7 @@ public class AccountManageActivity extends AppCompatActivity {
                         startActivity(i);
                     }
                 };
-                check.callFunction("주의", "로그아웃",successCallback,0);
+                check.callFunction("로그아웃", "로그아웃 하시겠습니까?",successCallback);
             }
         });
 

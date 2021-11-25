@@ -12,18 +12,28 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import org.json.simple.JSONArray;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TimeZone;
 
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
+import hanium.oldercare.oldercareservice.customdialog.AccountManageCheckDialog;
+import hanium.oldercare.oldercareservice.customdialog.TimeCheckDialog;
 import hanium.oldercare.oldercareservice.deviceutility.DeviceModel;
 import hanium.oldercare.oldercareservice.deviceutility.DeviceViewAdapter;
 import hanium.oldercare.oldercareservice.handlermessage.DeviceMessage;
 import hanium.oldercare.oldercareservice.info.ActivityInfo;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
+import hanium.oldercare.oldercareservice.info.TimeInfo;
 import hanium.oldercare.oldercareservice.utility.ScreenManager;
 import hanium.oldercare.oldercareservice.utility.VibrateUtility;
 
@@ -70,6 +80,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private Button btn_account_page;
     private Button btn_device_add;
+    private ImageButton btn_changeAlarm;
 
     private boolean alreadyRefreshing;
     private boolean isActivityStopped;
@@ -81,6 +92,7 @@ public class HomeActivity extends AppCompatActivity {
     private void loadComponents(){
         btn_account_page = (Button) findViewById(R.id.home_setting_account);
         btn_device_add = (Button) findViewById(R.id.home_device_add);
+        btn_changeAlarm = (ImageButton) findViewById(R.id.home_btn_changeAlarmTime);
     }
 
 
@@ -118,6 +130,41 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
+
+        btn_changeAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimeCheckDialog dlg = new TimeCheckDialog(HomeActivity.this);
+                dlg.editTime();
+            }
+        });
+
+
+        Thread tmpThread = new Thread(() -> {
+            File f = new File("TimeCheck.txt");
+            // 파일 존재 여부 판단
+            if (f.isFile()) {
+                try(
+                        FileReader rw = new FileReader("TimeCheck.txt");
+                        BufferedReader br = new BufferedReader( rw );
+                ){
+
+                    //읽을 라인이 없을 경우 br은 null을 리턴한다.
+                    String readLine = null ;
+                    readLine =  br.readLine();
+                    if(readLine != null){
+                        int timeCheck = Integer.parseInt(readLine); //사용자 설정값으로 세팅
+                        TimeInfo.DANGER_HOUR = timeCheck;
+                    }
+                }catch ( IOException e ) {
+                    System.out.println(e);
+                }
+
+            }
+        });
+
+        tmpThread.start();
+
     }
 
     private void setFilters(){
@@ -187,7 +234,7 @@ public class HomeActivity extends AppCompatActivity {
                             continue;
                         }
                         refreshDeviceList();
-                        Thread.sleep(30000); //30초마다 1번 수행
+                        Thread.sleep(15000); //15초마다 1번 수행
                     }
 
                 } catch (InterruptedException exc){

@@ -9,6 +9,7 @@ import org.json.simple.JSONArray;
 import hanium.oldercare.oldercareservice.R;
 import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.info.ActivityInfo;
+import hanium.oldercare.oldercareservice.info.TimeInfo;
 import hanium.oldercare.oldercareservice.utility.MyNotificationManager;
 
 
@@ -81,7 +82,7 @@ public class DeviceModel {
                 speaker_count = String.valueOf(speakerLogs.size());
             }
 
-            dangerLevel = DangerDetector.getDangerLevel(this);
+            dangerLevel = DangerDetector.getDangerLevel(this, TimeInfo.DANGER_HOUR);
             if(dangerLevel == DangerLevel.DANGER){
                 MyNotificationManager.sendDangerNotification(ActivityInfo.homeActivity, ward_name); //위험 레벨일 시 알람
             }

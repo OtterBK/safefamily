@@ -3,6 +3,7 @@ package hanium.oldercare.oldercareservice.customdialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.text.InputFilter;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import hanium.oldercare.oldercareservice.apinetwork.MyRequestUtility;
 import hanium.oldercare.oldercareservice.customdialog.CustomDialogAlert;
 import hanium.oldercare.oldercareservice.handlermessage.LoginMessage;
 import hanium.oldercare.oldercareservice.info.LoginInfo;
+import hanium.oldercare.oldercareservice.inputfilter.NumberFilter;
 
 /**
  * Created by Administrator on 2017-08-07.
@@ -54,6 +56,7 @@ public class AccountManageCheckDialog extends AppCompatActivity{
         final EditText message = (EditText) dlg.findViewById(R.id.edit_pw);
         final Button okButton = (Button) dlg.findViewById(R.id.account_btn_check);
         final Button cancelButton = (Button) dlg.findViewById(R.id.account_btn_cancel);
+
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override

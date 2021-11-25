@@ -45,6 +45,7 @@ public class EmailVerifyActivity extends AppCompatActivity {
                 canSendEmail = false;
                 lbl_warn_email_verify.setTextColor(Color.RED);
                 lbl_warn_email_verify.setText("이미 사용중인 이메일입니다");
+                btn_email_verify.setEnabled(true);
             } else if(msg.what == RegisterMessage.CAN_USE_EMAIL.ordinal()) {
                 canSendEmail = true;
                 lbl_warn_email_verify.setTextColor(Color.BLUE);
@@ -164,7 +165,7 @@ public class EmailVerifyActivity extends AppCompatActivity {
                         Message message = null;
                         try {
                             isCodeChecked = false;
-                            int cnt = MyRequestUtility.getCompareEmailAmount(email); //이미 존재하는 아이디인지 확인
+                            int cnt = MyRequestUtility.getCompareEmailAmount(email); //이미 존재하는 이메일인지 확인
                             if(cnt > 0){ //이미 존재하면
                                 isFail = true;
                                 message = handler.obtainMessage(RegisterMessage.ALREADY_USE_EMAIL.ordinal());

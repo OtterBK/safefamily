@@ -28,11 +28,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/account_usr_lbl1"
+                android:id="@+id/time_check_lbl1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lotte_happy"
-                android:text="계정정보 접근"
+                android:text="시간 설정"
                 android:textColor="@color/bg_white"
                 android:textSize="28sp"
                 android:typeface="sans"
@@ -57,14 +57,14 @@
 
 
         <EditText
-            android:id="@+id/edit_pw"
+            android:id="@+id/time_check_edit_time"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/fr_darkGray"
             android:drawablePadding="10dp"
             android:ems="10"
             android:fontFamily="@font/lotte_dream"
-            android:hint="현재 비밀번호를 입력하세요."
+            android:hint="이상 징후를 판단할 시간을 입력하세요."
             android:inputType="textPersonName"
             android:paddingLeft="20dp"
             android:paddingTop="15dp"
@@ -72,7 +72,7 @@
             android:textColor="@color/fr_black"
             android:textColorHint="@color/bg_white"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/account_btn_cancel"
+            app:layout_constraintBottom_toTopOf="@+id/time_check_cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
             app:layout_constraintVertical_bias="0.495" />
 
         <Button
-            android:id="@+id/account_btn_check"
+            android:id="@+id/time_check_ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/ripple_button_skyblue"
@@ -88,12 +88,12 @@
             android:text="확인"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/account_btn_cancel"
+            app:layout_constraintEnd_toStartOf="@+id/time_check_cancel"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/account_btn_cancel"
+            android:id="@+id/time_check_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/ripple_button_skyblue"
@@ -104,7 +104,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/account_btn_check" />
+            app:layout_constraintStart_toEndOf="@+id/time_check_ok" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

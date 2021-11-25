@@ -20,9 +20,7 @@ import hanium.oldercare.oldercareservice.utility.MyNotificationManager;
 
 public class DangerDetector {
 
-    final public static int DANGER_HOUR = 24;
-
-    public static DangerLevel getDangerLevel(DeviceModel device){
+    public static DangerLevel getDangerLevel(DeviceModel device, int DANGER_HOUR){
 
         DangerLevel returnLevel = DangerLevel.UNKNOWN;
 
